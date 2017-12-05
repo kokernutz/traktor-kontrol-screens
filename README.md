@@ -17,7 +17,7 @@
   - Deck: Added track comment
   - Deck: Added beat countdown
   - Deck: Always displays tempo offset
-  - Deck: Darker portion of stripe already played
+  - Deck: Darkened portion of stripe already played
   - Deck: Moved time remaining to right of stripe
   - Deck: Removed loop indicator
   - FX: Added 2 additional lines
@@ -41,7 +41,7 @@
   - Navigate to C:\Program Files\Native Instruments\Traktor 2\Resources64\qml
   - Make a backup of this directory!
   - Rename "Screens" directory to "ScreensBackup"
-  - Copy "Screens" directory from download to this folder     
+  - Copy "Screens" directory from download to this directory     
   - Start Traktor
 
 ## Screenshots
