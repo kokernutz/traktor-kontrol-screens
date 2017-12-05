@@ -43,3 +43,9 @@
   - Rename "Screens" directory to "ScreensBackup"
   - Copy "Screens" directory from download to this folder     
   - Start Traktor
+
+## Screenshots
+
+![Deck](https://user-images.githubusercontent.com/757885/33605791-1b91b66e-d989-11e7-974c-e83500a52a70.jpg)
+![Browser](https://user-images.githubusercontent.com/757885/33605788-1a87614c-d989-11e7-863b-9687ef48168f.jpg)
+![FX Browser](https://user-images.githubusercontent.com/757885/33605793-1ce1edb8-d989-11e7-861a-869e0d495d5e.jpg)
