@@ -1,5 +1,11 @@
 # Replacement screens for the Native Instruments Kontrol D2, S5, and S8
 
+**Contact:**
+
+  - Twitter: [@kokernutz](http://twitter.com/kokernutz)
+  - MixCloud: [@kokernutz](http://mixcloud.com/kokernutz)
+  - SoundCloud: [@kokernutz](http://soundcloud.com/kokernutz)
+
 **Changes from default screens:**
 
   - Browser: Added 2 additional lines
