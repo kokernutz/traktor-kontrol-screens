@@ -234,13 +234,13 @@ Item {
     textState:  extraBottomLeftState
     color:      darkerTextColors[deck_Id]
     elide:      Text.ElideRight
+    opacity:    _intSetInState        // set by 'state'
     font.pixelSize:     fonts.smallFontSize
     anchors.top:        top_line.bottom
     anchors.left:       cover_small.right
     anchors.topMargin:  31
     anchors.leftMargin: 5
-    Behavior on anchors.leftMargin { NumberAnimation { duration: speed } }
-    Behavior on anchors.topMargin  { NumberAnimation { duration: speed } }
+    Behavior on opacity             { NumberAnimation { duration: speed } }
   }
 
   // top_middle_text: REMAINING TIME
@@ -658,6 +658,7 @@ Item {
       PropertyChanges { target: top_middle_text;    font.pixelSize: fonts.middleFontSize; anchors.topMargin: 1 }
       PropertyChanges { target: top_right_text;     font.pixelSize: fonts.middleFontSize; anchors.topMargin: 1 }
       PropertyChanges { target: bottom_left_text;   opacity: 0; }
+      PropertyChanges { target: extra_bottom_left_text;   opacity: 0; }
       PropertyChanges { target: bottom_warning_text;  opacity: 0; }
 
       PropertyChanges { target: bottom_middle_text; opacity: 0; }
@@ -676,7 +677,7 @@ Item {
       PropertyChanges { target: top_right_text;     font.pixelSize: fonts.largeFontSize;  anchors.topMargin: 1 }
       PropertyChanges { target: bottom_middle_text; opacity: 0; }
       PropertyChanges { target: bottom_left_text;   opacity: 1;                                                  anchors.leftMargin: (deckType.description === "Live Input" || directThru.value) ? -1 : 5}
-
+      PropertyChanges { target: extra_bottom_left_text; opacity: 1; }
       PropertyChanges { target: bottom_right_text;  opacity: 1; }
     }
   ]
