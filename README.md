@@ -11,7 +11,7 @@
   - Browser: Added 2 additional lines
   - Browser: Added key offset to right of key (when potential match)
   - Browser: Added color to key offset (green = up, yellow = down, blue = neighbor, red = maybe)
-  - Brwoser: Added keys of all decks to bottom
+  - Browser: Added keys of all decks to bottom
   - Browser: Camelot keys
   - Deck: Added minute markers
   - Deck: Added track comment
