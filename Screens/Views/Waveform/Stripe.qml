@@ -24,6 +24,7 @@ Traktor.Stripe {
 
   //--------------------------------------------------------------------------------------------------------------------
 
+  AppProperty { id: trackLength;           path: "app.traktor.decks." + (deckId + 1) + ".track.content.track_length" }
   AppProperty { id: propTrackSampleLength; path: "app.traktor.decks." + (deckId + 1) + ".track.content.sample_count" }
 
   //--------------------------------------------------------------------------------------------------------------------

@@ -352,6 +352,7 @@ Item {
     return true
   }
 
+
   function getListItemKeyTextColor() {
     if (model.dataType != BrowserDataType.Track) {
       return textColor;

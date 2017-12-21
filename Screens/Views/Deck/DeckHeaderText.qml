@@ -1,6 +1,8 @@
 import CSI 1.0
 import QtQuick 2.0
 
+import './../Definitions' as Definitions
+
 //--------------------------------------------------------------------------------------------------------------------
 //  DECK HEADER TEXT
 //--------------------------------------------------------------------------------------------------------------------
@@ -279,22 +281,6 @@ Text {
     return 20.0*log10(norm);
   }
 
-  function computeBeatsToCueString()
-  {
-    if (propNextCuePoint.value < 0) return "—.—.—";
-
-    var beats = parseInt(((propNextCuePoint.value - propElapsedTime.value * 1000) * propMixerBpm.value) / 60000.0);
-    if (beats < 0 /* || beats > 255 */ ) return "—.—.—";
-
-    var phraseLen = 4;
-    var phrase = parseInt(((beats / 4) / phraseLen) + 1);
-    var bars = parseInt(((beats / 4) % phraseLen) + 1);
-    var beat = parseInt((beats % 4) + 1);
-    if (bars < 0) bars = 0;
-    if (beat < 1) beat = 1;
-
-    return "-" + phrase.toString() + "." + bars.toString() + "." + beat.toString();
-  }
 
   function computeBeatCounterStringFromPosition(beat) {
     var phraseLen = 4;
@@ -332,6 +318,23 @@ Text {
     // Show the decks current pitch value in the area of the Master/Sync indicator 
     // if a deck is neither synced nor set to maste (TP-8070)
     return getStableTempoString();
+  }
+
+  function computeBeatsToCueString()
+  {
+    if (propNextCuePoint.value < 0) return "—.—.—";
+
+    var beats = parseInt(((propNextCuePoint.value - propElapsedTime.value * 1000) * propMixerBpm.value) / 60000.0);
+    if (beats < 0 /* || beats > 255 */ ) return "—.—.—";
+
+    var phraseLen = 4;
+    var phrase = parseInt(((beats / 4) / phraseLen) + 1);
+    var bars = parseInt(((beats / 4) % phraseLen) + 1);
+    var beat = parseInt((beats % 4) + 1);
+    if (bars < 0) bars = 0;
+    if (beat < 1) beat = 1;
+
+    return "-" + phrase.toString() + "." + bars.toString() + "." + beat.toString();
   }
 
 }

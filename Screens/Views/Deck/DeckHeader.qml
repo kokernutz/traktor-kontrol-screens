@@ -490,7 +490,7 @@ Item {
   //--------------------------------------------------------------------------------------------------------------------
   //  Loop Size
   //--------------------------------------------------------------------------------------------------------------------
-/*
+
   function updateLoopSize() {
     if (  headerState == "large" && isLoaded && (hasTrackStyleHeader(deckType) || (deckType == DeckType.Remix )) && !directThru.value ) {
       loop_size.opacity = 1.0;
@@ -507,7 +507,7 @@ Item {
     anchors.top: top_line.bottom
     anchors.topMargin: 3
     anchors.right: parent.right
-    anchors.rightMargin: 178
+    anchors.rightMargin: 176
 
     width: 30
     height: 30
@@ -531,7 +531,7 @@ Item {
       verticalAlignment:   Text.AlignVCenter
     }
   }
-*/
+
   //--------------------------------------------------------------------------------------------------------------------
   //  Deck Letter (A, B, C or D)
   //--------------------------------------------------------------------------------------------------------------------
@@ -673,7 +673,7 @@ Item {
       PropertyChanges { target: top_left_text;      font.pixelSize: fonts.largeFontSize;  anchors.topMargin: -2; anchors.leftMargin: (deckType.description === "Live Input" || directThru.value) ? -1 : 5}
       PropertyChanges { target: top_warning_text;   font.pixelSize: fonts.largeFontSize; anchors.topMargin: -2 }
 
-      PropertyChanges { target: top_middle_text;    font.pixelSize: fonts.moreLargeValueFontSize;  anchors.topMargin: 1 }
+      PropertyChanges { target: top_middle_text;    font.pixelSize: fonts.largeFontSize;  anchors.topMargin: 1 }
       PropertyChanges { target: top_right_text;     font.pixelSize: fonts.largeFontSize;  anchors.topMargin: 1 }
       PropertyChanges { target: bottom_middle_text; opacity: 0; }
       PropertyChanges { target: bottom_left_text;   opacity: 1;                                                  anchors.leftMargin: (deckType.description === "Live Input" || directThru.value) ? -1 : 5}

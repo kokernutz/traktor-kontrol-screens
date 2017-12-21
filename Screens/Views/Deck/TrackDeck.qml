@@ -90,30 +90,6 @@ Item {
   }
 
   //--------------------------------------------------------------------------------------------------------------------
-
-  WF.Stripe {
-    id: stripe
-
-    anchors.left:           trackDeck.left
-    anchors.right:          trackDeck.right
-    anchors.bottom:         trackDeck.bottom
-    anchors.bottomMargin:   (deckSizeState == "large") ? largeDeckBottomMargin : smallDeckBottomMargin
-    anchors.leftMargin:     9
-    anchors.rightMargin:    49
-    height:                 28
-    opacity:                trackDeck.trackIsLoaded ? 1 : 0
-
-    deckId:                 trackDeck.deckId
-    windowSampleWidth:      trackDeck.sampleWidth
-
-    audioStreamKey: deckTypeValid(deckType.value) ? ["PrimaryKey", primaryKey.value] : ["PrimaryKey", 0]
-
-    function deckTypeValid(deckType)      { return (deckType == DeckType.Track || deckType == DeckType.Stem);  }
-
-    Behavior on anchors.bottomMargin { PropertyAnimation {  duration: durations.deckTransition } }
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
   
   Rectangle
   {
@@ -142,6 +118,30 @@ Item {
       verticalAlignment: Text.AlignVCenter
       text: utils.computeRemainingTimeString(trackLength.value, elapsedTime.value)
     }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+
+  WF.Stripe {
+    id: stripe
+
+    anchors.left:           trackDeck.left
+    anchors.right:          trackDeck.right
+    anchors.bottom:         trackDeck.bottom
+    anchors.bottomMargin:   (deckSizeState == "large") ? largeDeckBottomMargin : smallDeckBottomMargin
+    anchors.leftMargin:     9
+    anchors.rightMargin:    49
+    height:                 28
+    opacity:                trackDeck.trackIsLoaded ? 1 : 0
+
+    deckId:                 trackDeck.deckId
+    windowSampleWidth:      trackDeck.sampleWidth
+
+    audioStreamKey: deckTypeValid(deckType.value) ? ["PrimaryKey", primaryKey.value] : ["PrimaryKey", 0]
+
+    function deckTypeValid(deckType)      { return (deckType == DeckType.Track || deckType == DeckType.Stem);  }
+
+    Behavior on anchors.bottomMargin { PropertyAnimation {  duration: durations.deckTransition } }
   }
 
   //--------------------------------------------------------------------------------------------------------------------
