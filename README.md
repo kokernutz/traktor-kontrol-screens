@@ -19,7 +19,7 @@
   - Deck: Always displays tempo offset
   - Deck: Darkened portion of stripe already played
   - Deck: Moved time remaining to right of stripe
-  - Deck: Removed loop indicator
+  - Deck: Camelot key on keylock overlay
   - FX: Added 2 additional lines
   - FX: Text now left-justified
 
