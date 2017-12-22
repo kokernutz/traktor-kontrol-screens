@@ -111,31 +111,4 @@ QtObject {
     return "ERR";
   }
 
-  function getListItemKeyTextColor() {
-    if (model.dataType != BrowserDataType.Track) {
-      return textColor;
-    }
-
-    var keyOffset = utils.getMasterKeyOffset(qmlBrowser.getMasterKey(), model.key);
-
-    switch (keyOffset) {
-      case -7:
-      case -2:
-        return colors.colorOrange;
-      case -1:
-      case  0:
-      case  1:
-        return colors.color11MusicalKey;
-      case  2:
-      case  7:
-        return colors.color07MusicalKey; // Green
-    }
-
-    if (keyOffset == 3 || keyOffset == -3) {
-      return colors.colorRed;
-    }
-
-    return textColor;
-  }
-
 }

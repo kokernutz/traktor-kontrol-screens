@@ -20,11 +20,13 @@ Item {
   property color         textColor :            ListView.isCurrentItem ? deckColor : colors.colorFontsListBrowser
   property bool          isCurrentItem :        ListView.isCurrentItem
   property string        prepIconColorPostfix:  (screenFocus < 2 && ListView.isCurrentItem) ? "Blue" : ((screenFocus > 1 && ListView.isCurrentItem) ? "White" : "Grey")
-  readonly property int  textTopMargin:         5 // centers text vertically
+  readonly property int  textTopMargin:         1 // centers text vertically
   readonly property bool isLoaded:              (model.dataType == BrowserDataType.Track) ? model.loadedInDeck.length > 0 : false
   // visible: !ListView.isCurrentItem
   readonly property variant keyText:            ["8B", "3B", "10B", "5B", "12B", "7B", "2B", "9B", "4B", "11B", "6B", "1B",
                                                  "5A", "12A", "7A", "2A", "9A", "4A", "11A", "6A", "1A", "8A", "3A", "10A"]
+
+  property int browserFontSize: fonts.scale(14)
 
   height: 25
   anchors.left: parent.left
@@ -34,17 +36,23 @@ Item {
   Rectangle {
     // when changing colors here please remember to change it in the GridView in Templates/Browser.qml 
     color:  (index%2 == 0) ? colors.colorGrey08 : "transparent" 
+
     anchors.left: parent.left
     anchors.right: parent.right
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+
     anchors.leftMargin: 3
     anchors.rightMargin: 3
     height: parent.height  
 
     // track name, toggles with folder name
     Rectangle {
+      color:  (index%2 == 0) ? colors.colorGrey08 : "transparent" 
       id: firstFieldTrack
       anchors.left: parent.left //listImage.right
       anchors.top: parent.top
+      anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
       anchors.leftMargin: 33
       width: 190
@@ -54,18 +62,21 @@ Item {
       Text {
         id: textLengthDummy
         visible: false
-        font.pixelSize: fonts.smallFontSize
+        font.pixelSize: browserFontSize
         text: (model.dataType == BrowserDataType.Track) ? model.trackName  : ( (model.dataType == BrowserDataType.Folder) ? model.nodeName : "")
       }
 
       Text {
         id: firstFieldText
-        width: (textLengthDummy.width) > 175 ? 175 : textLengthDummy.width
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        width: (textLengthDummy.width) > 190 ? 190 : textLengthDummy.width
         // visible: false
         elide: Text.ElideRight
         text: textLengthDummy.text
-        font.pixelSize: fonts.smallFontSize
+        font.pixelSize: browserFontSize
         color: textColor
+        verticalAlignment: Text.AlignVCenter
       }
 
       Image {
@@ -76,6 +87,7 @@ Item {
         height: sourceSize.height
         anchors.left: firstFieldText.right 
         anchors.top: parent.top
+        anchors.bottom: parent.bottom
         anchors.topMargin: 0
         anchors.leftMargin: 5
       }
@@ -86,30 +98,35 @@ Item {
       id: firstFieldFolder
       anchors.left: parent.left
       anchors.top: parent.top
+      anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
       anchors.leftMargin: 33
       color: textColor
       clip: true
       text: (model.dataType == BrowserDataType.Folder) ? model.nodeName : ""
-      font.pixelSize: fonts.smallFontSize
+      font.pixelSize: browserFontSize
       elide: Text.ElideRight
       visible: (model.dataType != BrowserDataType.Track)
       width: 190
+      verticalAlignment: Text.AlignVCenter
     }
     
 
     // artist name
     Text {
       id: trackTitleField
-      anchors.leftMargin: 9
+      anchors.leftMargin: 5
       anchors.left: (model.dataType == BrowserDataType.Track) ? firstFieldTrack.right : firstFieldFolder.right
       anchors.top: parent.top
+      anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
-      width: 130
+      verticalAlignment: Text.AlignVCenter
+
+      width: 145
       color: textColor
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? model.artistName: ""
-      font.pixelSize: fonts.smallFontSize
+      font.pixelSize: browserFontSize
       elide: Text.ElideRight
     }  
 
@@ -118,13 +135,15 @@ Item {
       id: bpmField
       anchors.left: trackTitleField.right    
       anchors.top: parent.top
+      anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
+      verticalAlignment: Text.AlignVCenter
       horizontalAlignment: Text.AlignRight
-      width: 36
+      width: 24
       color: textColor
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? model.bpm.toFixed(0) : ""
-      font.pixelSize: fonts.smallFontSize
+      font.pixelSize: browserFontSize
     }  
 
     function colorForKey(keyIndex) {
@@ -136,14 +155,16 @@ Item {
       id: keyField
       anchors.left: bpmField.right
       anchors.top: parent.top
+      anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
+      verticalAlignment: Text.AlignVCenter
       horizontalAlignment: Text.AlignRight
 
       color: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? textColor : (qmlBrowser.sortingId == 28 ? parent.colorForKey(model.keyIndex) : textColor)) : textColor
-      width: 27
+      width: 30
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "n.a." : keyText[model.keyIndex]) : ""
-      font.pixelSize: fonts.smallFontSize
+      font.pixelSize: browserFontSize
     }
 
     // keyMatch
@@ -152,8 +173,11 @@ Item {
       anchors.left: keyField.right
       anchors.right: ratingField.left
       anchors.top: parent.top
+      anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
-      anchors.rightMargin: 8
+      verticalAlignment: Text.AlignVCenter
+
+      anchors.rightMargin: 5
       horizontalAlignment: Text.AlignRight
 
       color: getListItemKeyTextColor() // (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? textColor : parent.colorForKey(model.keyIndex)) : textColor
@@ -161,7 +185,7 @@ Item {
       clip: true
 
       text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "n.a." : utils.getMasterKeyOffset(qmlBrowser.getMasterKey(), model.key)) : ""
-      font.pixelSize: fonts.smallFontSize
+      font.pixelSize: browserFontSize
     }
 
     // track rating
