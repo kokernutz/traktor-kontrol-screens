@@ -15,8 +15,8 @@
   - Browser: Added keys of all decks to bottom
   - Browser: Camelot keys
   - Deck: **NEW** Spectrum colors (toggle in prefs)
-  - Deck: **NEW** *EXPERIMENTAL* Beat/phase meter* (toggle in prefs)
-  - Deck: **NEW** Hide Album Art (goggle in prefs)
+  - Deck: **NEW** *EXPERIMENTAL* Beat/phase meter (toggle in prefs)
+  - Deck: **NEW** Hide Album Art (toggle in prefs)
   - Deck: **NEW** Display keylock status
   - Deck: **NEW** Display key
   - Deck: **NEW** Display SYNC/MASTER status
