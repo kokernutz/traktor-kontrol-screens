@@ -16,5 +16,3 @@ readonly property int extraLargeValueFontSize:  scale(45)
 readonly property int superLargeValueFontSize:  scale(55)
 
 }
-
-

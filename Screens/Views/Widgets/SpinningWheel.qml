@@ -19,7 +19,7 @@ Item {
     color:  "transparent"
     clip:   true
     radius: width * 0.5
-    border.width: 2
+    border.width: 1.25
     border.color: textColor
   }
 

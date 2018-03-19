@@ -19,7 +19,8 @@ Item {
   readonly property int    _intSetInState:    0
 
   // Here all the properties defining the content of the DeckHeader are listed. They are set in DeckView.
-  property int    deck_Id:           0
+  property int    deck_Id:          0
+  property int    deckId:           deck_Id
   property string headerState:      "large" // this property is used to set the state of the header (large/small)
   
   readonly property variant deckLetters:        ["A",                         "B",                          "C",                  "D"                 ]
@@ -35,11 +36,12 @@ Item {
 
   // these variables can not be changed from outside
   readonly property int speed: 40  // Transition speed
-  readonly property int smallHeaderHeight: 17
-  readonly property int largeHeaderHeight: 45
+  readonly property int smallHeaderHeight: 26
+  readonly property int largeHeaderHeight: 64
 
-  readonly property int rightMargin_middleText_large: 102
-  readonly property int rightMargin_rightText_large:  34
+  readonly property int fieldHeight:      20
+  readonly property int fieldWidthNarrow: 50
+  readonly property int fieldWidthWide:   65
 
   readonly property bool   isLoaded:    top_left_text.isLoaded
   readonly property int    deckType:    deckTypeProperty.value
@@ -52,21 +54,26 @@ Item {
 
   // PROPERTY SELECTION
   // IMPORTANT: See 'stateMapping' in DeckHeaderText.qml for the correct Mapping from
-  //            the state-enum in c++ to the corresponding state
+
+  // the state-enum in c++ to the corresponding state
   // NOTE: For now, we set fix states in the DeckHeader! But we wanna be able to
-  //       change the states.
-  property int topLeftState:      0                                 // headerSettingTopLeft.value
-  property int topMiddleState:    hasTrackStyleHeader(deckType) ? 12 : 30 // headerSettingTopMid.value
-  property int topRightState:     23                                // headerSettingTopRight.value
+  // change the states.
 
-  property int bottomLeftState:   1                                 // headerSettingMidLeft.value
-  property int bottomMiddleState: hasTrackStyleHeader(deckType) ? 11 : 29 // headerSettingMidMid.value
-  property int bottomRightState:  25                                // headerSettingMidRight.value
+  property int topLeftState:            0                                       // headerSettingTopLeft.value
+  property int bottomLeftState:         1                                       // headerSettingMidLeft.value
+  property int extraBottomLeftState:    19                                      // headerSettingMidLeft.value
 
-  property int extraBottomLeftState:   19                                 // headerSettingMidLeft.value
+  property int topMiddleState:          hasTrackStyleHeader(deckType) ? 12 : 30 // headerSettingTopMid.value
+  property int bottomMiddleState:       hasTrackStyleHeader(deckType) ? 11 : 29 // headerSettingMidMid.value
+
+  property int topRightState:           23                                      // headerSettingTopRight.value
+  property int bottomRightState:        24 // 25                                // headerSettingMidRight.value
+  property int extraBottomRightState:   25
+
+  property int originalBPMState:        15
 
   height: largeHeaderHeight
-  clip: false //true
+  clip:   false //true
   Behavior on height { NumberAnimation { duration: speed } }
 
   readonly property int warningTypeNone:    0
@@ -84,7 +91,13 @@ Item {
   //  DECK PROPERTIES
   //--------------------------------------------------------------------------------------------------------------------
 
+  AppProperty { id: deckKeyDisplay;     path: "app.traktor.decks." + (deckId+1) + ".track.key.key_for_display"; onValueChanged: { updateKeyColor() } }
+  AppProperty { id: propMusicalKey;     path: "app.traktor.decks." + (deckId+1) + ".content.musical_key" }
+  AppProperty { id: propSyncMasterDeck; path: "app.traktor.masterclock.source_id" }
 
+  AppProperty { id: propElapsedTime;    path: "app.traktor.decks." + (deckId+1) + ".track.player.elapsed_time"; } 
+  AppProperty { id: propNextCuePoint;   path: "app.traktor.decks." + (deckId+1) + ".track.player.next_cue_point"; }
+  AppProperty { id: propMixerBpm;       path: "app.traktor.decks." + (deckId+1) + ".tempo.base_bpm" }
 
   AppProperty { id: deckTypeProperty;           path: "app.traktor.decks." + (deck_Id+1) + ".type" }
 
@@ -132,8 +145,6 @@ Item {
     updatePhaseSyncBlinker();
   }
 
-
-
   //--------------------------------------------------------------------------------------------------------------------
   //  PHASE SYNC BLINK
   //--------------------------------------------------------------------------------------------------------------------
@@ -155,20 +166,17 @@ Item {
     onTriggered: bottom_right_text.visible = enabled ? !bottom_right_text.visible : true
     onEnabledChanged: { bottom_right_text.visible = true }
   }
-
-
   
   //--------------------------------------------------------------------------------------------------------------------
   //  DECK HEADER TEXT
   //--------------------------------------------------------------------------------------------------------------------
 
   Rectangle {
-    id:top_line;
-    anchors.horizontalCenter: parent.horizontalCenter
-    width:  (headerState == "small") ? deck_header.width-18 : deck_header.width
-    height: 1
+    id: top_line;
+    width:  deck_header.width 
+    height: deck_Id >= 2 ? 1 : 0
     color:  textColors[deck_Id]
-    Behavior on width { NumberAnimation { duration: 0.5*speed } }
+    visible: parent.parent.deckSize == "large" ? false : true // don't display when large
   }
 
   Rectangle {
@@ -189,23 +197,21 @@ Item {
     Behavior on opacity { NumberAnimation { duration: speed } }
   }
 
-  // top_left_text: TITEL
+  // top_left_text: TITLE
   DeckHeaderText {
     id: top_left_text
     deckId: deck_Id
     explicitName: ""
-    maxTextWidth : (deckType == DeckType.Stem) ? 200 - stem_text.width : 210
+//    maxTextWidth: ((deckType == DeckType.Stem) ? 200 - stem_text.width : 220) - cover_small.width
     textState: topLeftState
     color:     textColors[deck_Id]
     elide:     Text.ElideRight
     font.pixelSize:     fonts.largeFontSize // set in state
-    anchors.top:        top_line.bottom
+    anchors.top:        parent.top
     anchors.left:       cover_small.right
-
-    anchors.topMargin:  _intSetInState  // set by 'state'
+    anchors.right:      top_middle_text.left
     anchors.leftMargin: _intSetInState  // set by 'state'
     Behavior on anchors.leftMargin { NumberAnimation { duration: speed } }
-    Behavior on anchors.topMargin  { NumberAnimation { duration: speed } }
   }
   
   // bottom_left_text: ARTIST
@@ -213,17 +219,16 @@ Item {
     id: bottom_left_text
     deckId: deck_Id
     explicitName: ""
-    maxTextWidth : directThru.value ? 1000 : 210
+//    maxTextWidth : (directThru.value ? 1000 : 220) - cover_small.width
     textState:  bottomLeftState
     color:      darkerTextColors[deck_Id]
     elide:      Text.ElideRight
-    font.pixelSize:     fonts.smallFontSize
-    anchors.top:        top_line.bottom
+    font.pixelSize:     fonts.middleFontSize
+    anchors.top:        top_left_text.bottom
     anchors.left:       cover_small.right
-    anchors.topMargin:  18
+    anchors.right:      top_middle_text.left
     anchors.leftMargin: 5
-    Behavior on anchors.leftMargin { NumberAnimation { duration: speed } }
-    Behavior on anchors.topMargin  { NumberAnimation { duration: speed } }
+    anchors.rightMargin: 5
   }
 
   // extra_bottom_left_text: COMMENT
@@ -231,37 +236,38 @@ Item {
     id: extra_bottom_left_text
     deckId: deck_Id
     explicitName: ""
-    maxTextWidth : directThru.value ? 1000 : 210
+//    maxTextWidth: directThru.value ? 1000 : (parent.width / 2) - cover_small.width
     textState:  extraBottomLeftState
     color:      darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
-    font.pixelSize:     fonts.smallFontSize
-    anchors.top:        top_line.bottom
+    font.pixelSize:     fonts.middleFontSize
+    visible: prefs.displayTrackComment
+    anchors.top:        bottom_left_text.bottom
     anchors.left:       cover_small.right
-    anchors.topMargin:  32
+    anchors.right:      original_tempo.left
     anchors.leftMargin: 5
+    anchors.rightMargin: 5
     Behavior on opacity             { NumberAnimation { duration: speed } }
   }
 
-  // top_middle_text: REMAINING TIME
+  // top_middle_text: REMAINING TIME (BEAT COUNTDOWN)
   DeckHeaderText {
     id: top_middle_text
-    deckId: deck_Id
     explicitName: ""
-    maxTextWidth : 120
-    textState:  topMiddleState
-    font.family: "Pragmatica" // is monospaced
-    color:      textColors[deck_Id]
-    elide:      Text.ElideRight
-    font.pixelSize: fonts.middleFontSize
+    deckId:  deck_Id
+    visible: isLoaded && prefs.displayBeatCountdown
+    width:   fieldWidthWide
+    height:  _intSetInState
+    anchors.top:         parent.top
+    anchors.right:       top_right_text.left
+    textState:           topMiddleState
+    color:          textColors[deck_Id]
+    font.pixelSize: fonts.largeFontSize
     horizontalAlignment: Text.AlignRight
-    anchors.top:          top_line.bottom
-    anchors.right:        parent.right
-    anchors.topMargin:    _intSetInState // set by 'state'
-    anchors.rightMargin:  rightMargin_middleText_large // set by 'state'
-    Behavior on anchors.topMargin   { NumberAnimation { duration: speed } }
-    Behavior on anchors.rightMargin { NumberAnimation { duration: speed } }
+    verticalAlignment: Text.AlignVCenter
+    Behavior on height             { NumberAnimation { duration: speed } }
+    Behavior on anchors.topMargin  { NumberAnimation { duration: speed } }
   }
 
   // bottom_middle_text: ELAPSED TIME
@@ -271,7 +277,6 @@ Item {
     explicitName: ""
     maxTextWidth : 80
     textState:  bottomMiddleState
-    font.family: "Pragmatica" // is monospaced
     color:      darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
@@ -280,7 +285,7 @@ Item {
     anchors.top:          top_line.bottom
     anchors.right:        parent.right
     anchors.topMargin:    20
-    anchors.rightMargin:  rightMargin_middleText_large
+    anchors.rightMargin:  0 // change this if it is ever used
     Behavior on opacity             { NumberAnimation { duration: speed } }
   }
 
@@ -289,37 +294,78 @@ Item {
     id: top_right_text
     deckId: deck_Id
     explicitName: ""
-    maxTextWidth :  80
     textState:  topRightState
-    font.family: "Pragmatica" // is monospaced
-    color:      textColors[deck_Id]
-    elide:      Text.ElideRight
+    visible: isLoaded
+    width:  fieldWidthWide
+    height: fieldHeight
+    anchors.top:   parent.top
+    anchors.right: extra_bottom_right_text.left
+    anchors.rightMargin: 3
     font.pixelSize: fonts.middleFontSize
+    color: textColors[deck_Id]
     horizontalAlignment: Text.AlignRight
-    anchors.top:          top_line.bottom
-    anchors.right:        parent.right
-    anchors.topMargin:    _intSetInState // set by 'state'
-    anchors.rightMargin:  rightMargin_rightText_large // set by 'state'
-    Behavior on anchors.rightMargin { NumberAnimation { duration: speed } }
-    Behavior on anchors.topMargin   { NumberAnimation { duration: speed } }
-  }
+    verticalAlignment: Text.AlignVCenter
+  } 
 
-  // bottom_right_text: SYNC/MASTER
+  // bottom_right_text: (TEMPO OFFSET)
   DeckHeaderText {
     id: bottom_right_text
     deckId: deck_Id
     explicitName: ""
-    maxTextWidth : 80
     textState:  bottomRightState
+    visible: isLoaded
+    width:  fieldWidthWide
+    height: fieldHeight
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: extra_bottom_right_text.left
+    anchors.rightMargin: 3
     color:      darkerTextColors[deck_Id]
-    elide:      Text.ElideRight
     opacity:    _intSetInState          // set by 'state'
     font.pixelSize: fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
-    anchors.top:          top_line.bottom
-    anchors.right:        parent.right
-    anchors.topMargin:    20
-    anchors.rightMargin:  rightMargin_rightText_large
+    verticalAlignment: Text.AlignVCenter
+    onTextChanged: {updateHeader()}
+    Behavior on opacity             { NumberAnimation { duration: speed } }
+  }
+
+  // ORIGINAL TEMPO
+  DeckHeaderText {
+    id: original_tempo
+    deckId: deck_Id
+    explicitName: ""
+    textState:  originalBPMState
+    visible: isLoaded
+    width:  fieldWidthWide
+    height: fieldHeight
+    anchors.bottom: parent.bottom
+    anchors.right: extra_bottom_right_text.left
+    anchors.rightMargin: 3
+    color:      darkerTextColors[deck_Id]
+    opacity:    _intSetInState          // set by 'state'
+    font.pixelSize: fonts.middleFontSize
+    horizontalAlignment: Text.AlignRight
+    verticalAlignment: Text.AlignVCenter
+    Behavior on opacity             { NumberAnimation { duration: speed } }
+  }
+
+  // SYNC/MASTER
+  DeckHeaderText {
+    id: extra_bottom_right_text
+    deckId: deck_Id
+    explicitName: ""
+    textState:  extraBottomRightState
+    visible: isLoaded
+    width:  fieldWidthNarrow
+    height: fieldHeight
+    anchors.bottom:           parent.bottom
+    anchors.right:            parent.right
+    anchors.bottomMargin:     0
+    anchors.rightMargin:      3
+    color: isMaster == 1 ? colors.color03Bright : isInSync == 1 ? "green" : "red"
+    opacity: _intSetInState          // set by 'state'
+    font.pixelSize: fonts.middleFontSize
+    horizontalAlignment: Text.AlignRight
+    anchors.verticalCenterOffset: 1
     onTextChanged: {updateHeader()}
     Behavior on opacity             { NumberAnimation { duration: speed } }
   }
@@ -384,6 +430,21 @@ Item {
     }
   }
 
+  //--------------------------------------------------------------------------------------------------------------------
+  //  Phase Meter
+  //--------------------------------------------------------------------------------------------------------------------
+
+  Widgets.PhaseMeter {
+    id: phase_meter
+    deckId: deck_Id
+    visible: prefs.displayPhaseMeter
+    width: fieldWidthWide
+    height: fieldHeight
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: bottom_right_text.left
+    opacity: (isLoaded && headerState != "small" && hasTrackStyleHeader(deckType)) ? 1 : 0
+    Behavior on opacity { NumberAnimation { duration: speed } }
+  }
 
   //--------------------------------------------------------------------------------------------------------------------
   //  Cover Art
@@ -394,13 +455,13 @@ Item {
   function updateCoverArt() {
     if (headerState == "small" || deckType == DeckType.Live || directThru.value) {
       cover_small.opacity       = 0;
-      cover_small.width         = 4;
-      cover_small.height        = 17;
+      cover_small.width         = 0;
+      cover_small.height        = cover_small.width;
       cover_innerBorder.opacity = 0;
     } else {
       cover_small.opacity       = 1;
-      cover_small.width         = 44;
-      cover_small.height        = 44;
+      cover_small.width         = prefs.displayAlbumCover ? largeHeaderHeight - 2 : 0;
+      cover_small.height        = prefs.displayAlbumCover ? largeHeaderHeight - 2 : 0;
       cover_innerBorder.opacity = (!isLoaded || (headerPropertyCover.value == "")) ? 0 :1;
     }
   }
@@ -432,12 +493,12 @@ Item {
     anchors.left: parent.left
     anchors.topMargin: 1
     anchors.leftMargin: 0
-    width:  _intSetInState
-    height: _intSetInState
+    width:  prefs.displayAlbumCover ? largeHeaderHeight - 4 : 0;
+    height: width;
 
     // if no cover can be found: blue / grey background (set in parent). Otherwise transparent
     opacity:  (headerPropertyCover.value == "") ? 1.0 : 0.0
-    //visible: headerState == "large" && (opacity == 1.0)
+    // visible: headerState == "large" && (opacity == 1.0)
     color:  coverBgEmptyColors[deck_Id]
     Behavior on opacity { NumberAnimation { duration: speed } }
     Behavior on width { NumberAnimation { duration: speed } }
@@ -449,7 +510,7 @@ Item {
       width: height
       radius: height * 0.5
       anchors.centerIn: parent
-      visible:!isLoaded
+      visible:!isLoaded && prefs.displayAlbumCover 
       color: circleEmptyColors[deck_Id]
     }
 
@@ -458,7 +519,7 @@ Item {
       height: 2
       width: height
       anchors.centerIn: parent
-      visible: !isLoaded
+      visible: !isLoaded && prefs.displayAlbumCover 
       color:   colors.colorGrey08
     }
 
@@ -486,14 +547,12 @@ Item {
     anchors.left: cover_small.left
   }
 
-
-
   //--------------------------------------------------------------------------------------------------------------------
   //  Loop Size
   //--------------------------------------------------------------------------------------------------------------------
 
   function updateLoopSize() {
-    if (  headerState == "large" && isLoaded && (hasTrackStyleHeader(deckType) || (deckType == DeckType.Remix )) && !directThru.value ) {
+    if ( isLoaded && (hasTrackStyleHeader(deckType) || (deckType == DeckType.Remix )) && !directThru.value ) {
       loop_size.opacity = 1.0;
       loop_size.opacity = showStepSequencer ? 0.0 : 1.0;
       stem_text.opacity = 0.6
@@ -505,13 +564,13 @@ Item {
 
   Widgets.SpinningWheel {
     id: loop_size
-    anchors.top: top_line.bottom
-    anchors.topMargin: 3
-    anchors.right: parent.right
-    anchors.rightMargin: 176
-
-    width: 30
-    height: 30
+    visible: isLoaded
+    width: fieldHeight - 1 // 30
+    height: width // 30
+    anchors.top: parent.top
+    anchors.topMargin: 1
+    anchors.leftMargin: 7
+    anchors.left: extra_bottom_right_text.left
 
     spinning: false
     opacity: loop_size.opacity
@@ -523,7 +582,7 @@ Item {
       id: numberText
       text: loopText[loopSizePos]
       color: headerPropertyLoopActive.value ? colors.colorGreen : textColors[deck_Id]
-      font.pixelSize: fonts.scale((loopSizePos < 5) ? 14 : 18);
+      font.pixelSize: fonts.scale((loopSizePos < 5) ? 11 : 13)
       font.family: "Pragmatica MediumTT"
       anchors.fill: loop_size
       anchors.rightMargin: 1
@@ -534,6 +593,49 @@ Item {
   }
 
   //--------------------------------------------------------------------------------------------------------------------
+  //  Key & Lock indicator
+  //--------------------------------------------------------------------------------------------------------------------
+
+  function colorForKey(keyIndex) {
+    return colors.musicalKeyColors[keyIndex]
+  }
+
+  Image {
+    id: key_lock
+    visible: isLoaded
+    anchors.horizontalCenter:   loop_size.horizontalCenter
+    anchors.verticalCenter:     parent.verticalCenter
+    antialiasing:      false
+    width:  fieldHeight
+    height: fieldHeight
+    source: "./../Images/Lock_Icon.svg"
+  }
+
+  ColorOverlay {
+    id:           key_lock_overlay
+    visible:      isLoaded
+    color:        keyLockEnabled.value ? colors.colorWhite : colors.colorGrey64
+    anchors.fill: key_lock
+    source:       key_lock
+  }
+
+  Text {
+    id:      key_text
+    visible: isLoaded 
+    height:  fieldHeight
+    width:   fieldWidth / 2
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right:          parent.right
+    anchors.rightMargin:    3
+    anchors.verticalCenterOffset: 1
+    horizontalAlignment:    Text.AlignRight
+    font.pixelSize:         fonts.middleFontSize
+    text:                   utils.convertToCamelot(deckKeyDisplay.value)
+    color:                  parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) 
+    onTextChanged:          { color = parent.border.color }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
   //  Deck Letter (A, B, C or D)
   //--------------------------------------------------------------------------------------------------------------------
 
@@ -541,8 +643,9 @@ Item {
     id: deck_letter_large
     anchors.top: top_line.bottom
     anchors.right: parent.right
-    width: 28
-    height: 36
+    anchors.rightMargin: 3
+    width: 28 * .6
+    height: 36 * .6
     visible: false
     clip: true
     fillMode: Image.Stretch
@@ -556,22 +659,6 @@ Item {
     color: textColors[deck_Id]
     anchors.fill: deck_letter_large
     source: deck_letter_large
-  }
-
-  // Deck Letter Small
-  Text {
-    id: deck_letter_small
-    width:               14
-    height:              width
-    anchors.top:         top_line.bottom
-    anchors.right:       parent.right
-    anchors.topMargin:   -1
-    anchors.rightMargin: 6
-    text:                deckLetters[deck_Id]
-    color:               textColors[deck_Id]
-    font.pixelSize:      fonts.middleFontSize
-    font.family:         "Pragmatica MediumTT"
-    opacity:             0
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -637,8 +724,6 @@ Item {
     }
   }
 
-
-
   //--------------------------------------------------------------------------------------------------------------------
   //  STATES FOR THE DIFFERENT HEADER SIZES
   //--------------------------------------------------------------------------------------------------------------------
@@ -649,37 +734,49 @@ Item {
     State {
       name: "small";
       PropertyChanges { target: deck_header;        height: smallHeaderHeight }
-      PropertyChanges { target: deck_letter_color_overlay;  opacity: 0; height: 12}
-      PropertyChanges { target: deck_letter_small;  opacity: 1 }
 
-      PropertyChanges { target: top_left_text;      font.pixelSize: fonts.middleFontSize; anchors.topMargin: -1; anchors.leftMargin: 5 }
       PropertyChanges { target: top_warning_text;   font.pixelSize: fonts.middleFontSize; anchors.topMargin: -1 }
-
-
-      PropertyChanges { target: top_middle_text;    font.pixelSize: fonts.middleFontSize; anchors.topMargin: 1 }
-      PropertyChanges { target: top_right_text;     font.pixelSize: fonts.middleFontSize; anchors.topMargin: 1 }
-      PropertyChanges { target: bottom_left_text;   opacity: 0; }
-      PropertyChanges { target: extra_bottom_left_text;   opacity: 0; }
       PropertyChanges { target: bottom_warning_text;  opacity: 0; }
 
+      PropertyChanges { target: top_left_text;      font.pixelSize: fonts.middleFontSize; anchors.leftMargin: 5 }
+      PropertyChanges { target: bottom_left_text;   opacity: 0; }
+      PropertyChanges { target: extra_bottom_left_text;   opacity: 0; }
+
+      PropertyChanges { target: top_middle_text;      font.pixelSize: fonts.middleFontSize; height: fieldHeight}
       PropertyChanges { target: bottom_middle_text; opacity: 0; }
+
       PropertyChanges { target: bottom_right_text;  opacity: 0; }
+      PropertyChanges { target: extra_bottom_right_text;   opacity: 0; }
+
+      PropertyChanges { target: beat_indicators;        opacity: 0; }
+      PropertyChanges { target: key_lock;               opacity: 0; }
+      PropertyChanges { target: key_lock_overlay;       opacity: 0; }
+      PropertyChanges { target: key_text;               opacity: 0; }
+      PropertyChanges { target: original_tempo;         opacity: 0; }
+      PropertyChanges { target: sync_master_indicator;  opacity: 0; }
     },
     State {
       name: "large"; //when: temporaryMouseArea.released
       PropertyChanges { target: deck_header;        height: largeHeaderHeight }
-      PropertyChanges { target: deck_letter_color_overlay;  opacity: 1; width: 28; height: 36}
-      PropertyChanges { target: deck_letter_small;  opacity: 0 }
 
-      PropertyChanges { target: top_left_text;      font.pixelSize: fonts.largeFontSize;  anchors.topMargin: -2; anchors.leftMargin: (deckType.description === "Live Input" || directThru.value) ? -1 : 5}
       PropertyChanges { target: top_warning_text;   font.pixelSize: fonts.largeFontSize; anchors.topMargin: -2 }
 
-      PropertyChanges { target: top_middle_text;    font.pixelSize: fonts.largeFontSize;  anchors.topMargin: 1 }
-      PropertyChanges { target: top_right_text;     font.pixelSize: fonts.largeFontSize;  anchors.topMargin: 1 }
-      PropertyChanges { target: bottom_middle_text; opacity: 0; }
-      PropertyChanges { target: bottom_left_text;   opacity: 1;                                                  anchors.leftMargin: (deckType.description === "Live Input" || directThru.value) ? -1 : 5}
+      PropertyChanges { target: top_left_text;      font.pixelSize: fonts.largeFontSize - 1; anchors.leftMargin: (deckType.description === "Live Input" || directThru.value) ? -1 : 5}
+      PropertyChanges { target: bottom_left_text;   opacity: 1; anchors.leftMargin: (deckType.description === "Live Input" || directThru.value) ? -1 : 5}
       PropertyChanges { target: extra_bottom_left_text; opacity: 1; }
+
+      PropertyChanges { target: top_middle_text;    font.pixelSize: fonts.largeFontSize; height: top_left_text.height}
+      PropertyChanges { target: bottom_middle_text; opacity: 0; }
+
       PropertyChanges { target: bottom_right_text;  opacity: 1; }
+      PropertyChanges { target: extra_bottom_right_text;  opacity: 1; }
+
+      PropertyChanges { target: beat_indicators;         opacity: 1; }
+      PropertyChanges { target: key_lock;                opacity: 1; }
+      PropertyChanges { target: key_lock_overlay;        opacity: 1; }
+      PropertyChanges { target: key_text;                opacity: 1; }
+      PropertyChanges { target: original_tempo;          opacity: 1; }
+      PropertyChanges { target: sync_master_indicator;   opacity: 1; }
     }
   ]
 }

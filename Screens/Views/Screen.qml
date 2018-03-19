@@ -73,6 +73,7 @@ Item {
   Definitions.Utils  {id: utils}
   Definitions.Colors {id: colors}
   Definitions.Durations {id: durations}
+  Definitions.Prefs {id: prefs}
 
   width:  480
   height: 272

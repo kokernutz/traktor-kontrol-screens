@@ -218,7 +218,7 @@ Text {
     State { 
       name: "tempo"; 
       PropertyChanges { target: header_text; font.family: fontForNumber; 
-                        text:   (!isLoaded)?"":((propTempo.value-1 < 0)?"":"+") + ((propTempo.value-1)*100).toFixed(1).toString() + "%"; }
+                        text:   (!isLoaded)?"":((propTempo.value-1 < 0)?"":"+") + ((propTempo.value-1)*100).toFixed(2).toString() + "%"; }
     },
     State { 
       name: "tempoStable"; 
@@ -249,7 +249,7 @@ Text {
     
     State { 
       name: "sync";
-      PropertyChanges { target: header_text; font.family: fontForNumber; 
+      PropertyChanges { target: header_text; font.family: fontForString; 
                         text:  getSyncStatusString(); }
     },
     State { 
@@ -308,33 +308,24 @@ Text {
 
   function getSyncStatusString()
   {
-//    if ( !isLoaded ) 
-//      return " ";
-//    else if (isMaster)
-//      return "MASTER";
-//    else if (isInSync)
-//      return "SYNC";
-
-    // Show the decks current pitch value in the area of the Master/Sync indicator 
-    // if a deck is neither synced nor set to maste (TP-8070)
-    return getStableTempoString();
+    if (isMaster) return "MSTR";
+    else return "SYNC";
   }
 
   function computeBeatsToCueString()
   {
-    if (propNextCuePoint.value < 0) return "—.—.—";
+    if (propNextCuePoint.value == -1) return " ";
 
     var beats = parseInt(((propNextCuePoint.value - propElapsedTime.value * 1000) * propMixerBpm.value) / 60000.0);
-    if (beats < 0 /* || beats > 255 */ ) return "—.—.—";
 
     var phraseLen = 4;
     var phrase = parseInt(((beats / 4) / phraseLen) + 1);
-    var bars = parseInt(((beats / 4) % phraseLen) + 1);
+    var bar = parseInt(((beats / 4) % phraseLen) + 1);
     var beat = parseInt((beats % 4) + 1);
-    if (bars < 0) bars = 0;
+    if (bar < 0) bar = 0;
     if (beat < 1) beat = 1;
 
-    return "-" + phrase.toString() + "." + bars.toString() + "." + beat.toString();
+    return "-" + phrase.toString() + "." + bar.toString() + "." + beat.toString();
   }
 
 }
