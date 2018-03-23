@@ -24,10 +24,10 @@ Templates.View {
   property color focusColor:    (screen.focusDeckId < 2) ? colors.colorDeckBlueBright : "white" 
   property int   speed:         150
   property real  sortingKnobValue:  0
-  property int   pageSize:          9
+  property int   pageSize:          prefs.displayMoreItems ? 9 : 7
   property int   fastScrollCenter:  3
 
-  readonly property int  maxItemsOnScreen: 9
+  readonly property int  maxItemsOnScreen: prefs.displayMoreItems ? 9 : 7
 
   // This is used by the footer to change/display the sorting!
   property alias sortingId:         browser.sorting
@@ -142,7 +142,7 @@ Templates.View {
   // zebra filling up the rest of the list if smaller than maxItemsOnScreen (= 8 entries)
   Grid {
     anchors.top:            contentList.top
-    anchors.topMargin:      contentList.topMargin +  contentList.contentHeight + 1 // +1 = for spacing
+    anchors.topMargin:      contentList.topMargin + contentList.contentHeight + 1 // +1 = for spacing
     anchors.right:          parent.right
     anchors.left:           parent.left
     anchors.leftMargin:     3
@@ -152,9 +152,9 @@ Templates.View {
     Repeater {
       model: (contentList.count < qmlBrowser.maxItemsOnScreen) ? (qmlBrowser.maxItemsOnScreen - contentList.count) : 0
       Rectangle { 
-        color: ( (contentList.count + index)%2 == 0) ? colors.colorGrey08 : "transparent"
+        color: ( (contentList.count + index) % 2 == 0) ? colors.colorGrey08 : "transparent"
         width: qmlBrowser.width; 
-        height: 25 }
+        height: prefs.displayMoreItems ? 25 : 32 }
     }
   }
 
@@ -162,25 +162,23 @@ Templates.View {
 
   ListView {
     id: contentList
-    anchors.fill: parent
-    verticalLayoutDirection: ListView.TopToBottom
-    // the top/bottom margins are applied only at the beginning/end of the list in order to show half entries while scrolling 
-    // and keep the list delegates in the same position always.
-
-    // the commented out margins caused browser anchor problems leading to a disappearing browser! check later !?
-    anchors.topMargin:       19 // ( (contentList.count <  qmlBrowser.maxItemsOnScreen ) || (currentIndex < 4                     )) ? 17 : 0
-    anchors.bottomMargin:    20 // ( (contentList.count >= qmlBrowser.maxItemsOnScreen) && (currentIndex >= contentList.count - 4)) ? 18 : 0 
-    clip:                    false
-    spacing:                 1
-    preferredHighlightBegin: (height / 2) - (26 / 2) // 119 - 19 // -17 because of the reduced height due to the topMargin
-    preferredHighlightEnd  : (height / 2) + (26 / 2) // -17 because of the reduced height due to the topMargin
-    highlightRangeMode :     ListView.ApplyRange
-    highlightMoveDuration:   0
-    delegate:                BrowserView.ListDelegate  {id: listDelegate; screenFocus: screen.focusDeckId; }
-    model:                   browser.dataSet
-    currentIndex:            browser.currentIndex 
-    focus:                   true 
-    cacheBuffer:             6
+    anchors.top:              browserHeader.bottom
+    anchors.left:             parent.left
+    anchors.right:            parent.right
+    anchors.topMargin:        3
+    verticalLayoutDirection:  ListView.TopToBottom
+    height:                   (qmlBrowser.pageSize * (prefs.displayMoreItems ? 26 : 33)) - 1 // adjust for spacing
+    clip:                     false
+    spacing:                  1
+    preferredHighlightBegin:  parseInt((height / 2) - (prefs.displayMoreItems ? 12.5 : 16)) 
+    preferredHighlightEnd:    preferredHighlightBegin + (prefs.displayMoreItems ? 25 : 32)
+    highlightRangeMode :      ListView.ApplyRange
+    highlightMoveDuration:    0
+    delegate:                 BrowserView.ListDelegate  {id: listDelegate; screenFocus: screen.focusDeckId; }
+    model:                    browser.dataSet
+    currentIndex:             browser.currentIndex 
+    focus:                    true 
+    cacheBuffer:              BrowserView.ListDelegate.height * 2 // 6
   }
 
   //--------------------------------------------------------------------------------------------------------------------

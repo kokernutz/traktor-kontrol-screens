@@ -26,18 +26,18 @@ Item {
   readonly property variant keyText:            ["8B", "3B", "10B", "5B", "12B", "7B", "2B", "9B", "4B", "11B", "6B", "1B",
                                                  "5A", "12A", "7A", "2A", "9A", "4A", "11A", "6A", "1A", "8A", "3A", "10A"]
 
-  property int browserFontSize: fonts.scale(14)
+  property int browserFontSize: prefs.displayMoreItems ? fonts.scale(14) : fonts.scale(15.5) 
 
-  height: 25
-  anchors.left: parent.left
-  anchors.right: parent.right
+  height:                       prefs.displayMoreItems ? 25 : 32
+  anchors.left:                 parent.left
+  anchors.right:                parent.right
 
   // container for zebra & track infos
   Rectangle {
     // when changing colors here please remember to change it in the GridView in Templates/Browser.qml 
     color:  (index%2 == 0) ? colors.colorGrey08 : "transparent" 
 
-    anchors.left: parent.left
+    anchors.left: trackImage.right
     anchors.right: parent.right
     anchors.top: parent.top
     anchors.bottom: parent.bottom
@@ -54,7 +54,7 @@ Item {
       anchors.top: parent.top
       anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
-      anchors.leftMargin: 33
+//      anchors.leftMargin: 33
       width: 190
       visible: (model.dataType == BrowserDataType.Track)
 
@@ -83,12 +83,13 @@ Item {
         id: prepListIcon
         visible: (model.dataType == BrowserDataType.Track) ? model.prepared : false
         source: "./../Images/PrepListIcon" + prepIconColorPostfix + ".png"
-        width: sourceSize.width
-        height: sourceSize.height
-        anchors.left: firstFieldText.right 
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.topMargin: 0
+        // width: sourceSize.width
+        // height: sourceSize.height
+        anchors.left: firstFieldText.right
+        anchors.verticalCenter: parent.verticalCenter
+        // anchors.top: parent.top
+        // anchors.bottom: parent.bottom
+        // anchors.topMargin: 0
         anchors.leftMargin: 5
       }
     }   
@@ -100,7 +101,7 @@ Item {
       anchors.top: parent.top
       anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
-      anchors.leftMargin: 33
+//      anchors.leftMargin: 33
       color: textColor
       clip: true
       text: (model.dataType == BrowserDataType.Folder) ? model.nodeName : ""
@@ -122,7 +123,7 @@ Item {
       anchors.topMargin: contactDelegate.textTopMargin
       verticalAlignment: Text.AlignVCenter
 
-      width: 145
+      width: 140
       color: textColor
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? model.artistName: ""
@@ -139,7 +140,7 @@ Item {
       anchors.topMargin: contactDelegate.textTopMargin
       verticalAlignment: Text.AlignVCenter
       horizontalAlignment: Text.AlignRight
-      width: 24
+      width: 27
       color: textColor
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? model.bpm.toFixed(0) : ""
@@ -161,9 +162,9 @@ Item {
       horizontalAlignment: Text.AlignRight
 
       color: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? textColor : (qmlBrowser.sortingId == 28 ? parent.colorForKey(model.keyIndex) : textColor)) : textColor
-      width: 30
+      width: 32
       clip: true
-      text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "n.a." : keyText[model.keyIndex]) : ""
+      text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "-" : keyText[model.keyIndex]) : ""
       font.pixelSize: browserFontSize
     }
 
@@ -184,7 +185,7 @@ Item {
 //      width: 20
       clip: true
 
-      text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "n.a." : utils.getMasterKeyOffset(qmlBrowser.getMasterKey(), model.key)) : ""
+      text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "" : utils.getMasterKeyOffset(qmlBrowser.getMasterKey(), model.key)) : ""
       font.pixelSize: browserFontSize
     }
 
@@ -207,7 +208,7 @@ Item {
     ListHighlight {
       anchors.fill: parent
       visible: contactDelegate.isCurrentItem
-      anchors.leftMargin: (model.dataType == BrowserDataType.Track) ? 26 : 0
+//      anchors.leftMargin: (model.dataType == BrowserDataType.Track) ? 26 : 0
       anchors.rightMargin: 0 
     }
   }
@@ -217,8 +218,8 @@ Item {
     anchors.top: parent.top
     anchors.left: parent.left
     anchors.leftMargin: 3              
-    width: 25
-    height: 25
+    width: parent.height // 25
+    height: parent.height // 25
     color: (model.coverUrl != "") ? "transparent" : ((contactDelegate.screenFocus < 2) ? colors.colorDeckBlueBright50Full : colors.colorGrey128 )
     visible: (model.dataType == BrowserDataType.Track)
 
@@ -277,8 +278,8 @@ Item {
 
     Image {
       anchors.centerIn: trackImage
-      width: 17
-      height: 17
+//      width: 17
+//      height: 17
       source: "./../images/PreviewIcon_Big.png"
       fillMode: Image.Pad
       clip: true
@@ -351,8 +352,8 @@ Item {
   Image {
     id:       folderIcon
     source:   (model.dataType == BrowserDataType.Folder) ? ("image://icons/" + model.nodeIconId ) : ""
-    width:    25
-    height:   25
+    width:    parent.height // 25
+    height:   parent.height // 25
     fillMode: Image.PreserveAspectFit
     anchors.top: parent.top
     anchors.left: parent.left
