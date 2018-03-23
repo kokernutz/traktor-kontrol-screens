@@ -9,7 +9,7 @@
 **Changes from default screens:**
 
   - Preferences: **NEW** Edit Screens/Views/Definitions/Prefs.qml 
-  - Browser: **UPDATED** Display 7 and 9 items on screen (toggle in prefs)
+  - Browser: **UPDATED** Display 7 or 9 items on screen (toggle in prefs)
   - Browser: **FIXED** Key offset to right of key (when potential match)
   - Browser: Added color to key offset (green = up, yellow = down, blue = neighbor, red = maybe)
   - Browser: Added keys of all decks to bottom
