@@ -33,13 +33,24 @@ Rectangle {
   MappingProperty { id: isContentListProp; path: propertiesPath + ".browser.is_content_list" }
   MappingProperty { id: selectedFooterItem;      path: propertiesPath + ".selected_footer_item" }
 
-  AppProperty { id: deckAKeyDisplay; path: "app.traktor.decks.1.track.key.key_for_display" }
-  AppProperty { id: deckBKeyDisplay; path: "app.traktor.decks.2.track.key.key_for_display" }
-  AppProperty { id: deckCKeyDisplay; path: "app.traktor.decks.3.track.key.key_for_display" }
-  AppProperty { id: deckDKeyDisplay; path: "app.traktor.decks.4.track.key.key_for_display" }
+  AppProperty { id: deckAKeyForDisplay;   path: "app.traktor.decks.1.track.key.key_for_display" }
+  AppProperty { id: deckBKeyForDisplay;   path: "app.traktor.decks.2.track.key.key_for_display" }
+  AppProperty { id: deckCKeyForDisplay;   path: "app.traktor.decks.3.track.key.key_for_display" }
+  AppProperty { id: deckDKeyForDisplay;   path: "app.traktor.decks.4.track.key.key_for_display" }
 
-  readonly property variant deckLabels:       ["C", "A", "B", "D"]
-  readonly property variant decks:            [deckCKeyDisplay, deckAKeyDisplay, deckBKeyDisplay, deckDKeyDisplay]
+  AppProperty { id: deckAPropMusicalKey;  path: "app.traktor.decks.1.content.musical_key" }
+  AppProperty { id: deckBPropMusicalKey;  path: "app.traktor.decks.2.content.musical_key" }
+  AppProperty { id: deckCPropMusicalKey;  path: "app.traktor.decks.3.content.musical_key" }
+  AppProperty { id: deckDPropMusicalKey;  path: "app.traktor.decks.4.content.musical_key" }
+
+  readonly property variant deckLabels:   ["C", "A", "B", "D"]
+
+  readonly property variant decksKeyForDisplay: [utils.convertToCamelot(deckCKeyForDisplay.value),
+                                           utils.convertToCamelot(deckAKeyForDisplay.value),
+                                           utils.convertToCamelot(deckBKeyForDisplay.value),
+                                           utils.convertToCamelot(deckDKeyForDisplay.value)]
+
+  readonly property variant decksPropMusicalKey: [deckCPropMusicalKey, deckAPropMusicalKey, deckBPropMusicalKey, deckDPropMusicalKey]
 
   //--------------------------------------------------------------------------------------------------------------------  
   // Behavior on Sorting Chnages (show/hide sorting widget, select next allowed sorting)
@@ -152,7 +163,7 @@ Rectangle {
           color: (index == 1 || index == 2) ? colors.colorDeckBlueBright : colors.colorWhite //colors.colorFontBrowserHeader
           width: parent.width
           horizontalAlignment: Text.AlignHCenter
-          text: deckLabels[index] + ": " + utils.convertToCamelot(decks[index].value)
+          text: deckLabels[index] + ": " + (prefs.camelotKey ? decksKeyForDisplay[index] : decksPropMusicalKey[index].value)
         }
 
         Rectangle {

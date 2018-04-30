@@ -164,7 +164,7 @@ Item {
       color: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? textColor : (qmlBrowser.sortingId == 28 ? parent.colorForKey(model.keyIndex) : textColor)) : textColor
       width: 32
       clip: true
-      text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "-" : keyText[model.keyIndex]) : ""
+      text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "-" : (prefs.camelotKey ? keyText[model.keyIndex] : model.key)) : ""
       font.pixelSize: browserFontSize
     }
 

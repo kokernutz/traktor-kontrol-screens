@@ -8,25 +8,26 @@
 
 **Changes from default screens:**
 
-  - Preferences: **NEW** Edit Screens/Views/Definitions/Prefs.qml 
-  - Browser: **UPDATED** Display 7 or 9 items on screen (toggle in prefs)
-  - Browser: **FIXED** Key offset to right of key (when potential match)
+  - Preferences: Edit Screens/Views/Definitions/Prefs.qml 
+  - Global: **NEW** Toggle between Open and Camelot key (toggle in prefs)
+  - Browser: Display 7 or 9 items on screen (toggle in prefs)
+  - Browser: Key offset to right of key (when potential match)
   - Browser: Added color to key offset (green = up, yellow = down, blue = neighbor, red = maybe)
   - Browser: Added keys of all decks to bottom
   - Browser: Camelot keys
-  - Deck: **NEW** Spectrum colors (toggle in prefs)
-  - Deck: **NEW** *EXPERIMENTAL* Beat/phase meter (toggle in prefs)
-  - Deck: **NEW** Hide Album Art (toggle in prefs)
-  - Deck: **NEW** Display keylock status
-  - Deck: **NEW** Display key
-  - Deck: **NEW** Display SYNC/MASTER status
-  - Deck: **NEW** Display original BPM
+  - Deck: Spectrum colors (toggle in prefs)
+  - Deck: *EXPERIMENTAL* Beat/phase meter (toggle in prefs)
+  - Deck: Hide Album Art (toggle in prefs)
+  - Deck: Display keylock status
+  - Deck: Display key
+  - Deck: Display SYNC/MASTER status
+  - Deck: Display original BPM
   - Deck: Added minute markers
-  - Deck: **UPDATED** Added track comment (toggle in prefs)
-  - Deck: **UPDATED** Added beat countdown (toggle in prefs)
+  - Deck: Added track comment (toggle in prefs)
+  - Deck: Added beat countdown (toggle in prefs)
   - Deck: Always displays tempo offset
   - Deck: Darkened portion of stripe already played
-  - Deck: **UPDATED** Time remaining to right of stripe (toggle in prefs)
+  - Deck: Time remaining to right of stripe (toggle in prefs)
   - Deck: Camelot key on keylock overlay
   - FX: Added 2 additional lines
   - FX: Text now left-justified

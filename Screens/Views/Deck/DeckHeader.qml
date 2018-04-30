@@ -630,7 +630,7 @@ Item {
     anchors.verticalCenterOffset: 1
     horizontalAlignment:    Text.AlignRight
     font.pixelSize:         fonts.middleFontSize
-    text:                   utils.convertToCamelot(deckKeyDisplay.value)
+    text:                   prefs.camelotKey ? utils.convertToCamelot(deckKeyDisplay.value) : deckKeyDisplay.value
     color:                  parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) 
     onTextChanged:          { color = parent.border.color }
   }

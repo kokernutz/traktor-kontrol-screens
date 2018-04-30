@@ -78,7 +78,7 @@ CenterOverlay {
     font.capitalization: Font.AllUppercase
     color:                    colors.colorGrey104
     opacity: (keyDisplay.value=="") ? 0 : 1
-    text:    "(" + utils.convertToCamelot(keyDisplay.value) + ((offset==0)?"":" ") + ")"
+    text:    "(" + (prefs.camelotKey ? utils.convertToCamelot(keyDisplay.value) : keyDisplay.value) + ((offset==0)?"":" ") + ")"
   }
   
   // footline
