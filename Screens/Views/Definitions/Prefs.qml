@@ -12,7 +12,7 @@ readonly property bool displayMoreItems:		true // toggle between 7 and 9 items o
 
 // deck preferences
 readonly property bool displayAlbumCover:		true
-readonly property bool displayBeatCountdown:	true
+readonly property int  displayBeatCounter:		1    // 0 = off, 1 = Count Down To Next Cue Point, 2 = Count From Grid Start
 readonly property bool displayPhaseMeter:		true
 readonly property bool displayTimeLeft:			true
 readonly property bool displayTrackComment:		true

@@ -181,7 +181,7 @@ Text {
     State { 
       name: "remainingTime"; 
       PropertyChanges { target: header_text; font.family: fontForNumber; 
-                        text:   (!isLoaded)?"":computeBeatsToCueString(); }
+                        text:   (!isLoaded)?"":computeBeatCounter(); }
 //                        text:   (!isLoaded)?"":utils.computeRemainingTimeString(propTrackLength.value, propElapsedTime.value); }
     },
   //--------------------------------------------------------------------------------------------------------------------
@@ -312,11 +312,23 @@ Text {
     else return "SYNC";
   }
 
-  function computeBeatsToCueString()
+ function computeBeatCounter()
   {
     if (propNextCuePoint.value == -1) return " ";
 
-    var beats = parseInt(((propNextCuePoint.value - propElapsedTime.value * 1000) * propMixerBpm.value) / 60000.0);
+    var beats;
+
+    switch (prefs.displayBeatCounter)
+    {
+      case 1:
+        beats = parseInt(((propNextCuePoint.value - propElapsedTime.value * 1000) * propMixerBpm.value) / 60000.0);
+        break;
+      case 2:
+        beats = parseInt(((propElapsedTime.value * 1000 - propGridOffset.value) * propMixerBpm.value) / 60000.0);
+        break;
+      default:
+        break;
+    }
 
     var phraseLen = 4;
     var phrase = parseInt(((beats / 4) / phraseLen) + 1);
@@ -325,7 +337,7 @@ Text {
     if (bar < 0) bar = 0;
     if (beat < 1) beat = 1;
 
-    return "-" + phrase.toString() + "." + bar.toString() + "." + beat.toString();
+    return (prefs.displayBeatCounter == 1 ? "-" : "") + phrase.toString() + "." + bar.toString() + "." + beat.toString();
   }
 
 }

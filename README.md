@@ -9,7 +9,7 @@
 **Changes from default screens:**
 
   - Preferences: Edit Screens/Views/Definitions/Prefs.qml 
-  - Global: **NEW** Toggle between Open and Camelot key (toggle in prefs)
+  - Global: Toggle between Open and Camelot key (toggle in prefs)
   - Browser: Display 7 or 9 items on screen (toggle in prefs)
   - Browser: Key offset to right of key (when potential match)
   - Browser: Added color to key offset (green = up, yellow = down, blue = neighbor, red = maybe)
@@ -24,7 +24,7 @@
   - Deck: Display original BPM
   - Deck: Added minute markers
   - Deck: Added track comment (toggle in prefs)
-  - Deck: Added beat countdown (toggle in prefs)
+  - Deck: **UPDATED** Toggle between beat countdown and beats from grid start (toggle in prefs)
   - Deck: Always displays tempo offset
   - Deck: Darkened portion of stripe already played
   - Deck: Time remaining to right of stripe (toggle in prefs)
