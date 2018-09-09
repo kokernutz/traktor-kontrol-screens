@@ -112,7 +112,7 @@ Item {
       horizontalAlignment: Text.AlignRight
       verticalAlignment:   Text.AlignVCenter
       color:               colors.textColors[deckId]
-      text:                utils.computeRemainingTimeString(trackLength.value, elapsedTime.value)
+      text:                "-" + utils.computeRemainingTimeString(trackLength.value, elapsedTime.value)
     }
   }
 
