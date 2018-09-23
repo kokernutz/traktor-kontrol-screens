@@ -57,5 +57,5 @@
 ## Screenshots
 
 ![Deck](https://user-images.githubusercontent.com/757885/37592063-f58dec64-2b43-11e8-9727-1308d663786d.jpg)
-![Browser](https://user-images.githubusercontent.com/757885/33605788-1a87614c-d989-11e7-863b-9687ef48168f.jpg)
+![Browser](https://user-images.githubusercontent.com/757885/45928219-371e9a80-bf0e-11e8-85b4-931cb41554a9.jpg))
 ![FX Browser](https://user-images.githubusercontent.com/757885/33605793-1ce1edb8-d989-11e7-861a-869e0d495d5e.jpg)
