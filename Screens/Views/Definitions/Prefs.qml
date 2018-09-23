@@ -8,12 +8,13 @@ QtObject {
 readonly property bool camelotKey: 				true
 
 // browser preferences
+readonly property bool displayMatchGuides:		true
 readonly property bool displayMoreItems:		true // toggle between 7 and 9 items on screen
 
 // deck preferences
 readonly property bool displayAlbumCover:		true
 readonly property int  displayBeatCounter:		1    // 0 = off, 1 = Count Down To Next Cue Point, 2 = Count From Grid Start
-readonly property bool displayPhaseMeter:		true
+readonly property bool displayPhaseMeter:		false
 readonly property bool displayTimeLeft:			true
 readonly property bool displayTrackComment:		true
 readonly property bool spectrumWaveformColors:	true

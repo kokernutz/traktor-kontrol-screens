@@ -35,13 +35,7 @@ Templates.View {
   property alias isContentList:     browser.isContentList
 
   anchors.fill: parent
-
   //MappingProperty { id: browserViewMode; path: "mapping.state.browser_view_mode" }
-  AppProperty { id: deckAKeyDisplay; path: "app.traktor.decks.1.track.key.key_for_display" }
-  AppProperty { id: deckBKeyDisplay; path: "app.traktor.decks.2.track.key.key_for_display" }
-  AppProperty { id: deckCKeyDisplay; path: "app.traktor.decks.3.track.key.key_for_display" }
-  AppProperty { id: deckDKeyDisplay; path: "app.traktor.decks.4.track.key.key_for_display" }
-  AppProperty { id: masterDeckId; path: "app.traktor.masterclock.source_id" }
 
   //--------------------------------------------------------------------------------------------------------------------
 
@@ -178,7 +172,7 @@ Templates.View {
     model:                    browser.dataSet
     currentIndex:             browser.currentIndex 
     focus:                    true 
-    cacheBuffer:              BrowserView.ListDelegate.height * 2 // 6
+    // cacheBuffer:              BrowserView.ListDelegate.height * 2 // 6
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -213,18 +207,6 @@ Templates.View {
     sortingKnobValue: qmlBrowser.sortingKnobValue
 
     Behavior on height { NumberAnimation { duration: speed; } }
-  }
-
-  function getMasterKey()
-    {
-      switch (masterDeckId.value)
-      {
-        case 0: return deckAKeyDisplay.value;
-        case 1: return deckBKeyDisplay.value;
-        case 2: return deckCKeyDisplay.value;
-        case 3: return deckDKeyDisplay.value;
-      }
-    return "";
   }
 
   //--------------------------------------------------------------------------------------------------------------------

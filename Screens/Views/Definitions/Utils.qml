@@ -4,51 +4,34 @@ QtObject {
 
   function convertToTimeString(inSeconds)
   {
-    return Math.floor(inSeconds / 60).toString() + ":" + ("0" + Math.abs(Math.floor(inSeconds % 60)).toString()).slice(-2);
+    return Math.floor(inSeconds / 60) + ":" + ("0" + Math.floor(inSeconds) % 60).slice(-2);
   }
 
   function computeRemainingTimeString(length, elapsed)
   {
-    return elapsed > length ? convertToTimeString(0) : convertToTimeString( Math.floor(length) - Math.floor(elapsed));
+    return elapsed > length ? convertToTimeString(0) : convertToTimeString(length - elapsed);
   }
 
   function getKeyOffset(offset)
   {
-    if (offset <= 0) return offset + 12;
-    if (offset > 12) return offset - 12;
-
-    return offset;
+    return (((offset - 1) + 12) % 12) + 1;
   }
 
   function getMasterKeyOffset(masterKey, trackKey) {
     var masterKeyMatches = masterKey.match(/(\d+)(d|m)/);
     var trackKeyMatches = trackKey.match(/(\d+)(d|m)/);
 
-    if (!masterKeyMatches || !trackKeyMatches) return "";
+    if (!masterKeyMatches || !trackKeyMatches) return;
 
     if (masterKeyMatches[1] == trackKeyMatches[1]) return 0;
 
-    if (masterKeyMatches[2] != trackKeyMatches[2])
-    {
-      if (trackKeyMatches[2] == "d" && +trackKeyMatches[1] == getKeyOffset(+masterKeyMatches[1] + 3)) return 3;
-      if (trackKeyMatches[2] == "m" && +trackKeyMatches[1] == getKeyOffset(+masterKeyMatches[1] - 3)) return -3;
-      if (trackKeyMatches[2] == "d" && +trackKeyMatches[1] == getKeyOffset(+masterKeyMatches[1] - 1)) return 1;
-      if (trackKeyMatches[2] == "m" && +trackKeyMatches[1] == getKeyOffset(+masterKeyMatches[1] + 1)) return -1;
-      return "";
+    if (masterKeyMatches[2] == trackKeyMatches[2]) {
+      if (getKeyOffset(trackKeyMatches[1] - 1) == masterKeyMatches[1]) return  1;
+      if (getKeyOffset(trackKeyMatches[1] - 2) == masterKeyMatches[1]) return  2;
+      if (getKeyOffset(masterKeyMatches[1] - 1) == trackKeyMatches[1]) return -1;
+      if (getKeyOffset(masterKeyMatches[1] - 2) == trackKeyMatches[1]) return -2;
     }
-
-    switch (+trackKeyMatches[1])
-    {
-      case getKeyOffset(+masterKeyMatches[1] + 1): return 1;
-      case getKeyOffset(+masterKeyMatches[1] - 1): return -1;
-      case getKeyOffset(+masterKeyMatches[1] + 2): return 2;
-      case getKeyOffset(+masterKeyMatches[1] - 2): return -2;
-      case getKeyOffset(+masterKeyMatches[1] + 7): return 7;
-      case getKeyOffset(+masterKeyMatches[1] - 7): return -7;
-    }
-
-    return "";
-  }
+ }
 
   function convertToCamelot(keyToConvert)
   {

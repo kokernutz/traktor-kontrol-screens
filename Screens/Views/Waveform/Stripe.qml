@@ -42,7 +42,7 @@ Traktor.Stripe {
     anchors.top:       parent.top
     anchors.left:      parent.left
     height:            28
-    width:             (elapsedTime.value / trackLength.value) * parent.width
+    width:             Math.max(Math.min(elapsedTime.value / trackLength.value, 1), 0) * parent.width
     
     radius:            1
     color:             colors.colorBlack66
@@ -124,8 +124,8 @@ Traktor.Stripe {
   Rectangle {
     id: posIndicatorBox
 
-    property int roundedX:  (relativePlayPos * (parent.width - posIndicator.width) - 0.5*width)
-    readonly property real relativePlayPos: elapsedTime.value / trackLength.value
+    property int roundedX:  (relativePlayPos * (parent.width - posIndicator.width) - 0.5 * width)
+    readonly property real relativePlayPos: Math.max(Math.min(elapsedTime.value / trackLength.value, 1.0), 0)
 
     AppProperty { id: elapsedTime; path: "app.traktor.decks." + (deckId+1) + ".track.player.elapsed_time" }
     x:                 roundedX            
