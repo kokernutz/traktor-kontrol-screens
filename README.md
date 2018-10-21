@@ -8,14 +8,10 @@
 
 **Changes from default screens:**
 
-  - Preferences: Edit Screens/Views/Definitions/Prefs.qml 
+  - Preferences: Edit prefs file at Screens/Defines/Prefs.qml 
   - Global: Toggle between Open and Camelot key (toggle in prefs)
-  - Browser: **NEW** Match gauges for Key/BPM (toggle in prefs)
+  - Browser: Gauges for Key/BPM match (toggle in prefs)
   - Browser: Display 7 or 9 items on screen (toggle in prefs)
-  - Browser: Key offset to right of key (when potential match)
-  - Browser: Added color to key offset (green = up, yellow = down, blue = neighbor, red = maybe)
-  - Browser: Added keys of all decks to bottom
-  - Browser: Camelot keys
   - Deck: Spectrum colors (toggle in prefs)
   - Deck: *EXPERIMENTAL* Beat/phase meter (toggle in prefs)
   - Deck: Hide Album Art (toggle in prefs)
@@ -29,7 +25,6 @@
   - Deck: Always displays tempo offset
   - Deck: Darkened portion of stripe already played
   - Deck: Time remaining to right of stripe (toggle in prefs)
-  - Deck: Camelot key on keylock overlay
   - FX: Added 2 additional lines
   - FX: Text now left-justified
 
@@ -38,7 +33,7 @@
 **Mac:**
 
   - Quit Traktor
-  - Navigate to /Applications/Native Instruments/Traktor 2
+  - Navigate to /Applications/Native Instruments/Traktor Pro 3
   - Right click Traktor.app, then click Show Package Contents
   - Navigate to Contents/Resources/qml
   - Rename "Screens" folder to "ScreensBackup" 
@@ -48,7 +43,7 @@
 **Windows:**
 
   - Quit Traktor
-  - Navigate to C:\Program Files\Native Instruments\Traktor 2\Resources64\qml
+  - Navigate to C:\Program Files\Native Instruments\Traktor Pro 3\Resources64\qml
   - Make a backup of this directory!
   - Rename "Screens" directory to "ScreensBackup"
   - Copy "Screens" directory from download to this directory     
