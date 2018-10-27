@@ -41,7 +41,7 @@ Traktor.Stripe {
 
     anchors.top:       parent.top
     anchors.left:      parent.left
-    height:            28
+    height:            parent.height
     width:             Math.max(Math.min(elapsedTime.value / trackLength.value, 1), 0) * parent.width
     
     radius:            1
@@ -130,7 +130,7 @@ Traktor.Stripe {
     AppProperty { id: elapsedTime; path: "app.traktor.decks." + (deckId+1) + ".track.player.elapsed_time" }
     x:                 roundedX            
     anchors.top:       parent.top
-    height:            28
+    height:            parent.height
     width:             Math.max (parent.indicatorBoxWidth - (1 - parent.indicatorBoxWidth%2) , 5) // 
     
     radius:            1

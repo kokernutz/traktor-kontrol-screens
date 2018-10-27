@@ -23,7 +23,7 @@ Text {
   readonly property int     isMaster:  (propSyncMasterDeck.value == deckId) ? 1 : 0
 
   readonly property string  fontForNumber: "Pragmatica"
-  readonly property string  fontForString: "Pragmatica MediumTT"
+  readonly property string  fontForString: "Pragmatica" //  MediumTT"
 
 
   // Properties of the TextItem itself. Anchors are set from outside
@@ -59,6 +59,7 @@ Text {
 
   AppProperty { id: propMusicalKey;       path: "app.traktor.decks." + (deckId+1) + ".content.musical_key" }
   AppProperty { id: propLegacyKey;        path: "app.traktor.decks." + (deckId+1) + ".content.legacy_key" }
+  AppProperty { id: propKeyDisplay;       path: "app.traktor.decks." + (deckId+1) + ".track.key.key_for_display" }
   AppProperty { id: propPitchRange;       path: "app.traktor.decks." + (deckId+1) + ".tempo.range" }
   AppProperty { id: propTempoAbsolute;    path: "app.traktor.decks." + (deckId+1) + ".tempo.absolute" }  
   AppProperty { id: propMixerBpm;         path: "app.traktor.decks." + (deckId+1) + ".tempo.base_bpm" }
@@ -83,7 +84,7 @@ Text {
                                             "trackLength", "bitrate", "bpmTrack", "gain", "elapsedTime", "remainingTime", 
                                             "beats", "beatsToCue", "bpm", "tempo", "key", "keyText", "comment", "comment2",
                                             "remixer", "pitchRange", "bpmStable", "tempoStable", "sync", "off", "off", "bpmTrack",
-                                            "remixBeats", "remixQuantize", "beatCountdown"]
+                                            "remixBeats", "remixQuantize", "keyDisplay"]
 
 /*
   readonly property variant stateMapping:  [0:  "title",          1: "artist",       2:  "release", 
@@ -96,7 +97,7 @@ Text {
                                             21: "remixer",       22: "pitchRange",  23: "bpmStable", 
                                             24: "tempoStable",   25: "sync",        26: "off", 
                                             27: "off",           28: "bpmTrack"     29: "remixBeats"
-                                            30: "remixQuantize", 31: "beatCounddown" ]
+                                            30: "remixQuantize", 31: "keyDisplay"]
 */
   //--------------------------------------------------------------------------------------------------------------------
   //  STATES FOR THE LABELS IN THE DECK HEADER
@@ -259,9 +260,9 @@ Text {
                         text:  (!isLoaded) ? "" : ((propRemixIsQuantize.value)? "Q " + propRemixQuantize.description : "Off"); }
     },
     State { 
-      name: "beatCountdown"; 
-      PropertyChanges { target: header_text; font.family: fontForNumber; 
-                        text:   (!isLoaded)?"":computeBeatCounter(); }
+      name: "keyDisplay"; 
+      PropertyChanges { target: header_text; font.family: fontForNumber;
+                        text:   (!isLoaded)?"":(prefs.camelotKey ? utils.convertToCamelot(propKeyDisplay.value) : propKeyDisplay.value); }
     }
   ]
 
@@ -284,7 +285,7 @@ Text {
 
 
   function computeBeatCounterStringFromPosition(beat) {
-    var phraseLen = 4;
+    var phraseLen = prefs.phraseLength;
     var curBeat  = parseInt(beat);
 
     if (beat < 0.0)
@@ -307,38 +308,17 @@ Text {
   }
 
 
-  function getSyncStatusString()
-  {
-    if (isMaster) return "MSTR";
-    else return "SYNC";
-  }
+  function getSyncStatusString() {
+    if ( !isLoaded ) 
+      return " ";
+    else if (isMaster)
+      return "MASTER";
+    else if (isInSync)
+      return "SYNC";
 
- function computeBeatCounter()
-  {
-    if (propNextCuePoint.value == -1) return " ";
-
-    var beats;
-
-    switch (prefs.displayBeatCounter)
-    {
-      case 1:
-        beats = parseInt(((propNextCuePoint.value - propElapsedTime.value * 1000) * propMixerBpm.value) / 60000.0);
-        break;
-      case 2:
-        beats = parseInt(((propElapsedTime.value * 1000 - propGridOffset.value) * propMixerBpm.value) / 60000.0);
-        break;
-      default:
-        break;
-    }
-
-    var phraseLen = 4;
-    var phrase = parseInt(((beats / 4) / phraseLen) + 1);
-    var bar = parseInt(((beats / 4) % phraseLen) + 1);
-    var beat = parseInt((beats % 4) + 1);
-    if (bar < 0) bar = 0;
-    if (beat < 1) beat = 1;
-
-    return (prefs.displayBeatCounter == 1 ? "-" : "") + phrase.toString() + "." + bar.toString() + "." + beat.toString();
+    // Show the decks current pitch value in the area of the Master/Sync indicator 
+    // if a deck is neither synced nor set to maste (TP-8070)
+    return getStableTempoString();
   }
 
 }

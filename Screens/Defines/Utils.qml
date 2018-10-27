@@ -4,12 +4,12 @@ QtObject {
 
   function convertToTimeString(inSeconds)
   {
-    return Math.floor(inSeconds / 60) + ":" + ("0" + Math.floor(inSeconds) % 60).slice(-2);
+    return ("0" + Math.floor(inSeconds / 60)).slice(-2) + ":" + ("0" + Math.floor(inSeconds) % 60).slice(-2);
   }
 
   function computeRemainingTimeString(length, elapsed)
   {
-    return elapsed > length ? convertToTimeString(0) : convertToTimeString(length - elapsed);
+    return "-" + (elapsed > length ? convertToTimeString(0) : convertToTimeString(length - elapsed));
   }
 
   function getKeyOffset(offset)

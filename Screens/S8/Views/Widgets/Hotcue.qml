@@ -58,7 +58,7 @@ Item {
   Item {
     anchors.top:              parent.top
     anchors.horizontalCenter: parent.horizontalCenter
-    height:                   smallHead ? 32 : (parent.height)
+    height:                   smallHead ? 44 : (parent.height)
     width:                    40
     clip:                     false
     visible:                  hotcue.showHead

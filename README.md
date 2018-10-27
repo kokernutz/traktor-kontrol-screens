@@ -1,4 +1,4 @@
-# Replacement screens for the Native Instruments Traktor Kontrol D2, S5, and S8
+# Replacement screens for **Traktor Pro 3** and **Kontrol D2/S5/S8**
 
 **Contact:**
 
@@ -10,47 +10,48 @@
 
   - Preferences: Edit prefs file at Screens/Defines/Prefs.qml 
   - Global: Toggle between Open and Camelot key (toggle in prefs)
+  - Global: User defined phrase length (set in prefs)
   - Browser: Gauges for Key/BPM match (toggle in prefs)
   - Browser: Display 7 or 9 items on screen (toggle in prefs)
+  - Deck: Layout more closely resembles main Traktor layout
+  - Deck: All 9 data elements are configurable (set it prefs)
   - Deck: Spectrum colors (toggle in prefs)
-  - Deck: *EXPERIMENTAL* Beat/phase meter (toggle in prefs)
+  - Deck: Beat/phase meter (toggle in prefs)
   - Deck: Hide Album Art (toggle in prefs)
-  - Deck: Display keylock status
-  - Deck: Display key
-  - Deck: Display SYNC/MASTER status
-  - Deck: Display original BPM
+  - Deck: **NEW** Hot Cue bar which displays cue point names (toggle in prefs)
   - Deck: Added minute markers
-  - Deck: Added track comment (toggle in prefs)
-  - Deck: Toggle between beat countdown and beats from grid start (toggle in prefs)
-  - Deck: Always displays tempo offset
   - Deck: Darkened portion of stripe already played
-  - Deck: Time remaining to right of stripe (toggle in prefs)
   - FX: Added 2 additional lines
   - FX: Text now left-justified
 
 ## How to install
 
+**Download the mods:**
+
+  - At the top of the github page, click the green button labeled **Clone or download**
+  - Click **Download ZIP**
+  - Unzip the download if your operating system does not automatically
+
 **Mac:**
 
   - Quit Traktor
-  - Navigate to /Applications/Native Instruments/Traktor Pro 3
-  - Right click Traktor.app, then click Show Package Contents
-  - Navigate to Contents/Resources/qml
-  - Rename "Screens" folder to "ScreensBackup" 
-  - Copy "Screens" from download to this folder
+  - Navigate to **/Applications/Native Instruments/Traktor Pro 3**
+  - Right click **Traktor**, then click **Show Package Contents**
+  - Navigate to **Contents/Resources/qml**
+  - Rename the **Screens** folder to **ScreensBackup** 
+  - Copy the **Screens** folder from the download to this folder
   - Start Traktor
 
 **Windows:**
 
   - Quit Traktor
-  - Navigate to C:\Program Files\Native Instruments\Traktor Pro 3\Resources64\qml
-  - Make a backup of this directory!
-  - Rename "Screens" directory to "ScreensBackup"
-  - Copy "Screens" directory from download to this directory     
+  - Navigate to **C:\Program Files\Native Instruments\Traktor Pro 3\Resources64\qml
+  - Rename the **Screens** directory to *ScreensBackup**
+  - Copy the **Screens** directory from the download to this directory     
   - Start Traktor
 
 ## Screenshots
 
-![Deck](https://user-images.githubusercontent.com/757885/37592063-f58dec64-2b43-11e8-9727-1308d663786d.jpg)
-![Browser](https://user-images.githubusercontent.com/757885/45928219-371e9a80-bf0e-11e8-85b4-931cb41554a9.jpg))
+![Deck](https://user-images.githubusercontent.com/757885/47607125-e35e1000-d9e9-11e8-8005-36d73a504fa6.jpeg)
+![Browser](https://user-images.githubusercontent.com/757885/47607126-e6f19700-d9e9-11e8-95cd-b26d9b72ca34.jpeg)
 ![FX Browser](https://user-images.githubusercontent.com/757885/33605793-1ce1edb8-d989-11e7-861a-869e0d495d5e.jpg)

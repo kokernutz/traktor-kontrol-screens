@@ -25,7 +25,6 @@ Item {
   AppProperty { id: propMasterMixerBpm;      path: "app.traktor.decks." + (propSyncMasterDeck.value + 1) + ".tempo.base_bpm" }
 
   Defines.Colors { id: colors }
-  Defines.Font   { id: fonts  }
 
   Row {
     spacing: 2
@@ -38,7 +37,7 @@ Item {
 
       Rectangle {
         width:  (phaseMeter.width - 6) / 4
-        height: (phaseMeter.width - 6) / 4
+        height: phaseMeter.height
         radius: 2
 
         color: index == getBeat() ? (propSyncMasterDeck.value == deckId ? colors.color03Bright : "green") : "black"

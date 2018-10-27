@@ -145,7 +145,7 @@ Rectangle {
           text: ""
         }
 
-        Rectangle {
+        Text {
           id: divider
           height: 15
           width: 1
