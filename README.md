@@ -8,11 +8,12 @@
 
 **Changes from default screens:**
 
-  - Preferences: Edit prefs file at Screens/Defines/Prefs.qml 
+  - Preferences: Edit prefs file at qml/Screens/Defines/Prefs.qml 
   - Global: Toggle between Open and Camelot key (toggle in prefs)
   - Global: User defined phrase length (set in prefs)
   - Browser: Gauges for Key/BPM match (toggle in prefs)
   - Browser: Display 7 or 9 items on screen (toggle in prefs)
+  - Deck: Cycle through MixerFX on S5/S8 by pressing SHIFT-FILTER
   - Deck: Layout more closely resembles main Traktor layout
   - Deck: All 9 data elements are configurable (set it prefs)
   - Deck: Spectrum colors (toggle in prefs)
@@ -37,17 +38,17 @@
   - Quit Traktor
   - Navigate to **/Applications/Native Instruments/Traktor Pro 3**
   - Right click **Traktor**, then click **Show Package Contents**
-  - Navigate to **Contents/Resources/qml**
-  - Rename the **Screens** folder to **ScreensBackup** 
-  - Copy the **Screens** folder from the download to this folder
+  - Navigate to **Contents/Resources/**
+  - Rename the **qml** folder to **qmlBackup** 
+  - Copy the **qml** folder from the download into this folder
   - Start Traktor
 
 **Windows:**
 
   - Quit Traktor
-  - Navigate to **C:\Program Files\Native Instruments\Traktor Pro 3\Resources64\qml
-  - Rename the **Screens** directory to *ScreensBackup**
-  - Copy the **Screens** directory from the download to this directory     
+  - Navigate to **C:\Program Files\Native Instruments\Traktor Pro 3\Resources64\
+  - Rename the **qml** directory to *qmlBackup**
+  - Copy the **qml** directory from the download into this directory     
   - Start Traktor
 
 ## Screenshots
