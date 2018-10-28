@@ -1119,7 +1119,7 @@ Module
   //------------------------------------------------------------------------------------------------------------------
 
 
-colo  ButtonSection { name: "loop_pads";      buttons: 4; color: Color.Green; stateHandling: ButtonSection.External }
+  ButtonSection { name: "loop_pads";      buttons: 4; color: Color.Green; stateHandling: ButtonSection.External }
   ButtonSection { name: "beatjump_pads";  buttons: 4; color: Color.LightOrange }
 
   Wire { from: DirectPropertyAdapter { path:"mapping.settings.pad_loop_size.1"; input: false } to: "loop_pads.button1.value" }
