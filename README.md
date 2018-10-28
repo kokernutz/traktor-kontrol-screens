@@ -47,7 +47,7 @@
 
   - Quit Traktor
   - Navigate to **C:\Program Files\Native Instruments\Traktor Pro 3\Resources64\
-  - Rename the **qml** directory to *qmlBackup**
+  - Rename the **qml** directory to **qmlBackup**
   - Copy the **qml** directory from the download into this directory     
   - Start Traktor
 
