@@ -5,7 +5,7 @@ Module
   // input
   id: channel
   property int number:     1
-  property string surface: ""
+	property string surface: ""
   property bool shift:     false
 
   // helpers
@@ -23,9 +23,9 @@ Module
   Wire { from: surface_prefix + "cue";        to: DirectPropertyAdapter { path: app_prefix + "cue"               } }
 
   // level meter
-  LEDLevelMeter { name: "meter"; dBThresholds: [-30,-20,-10,-6,-4,-2,0,2,4,6,8] }
-  Wire { from: surface_prefix + "levelmeter"; to: "meter" }
-  Wire { from: "meter.level"; to: DirectPropertyAdapter { path: app_prefix + "level.prefader.linear.sum"; input: false } }
+	LEDLevelMeter { name: "meter"; dBThresholds: [-30,-20,-10,-6,-4,-2,0,2,4,6,8] }
+	Wire { from: surface_prefix + "levelmeter"; to: "meter" }
+	Wire { from: "meter.level"; to: DirectPropertyAdapter { path: app_prefix + "level.prefader.linear.sum"; input: false } }
 
   // xfader assign
   Wire { from: surface_prefix + "xfader_assign.left";  to: DirectPropertyAdapter { path: app_prefix + "xfader_assign.left"   } }

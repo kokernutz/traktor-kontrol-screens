@@ -73,6 +73,7 @@ Module
   // Grid Adjust //
   AppProperty { id: enableTick; path: "app.traktor.decks." + module.deckIdx + ".track.grid.enable_tick"; }
   AppProperty { id: gridAdjust; path: "app.traktor.decks." + module.deckIdx + ".track.gridmarker.move"; }
+  AppProperty { id: gridLockedProp; path: "app.traktor.decks." + module.deckIdx + ".track.grid.lock_bpm" }
 
   MappingPropertyDescriptor 
   { 
@@ -85,7 +86,7 @@ Module
 
   Wire 
   { 
-    enabled: deckTypeSupportsGridAdjust(topDeckTypeProp.value)
+    enabled: deckTypeSupportsGridAdjust(topDeckTypeProp.value) && !gridLockedProp.value
     from: "%surface%.grid_adjust"; 
     to: HoldPropertyAdapter { path: propertiesPath + ".grid_adjust"; value: true} 
   }

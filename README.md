@@ -13,13 +13,13 @@
   - Global: User defined phrase length (set in prefs)
   - Browser: Gauges for Key/BPM match (toggle in prefs)
   - Browser: Display 7 or 9 items on screen (toggle in prefs)
-  - Deck: Cycle through MixerFX on S5/S8 by pressing SHIFT-FILTER
+  - Deck: Cycle through MixerFX on S5 by pressing SHIFT + FILTER-ON/OFF
   - Deck: Layout more closely resembles main Traktor layout
   - Deck: All 9 data elements are configurable (set it prefs)
   - Deck: Spectrum colors (toggle in prefs)
   - Deck: Beat/phase meter (toggle in prefs)
   - Deck: Hide Album Art (toggle in prefs)
-  - Deck: **NEW** Hot Cue bar which displays cue point names (toggle in prefs)
+  - Deck: **NEW** Hot Cue bar w/cue point names (toggle in prefs)
   - Deck: Added minute markers
   - Deck: Darkened portion of stripe already played
   - FX: Added 2 additional lines

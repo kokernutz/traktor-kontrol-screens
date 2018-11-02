@@ -14,10 +14,11 @@ Module
   property int padsMode: 0
   property int deckIdx: 0
   property int deckType: deckTypeProp.value
+  property bool deckPlaying: deckPlayingProp.value
   property bool isEncoderInUse: samples.isSlotSelected || stems.isStemSelected
   property bool isLinkedDeckEncoderInUse: false
-  property bool navigateFavoritesOnShift: false
   property var deckColor: S4MK3Functions.colorForDeck(deckIdx)
+  property bool hapticHotcuesEnabled: true
 
   MappingPropertyDescriptor {
     id: deckColorProp
@@ -32,8 +33,15 @@ Module
     path: "app.traktor.decks." + deckIdx + ".type";
   }
 
+  AppProperty
+  {
+    id: deckPlayingProp;
+    path: "app.traktor.decks." + deckIdx + ".play";
+  }
+
   AppProperty { id: gridAdjust; path: "app.traktor.decks." + module.deckIdx + ".track.gridmarker.move" ; }
   AppProperty { id: enableTick; path: "app.traktor.decks." + module.deckIdx + ".track.grid.enable_tick"; }
+  AppProperty { id: gridLockedProp; path: "app.traktor.decks." + module.deckIdx + ".track.grid.lock_bpm" }
 
   MappingPropertyDescriptor 
   { 
@@ -46,16 +54,21 @@ Module
 
   //----------------------------------- Grid Adjust------------------------------------//
 
-  Wire 
+  readonly property bool gridAdjustAvailable: module.active
+                                              && jogMode.value === JogwheelMode.Jogwheel
+                                              && S4MK3Functions.deckTypeSupportsGridAdjust(deckType)
+                                              && !gridLockedProp.value;
+
+  Wire
   { 
-    enabled: jogMode.value === JogwheelMode.Jogwheel && module.active && S4MK3Functions.deckTypeSupportsGridAdjust(deckType);
+    enabled: gridAdjustAvailable;
     from: "%surface%.grid_adjust"; 
     to: HoldPropertyAdapter { path: deckPropertiesPath + ".grid_adjust"; value: true; color: module.deckColor }
   }
 
   Wire
   {
-    enabled: jogMode.value === JogwheelMode.Jogwheel && module.active && gridAdjustEnableProp.value;
+    enabled: gridAdjustAvailable && gridAdjustEnableProp.value;
     from: "%surface%.jogwheel.rotation"; 
     to: EncoderScriptAdapter 
     {
@@ -98,7 +111,8 @@ Module
       Wire { from: "%surface%.jogwheel.mode";     to: "turntable.mode"     }
       Wire { from: "%surface%.jogwheel.mode";     to: DirectPropertyAdapter { path: deckPropertiesPath + ".jog_mode" }    }
       Wire { from: "%surface%.jogwheel.pitch";    to: "turntable.pitch"    }
-      Wire { from: "%surface%.shift";    to: "turntable.shift"    }
+      Wire { from: "%surface%.shift";             to: "turntable.shift"    }
+      Wire { from: "%surface%.jogwheel.timeline"; to: "turntable.timeline"; enabled: module.hapticHotcuesEnabled }
 
       Wire
       {
@@ -106,6 +120,14 @@ Module
           to: "%surface%.jogwheel.motor_on"
           // motor_on is currenty also used to tell the HWS if taktor is playing in Jog Mode.
       }
+
+
+      Wire {
+          from: "%surface%.play";
+          to: "%surface%.jogwheel.motor_off";
+          enabled: module.shift && deckPlaying
+      }
+
       //Wire { from: "%surface%.jogwheel.motor_on"; to: "turntable.motor_on" }
 
       Wire {
@@ -117,7 +139,7 @@ Module
       Wire
       {
           from: DirectPropertyAdapter { path: deckPropertiesPath + ".deck_color"; input: false }
-          to: "%surface%.jogwheel.color"
+          to: "%surface%.jogwheel.led_color"
       }
 
       Wire
@@ -214,6 +236,5 @@ Module
     surface: module.surface
     deckIdx: module.deckIdx
     active: module.active && !samples.isSlotSelected && !module.isLinkedDeckEncoderInUse
-    navigateFavoritesOnShift: module.navigateFavoritesOnShift
   }
 }

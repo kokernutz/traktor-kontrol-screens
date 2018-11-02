@@ -14,7 +14,7 @@ Module
   property int bottomDeckIdx: 0 
   property alias shift: shiftProp
   property int focusedDeckIdx: topDeckFocus.value ? topDeckIdx : bottomDeckIdx
-  property bool navigateFavoritesOnShift: false
+  property bool hapticHotcuesEnabled: true
 
   //--------------------------HelperFunctions-----------------------------
 
@@ -132,7 +132,7 @@ Module
     shift: shiftProp.value
     deckIdx: topDeckIdx
     active: topDeckFocus.value
-    navigateFavoritesOnShift: module.navigateFavoritesOnShift
+    hapticHotcuesEnabled: module.hapticHotcuesEnabled
     onDeckTypeChanged:
     {
       updatePads();
@@ -153,7 +153,7 @@ Module
     shift: shiftProp.value
     deckIdx: bottomDeckIdx
     active: !topDeckFocus.value
-    navigateFavoritesOnShift: module.navigateFavoritesOnShift
+    hapticHotcuesEnabled: module.hapticHotcuesEnabled
     onDeckTypeChanged:
     { 
       updatePads();

@@ -23,9 +23,9 @@ Module
   { 
     enabled: module.active
         
-    Wire { from: "%surface%.reverse";   to: "transport.flux_reverse" } 
-    Wire { from: "%surface%.flux";      to: "transport.flux"   } 
-    Wire { from: "%surface%.play";      to: "transport.play"   }
+    Wire { from: "%surface%.reverse";   to: "transport.flux_reverse"    }
+    Wire { from: "%surface%.flux";      to: "transport.flux"            }
+    Wire { from: "%surface%.play";      to: "transport.play"            }
     Wire { from: "%surface%.sync";      to: "transport.sync"              ; enabled: !module.shift }
     Wire { from: "%surface%.master";    to: "transport.master"            ; enabled: !module.shift }
     Wire { from: "%surface%.cue";       to: "transport.cue"               ; enabled: !module.shift }

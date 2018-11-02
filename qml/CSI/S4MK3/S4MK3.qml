@@ -10,14 +10,6 @@ Mapping
   S4MK3 { name: "s4mk3" }
 
   // ----------------- Global Properties ------------------- //
-  
-  MappingPropertyDescriptor 
-  { 
-    id: navigateFavoritesOnShiftSetting;
-    path: "mapping.settings.browse_shift_fav_navigation"; 
-    type: MappingPropertyDescriptor.Boolean; 
-    value: true
-  }
 
   MappingPropertyDescriptor
   {
@@ -29,12 +21,12 @@ Mapping
 
   MappingPropertyDescriptor { path: "mapping.settings.tempo_fader_relative"; type: MappingPropertyDescriptor.Boolean; value: true; }
   
-  MappingPropertyDescriptor { path: "mapping.settings.haptic.ticks_density"; type: MappingPropertyDescriptor.Integer; value: 1; min: 0; max: 2 }
+  MappingPropertyDescriptor { path: "mapping.settings.haptic.ticks_density"; type: MappingPropertyDescriptor.Integer; value: 0; min: 0; max: 2 }
 
-  MappingPropertyDescriptor { path: "mapping.settings.haptic.tension"; type: MappingPropertyDescriptor.Integer; min: 0; max: 255 }
+  MappingPropertyDescriptor { path: "mapping.settings.haptic.tension"; type: MappingPropertyDescriptor.Integer; value: 50; min: 0; max: 255 }
+  Wire { from: "s4mk3.jogwheel.tension"; to: ValuePropertyAdapter { path: "mapping.settings.haptic.tension"; ignoreEvents: PinEvent.WireEnabled } }
 
-  Wire { from: "s4mk3.jogwheel.tension"; to: DirectPropertyAdapter { path: "mapping.settings.haptic.tension" } }
-
+  MappingPropertyDescriptor { id: hapticHotcuesEnabledProp; path: "mapping.settings.haptic.hotcues_enabled"; type: MappingPropertyDescriptor.Boolean; value: true }
 
   // ----------------- Mapping Modules ------------------- //
 
@@ -52,7 +44,7 @@ Mapping
     propertiesPath: "mapping.state.left"
     topDeckIdx: 1
     bottomDeckIdx: 3
-    navigateFavoritesOnShift: navigateFavoritesOnShiftSetting.value 
+    hapticHotcuesEnabled: hapticHotcuesEnabledProp.value
   }
 
   S4MK3Side
@@ -63,7 +55,7 @@ Mapping
     propertiesPath: "mapping.state.right"
     topDeckIdx: 2
     bottomDeckIdx: 4
-    navigateFavoritesOnShift: navigateFavoritesOnShiftSetting.value 
+    hapticHotcuesEnabled: hapticHotcuesEnabledProp.value
   }
 
   S4MK3DeckFX
