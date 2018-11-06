@@ -15,7 +15,7 @@ QtObject {
 	readonly property bool displayHotCueBar:		true
 	readonly property bool displayPhaseMeter:		true
 	readonly property bool spectrumWaveformColors:	true
- 	readonly property variant mixerFXNames:         ["FLTR", "MFX 1", "MFX 2", "MFX 3", "MFX 4"] // do not change FILTER
+ 	readonly property variant mixerFXNames:         ["FLTR", "MFX 1", "MFX 2", "MFX 3", "MFX 4"] // do not change FLTR
 
 	// deck header text (use -1 to turn off)
 

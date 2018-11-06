@@ -418,7 +418,7 @@ Item {
         text: "SYNC"
         color: isInSync ? (deckRunning.value ? colors.colorGrey24 : colors.colorDeckBlueBright) : colors.colorGrey128
         font.family: "Pragmatica MediumTT"
-        font.pixelSize: fonts.smallFontSize - 1
+        font.pixelSize: fonts.smallFontSize + 1
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
       }
@@ -438,7 +438,7 @@ Item {
         text: "MASTER"
         color: isMaster ? (deckRunning.value ? colors.colorGrey24 : colors.colorDeckBlueBright) : colors.colorGrey128
         font.family: "Pragmatica MediumTT"
-        font.pixelSize: fonts.smallFontSize
+        font.pixelSize: fonts.smallFontSize + 1
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
       }
@@ -458,7 +458,7 @@ Item {
         text: prefs.mixerFXNames[mixerFX.value]
         color: mixerFXOn.value ? colors.colorGrey40 : colors.mixerFXColors[mixerFX.value]
         font.family: "Pragmatica MediumTT"
-        font.pixelSize: fonts.smallFontSize
+        font.pixelSize: fonts.smallFontSize + 1
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
       }
@@ -477,7 +477,7 @@ Item {
         text: "LOOP "  + loopText[loopSizePos]
         color: colors.colorGrey200 // isMaster ? (deckRunning.value ? colors.colorGrey24 : colors.colorDeckBlueBright) : colors.colorGrey200
         font.family: "Pragmatica" //MediumTT"
-        font.pixelSize: fonts.smallFontSize
+        font.pixelSize: fonts.smallFontSize + 1
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
       }

@@ -28,7 +28,7 @@ Item {
 
   property color          keyMatchColor :         textColor
   property color          tempoMatchColor :       textColor
-  property int            browserFontSize:        prefs.displayMoreItems ? fonts.scale(14) : fonts.scale(15) 
+  property int            browserFontSize:        prefs.displayMoreItems ? fonts.scale(15) : fonts.scale(16)
 
   AppProperty { id: masterClockBpm;   path: "app.traktor.masterclock.tempo"; onValueChanged: { updateMatchInfo(); } }
   AppProperty { id: masterKeyDisplay; path: "app.traktor.decks." + (masterDeckId.value + 1) + ".track.key.key_for_display" ; onValueChanged: { updateMatchInfo(); }}
@@ -139,7 +139,7 @@ Item {
       anchors.topMargin: contactDelegate.textTopMargin
       horizontalAlignment: Text.AlignRight
       verticalAlignment: Text.AlignVCenter
-      width: 27
+      width: 29
       color: masterDeckId.value >= 0 ? tempoMatchColor : textColor
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? model.bpm.toFixed(0) : ""
@@ -192,7 +192,7 @@ Item {
       verticalAlignment: Text.AlignVCenter
 
       color: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? textColor : parent.colorForKey(model.keyIndex)) : textColor
-      width: 26
+      width: 28
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "-" : (prefs.camelotKey ? keyText[model.keyIndex] : model.key)) : ""
       font.pixelSize: browserFontSize
