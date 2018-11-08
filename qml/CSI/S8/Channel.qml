@@ -42,7 +42,7 @@ Module
 
   WiresGroup
   {
-    enabled: !channel.shift || (fxMode.value == FxMode.TwoFxUnits)
+    enabled: !channel.shift
     Wire { from: surface_prefix + "fx.assign.1"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.1"; } }
     Wire { from: surface_prefix + "fx.assign.2"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.2"; } }
   }
