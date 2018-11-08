@@ -14,6 +14,7 @@
   - Browser: Gauges for Key/BPM match (toggle in prefs)
   - Browser: Display 7 or 9 items on screen (toggle in prefs)
   - Deck: Cycle through MixerFX on S5 by pressing SHIFT + FILTER-ON/OFF
+  - Deck: Cycle through MixerFX on S8 by pressing SHIFT + FX arrow buttons (See below for more details)
   - Deck: Layout more closely resembles main Traktor layout
   - Deck: All 9 data elements are configurable (set it prefs)
   - Deck: Spectrum colors (toggle in prefs)
@@ -24,6 +25,10 @@
   - Deck: Darkened portion of stripe already played
   - FX: Added 2 additional lines
   - FX: Text now left-justified
+
+## MixerFX selection on S8
+  -If you are using 4 FX units then the filter must me ON in order for MixerFX selection,
+   otherwise if the filter is OFF then pressing SHIFT + FX arrow buttons will route the channel to FX units 3 & 4 respectively.
 
 ## How to install
 
