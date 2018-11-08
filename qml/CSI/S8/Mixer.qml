@@ -8,8 +8,8 @@ Module
 
   // Master Clock
 	MasterClock { name: "MasterTempo" }
-  Wire { from: "%surface%.mixer.tempo"; to: "MasterTempo.coarse"; enabled:  shift }
-  Wire { from: "%surface%.mixer.tempo"; to: "MasterTempo.fine";   enabled: !shift }
+  Wire { from: "%surface%.mixer.tempo"; to: "MasterTempo.coarse"; enabled:  !shift }
+  Wire { from: "%surface%.mixer.tempo"; to: "MasterTempo.fine";   enabled:   shift }
 
   // Channels
   Channel
