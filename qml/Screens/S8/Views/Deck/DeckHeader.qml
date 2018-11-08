@@ -470,12 +470,12 @@ Item {
       height: parent.height
       anchors.top: parent.top
       anchors.right: parent.right
-      color: colors.colorGrey40 // deckRunning.value && isMaster ? colors.colorDeckBlueBright : colors.colorGrey40
+      color: (headerPropertyLoopActive.value ? colors.color07Bright : colors.colorGrey40) // deckRunning.value && isMaster ? colors.colorDeckBlueBright : colors.colorGrey40
 
       Text {
         anchors.fill: parent
         text: "LOOP "  + loopText[loopSizePos]
-        color: colors.colorGrey200 // isMaster ? (deckRunning.value ? colors.colorGrey24 : colors.colorDeckBlueBright) : colors.colorGrey200
+        color: (headerPropertyLoopActive.value ? colors.colorGrey40 : colors.color07Bright) // isMaster ? (deckRunning.value ? colors.colorGrey24 : colors.colorDeckBlueBright) : colors.colorGrey200
         font.family: "Pragmatica" //MediumTT"
         font.pixelSize: fonts.smallFontSize + 1
         horizontalAlignment: Text.AlignHCenter
