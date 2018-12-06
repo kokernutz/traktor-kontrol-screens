@@ -133,7 +133,7 @@ Module
       Wire {
         from: "%surface%.jogwheel.haptic_ticks"
         to: DirectPropertyAdapter { path: "mapping.settings.haptic.ticks_density"; input: false }
-        enabled: jogMode.value === JogwheelMode.Jogwheel && !module.shift
+        enabled: (jogMode.value === JogwheelMode.Jogwheel || jogMode.value === JogwheelMode.CDJ) && !module.shift
       }
 
       Wire
@@ -228,6 +228,7 @@ Module
     deckIdx: module.deckIdx
     active: module.active
     shift: module.shift
+    canLock: jogMode.value != JogwheelMode.Turntable
   }
 
   S4MK3Browse

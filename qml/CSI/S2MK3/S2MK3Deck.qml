@@ -11,6 +11,7 @@ Module
   readonly property bool shift:               shiftProp.value
   readonly property int bottomDeckIdx:        (deckIdx + 2)
   property bool navigateFavoritesOnShift:     true
+  property bool scratchOnTouch:               true
 
   // Pads Mode //
   MappingPropertyDescriptor { id: padsModeProp; path: propertiesPath + ".pads_mode"; type: MappingPropertyDescriptor.Integer; value: PadsMode.disabled; }
@@ -161,14 +162,19 @@ Module
     shift: module.shift
   }
 
-  
-  Turntable { name: "turntable"; channel: module.deckIdx }
-  
-  Wire { enabled: !gridAdjustEnableProp.value; from: "%surface%.jogwheel"; to: "turntable" }
-  Wire { from: "%surface%.shift"; to: "turntable.shift" }
+  // Jogwheel //
 
+  Turntable { name: "turntable"; channel: module.deckIdx }
+
+  WiresGroup {
+    enabled: !gridAdjustEnableProp.value
+    Wire { from: "%surface%.jogwheel.rotation"; to: "turntable.rotation" }
+    Wire { from: "%surface%.jogwheel.speed"; to: "turntable.speed" }
+    Wire { from: "%surface%.jogwheel.touch"; to: "turntable.touch"; enabled: scratchOnTouch }
+    Wire { from: "%surface%.shift"; to: "turntable.shift" }
+  }
   
-  // loop move and size
+  // Loop move and size //
   Loop { name: "loop";  channel: module.deckIdx }
   Wire { from: "%surface%.loop_size"; to: "loop.autoloop"}
   Wire { from: "%surface%.loop_move"; to: "loop.move"; enabled: !module.shift}

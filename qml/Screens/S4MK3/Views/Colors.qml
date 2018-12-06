@@ -20,8 +20,8 @@ QtObject {
   property variant colorBlack:                  rgba (0, 0, 0, 255) 
 
   property variant colorDeckBrightGrey:         rgba (85, 85,  85,  255)
-  property variant colorDeckGrey:               rgba (60, 60,  60,  255)
-  property variant colorDeckDarkGrey:           rgba (28,   28,   28,   255)
+  property variant colorDeckGrey:               rgba (70, 70,  70,  255)
+  property variant colorDeckDarkGrey:           rgba (40, 40,  40,   255)
   
   property variant colorDeckBlueBright:         rgba(0, 136, 184, 255) 
   property variant colorWhite:                  rgba (255, 255, 255, 255)

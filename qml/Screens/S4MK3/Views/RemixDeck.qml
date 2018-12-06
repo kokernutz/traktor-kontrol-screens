@@ -99,23 +99,35 @@ Item {
         height: display.firstRowHeight
         width:  display.infoBoxesWidth
 
-        color:  deckInfo.shift ? ( deckInfo.rmxQuantizeOn ? colors.colorQuantizeOn : display.lightGray  ) : (deckInfo.rmxQuantizeOn ? colors.colorQuantizeOff : display.darkGray) 
+        color: deckInfo.shift ? display.lightGray : display.darkGray
         radius: display.boxesRadius
 
         Text {
-          text: deckInfo.rmxQuantizeIndex + "\u202FQ"
+          id: quantText
+          text: deckInfo.rmxQuantizeIndex
           font.pixelSize: 24
           font.family: "Roboto"
           font.weight: Font.Normal
-          color: deckInfo.shift ? ( deckInfo.rmxQuantizeOn ? colors.colorBlack : "white" ) : (deckInfo.rmxQuantizeOn ? "black" : "white" ) 
+          color: colors.colorWhite
           anchors.verticalCenter: parent.verticalCenter
-          anchors.rightMargin: display.textMargin
-          anchors.leftMargin:  display.textMargin
-          anchors.fill: parent
+          anchors.horizontalCenter: parent.horizontalCenter
+          
           horizontalAlignment: Text.AlignHCenter
           verticalAlignment: Text.AlignVCenter
         }
-        
+
+        //quantization of/off display (circle)
+        Text {
+          visible: deckInfo.rmxQuantizeOn
+          text: "\u25CF"
+          font.pixelSize: 24
+          font.family: "Roboto"
+          font.weight: Font.Normal
+          color: colors.hotcue.hotcue
+          anchors.left: quantText.right
+          anchors.leftMargin: 3
+          anchors.verticalCenter: parent.verticalCenter
+        }
       }
     }
 

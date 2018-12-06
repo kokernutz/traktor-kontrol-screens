@@ -8,6 +8,9 @@ Module
   property int deckIdx: 0 // Traktor deck 1..4
   property bool active: true
   property bool shift: false
+  property bool canLock: false
+
+  AppProperty { id: deckInSync; path: "app.traktor.decks." + deckIdx + ".sync.enabled" }
 
   TempoControl { name: "tempo_control"; channel: deckIdx; color: S4MK3Functions.colorForDeck(deckIdx) }
 
@@ -18,9 +21,9 @@ Module
   {
     enabled: module.active
 
-    Wire { from: "%surface%.sync"; to: "tempo_control.lock"; enabled: module.shift }
+    Wire { from: "%surface%.sync"; to: "tempo_control.lock"; enabled: module.shift && canLock }
     Wire { from: "%surface%.pitch.led"; to: "tempo_control.indicator" }
     Wire { from: "%surface%.pitch.fader"; to: "tempo_control.adjust"; enabled: !module.shift }
-    Wire { from: "%surface%.master";      to: "tempo_control.reset"           ; enabled: module.shift  }
+    Wire { from: "%surface%.master";      to: "tempo_control.reset"           ; enabled: module.shift && !deckInSync.value  }
   }
 }
