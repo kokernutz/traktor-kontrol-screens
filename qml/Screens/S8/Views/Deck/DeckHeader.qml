@@ -217,6 +217,8 @@ Item {
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
     elide:     Text.ElideRight
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.smallFontSize
     font.pixelSize:     fonts.largeFontSize // set in state
     anchors.top:        parent.top
     anchors.left:       cover_small.right
@@ -237,7 +239,9 @@ Item {
     textState:  topCenterState
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
-    font.pixelSize: fonts.largeFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.smallFontSize
+    font.pixelSize:     fonts.largeFontSize
     anchors.top:          parent.top
     anchors.right:        top_right_text.left
     horizontalAlignment: Text.AlignRight
@@ -257,7 +261,9 @@ Item {
     textState:  topRightState
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
-    font.pixelSize: fonts.largeFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.smallFontSize
+    font.pixelSize:     fonts.largeFontSize
     anchors.top:          parent.top
     anchors.right:        parent.right
     anchors.rightMargin:  rightFieldMargin
@@ -278,6 +284,8 @@ Item {
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     elide:      Text.ElideRight
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
     font.pixelSize:     fonts.middleFontSize
     anchors.top:        top_left_text.bottom
     anchors.left:       cover_small.right
@@ -300,7 +308,9 @@ Item {
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     anchors.top:          top_middle_text.bottom
     anchors.right:        middle_right_text.left
     horizontalAlignment: Text.AlignRight
@@ -323,7 +333,9 @@ Item {
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     opacity:    _intSetInState          // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
     onTextChanged: {updateHeader()}
@@ -343,6 +355,8 @@ Item {
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
     font.pixelSize:     fonts.middleFontSize
     anchors.top:        middle_left_text.bottom
     anchors.left:       cover_small.right
@@ -367,7 +381,9 @@ Item {
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     opacity: _intSetInState          // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
     Behavior on opacity             { NumberAnimation { duration: speed } }
@@ -389,7 +405,9 @@ Item {
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     opacity:    _intSetInState          // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
     Behavior on opacity             { NumberAnimation { duration: speed } }
