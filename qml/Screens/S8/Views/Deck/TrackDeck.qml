@@ -61,7 +61,7 @@ Item {
     isInEditMode:         trackDeck.isInEditMode
     stemStyle:            trackDeck.stemStyle
 
-    anchors.topMargin:    30
+    anchors.topMargin:    prefs.displayDeckIndicators || prefs.displayPhaseMeter ? 30 : 7
     anchors.bottomMargin: 5
 
     // the height of the waveform is defined as the remaining space of deckHeight - stripe.height - spacerWaveStripe.height
