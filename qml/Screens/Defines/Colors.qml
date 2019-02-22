@@ -17,7 +17,6 @@ QtObject {
   property variant colorMixerFXBlue:            rgba(92, 201, 238, 255)
   property variant colorMixerFXYellow:          rgba(254, 217, 36, 255)
 
-
   property variant colorBlack:                  rgba (0, 0, 0, 255)
   property variant colorBlack94:                rgba (0, 0, 0, 240)
   property variant colorBlack88:                rgba (0, 0, 0, 224)
@@ -99,6 +98,7 @@ QtObject {
 
   property variant colorRed:                    rgba(255, 0, 0, 255)
   property variant colorRed70:                  rgba(185, 6, 6, 255)
+
 
   // Playmarker
   property variant colorRedPlaymarker:          rgba(255, 0, 0, 255)

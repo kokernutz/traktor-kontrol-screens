@@ -87,30 +87,36 @@ Item {
         height: display.firstRowHeight
         width:  display.infoBoxesWidth
 
-        //border.width: 1
-        //border.color: colors.grayBackground
-        color: (deckInfo.isKeyLockOn && deckInfo.hasKey) ? 
-                      (deckInfo.shift ? colors.musicalKeyColors[deckInfo.keyIndex] : colors.musicalKeyDarkColors[deckInfo.keyIndex] ) 
-                          : (deckInfo.shift ? colors.colorDeckGrey : colors.colorDeckDarkGrey ) 
+        color: deckInfo.shift ? colors.colorDeckGrey : colors.colorDeckDarkGrey
         radius: display.boxesRadius
 
         Text {
+          id: keyText
           text: deckInfo.hasKey ? deckInfo.keyString : "No key"
           font.pixelSize: 24
           font.family: "Roboto"
-          font.weight: deckInfo.hasKey ? Font.Medium : Font.Normal
-          color: deckInfo.hasKey ? 
-                        ( deckInfo.isKeyLockOn ? colors.colorBlack : ( deckInfo.shift ? colors.musicalKeyColors[deckInfo.keyIndex] : colors.colorWhite ) )
-                        : ( deckInfo.shift ? colors.colorDeckDarkGrey : colors.colorDeckGrey )
-          anchors.fill: parent
-          horizontalAlignment: Text.AlignHCenter
-          verticalAlignment: Text.AlignVCenter
+          font.weight: Font.Normal
+          color: colors.colorWhite
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        //keylock circle
+        Text {
+          visible: deckInfo.isKeyLockOn && deckInfo.hasKey
+          text: "\u25CF"
+          font.pixelSize: 24
+          font.family: "Roboto"
+          font.weight: Font.Normal
+          color: colors.hotcue.hotcue
+          anchors.left: keyText.right
+          anchors.leftMargin: 3
+          anchors.verticalCenter: parent.verticalCenter
         }
       }
-
     } // first row
 
-
+    
     // SECOND ROW //
     RowLayout {
       id: secondRow

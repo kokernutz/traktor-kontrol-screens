@@ -22,6 +22,7 @@ Mapping
     propertiesPath: "state.left"
     deckIdx: 1
     navigateFavoritesOnShift: navigateFavoritesOnShiftSetting.value
+    scratchOnTouch: scratchOnTouchProp.value
   }
 
   S2MK3Deck
@@ -32,11 +33,13 @@ Mapping
     propertiesPath: "state.right"
     deckIdx: 2
     navigateFavoritesOnShift: navigateFavoritesOnShiftSetting.value
+    scratchOnTouch: scratchOnTouchProp.value
   }
 
   // ----------------- Global Properties ------------------- //
 
   MappingPropertyDescriptor { path: "mapping.settings.tempo_fader_relative"; type: MappingPropertyDescriptor.Boolean; value: true; }
+  MappingPropertyDescriptor { id: scratchOnTouchProp; path: "mapping.settings.scratch_on_touch"; type: MappingPropertyDescriptor.Boolean; value: true; }
 
   // --- Quant and Snap --- //
 

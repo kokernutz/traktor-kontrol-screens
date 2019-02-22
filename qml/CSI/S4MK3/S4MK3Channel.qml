@@ -29,10 +29,10 @@ Module
       brightness: (deckType.value == DeckType.Live) ? 1.0 : 0.0
     } 
   }
-                                              // offset full-scale by 1 to avoid artifact related clipping
-  LEDLevelMeter { name: "meter"; dBThresholds: [-42,-39,-35,-32,-29,-26,-23,-20,-17,-14,-11,-8,-5,-2,1] } 
+
+  LEDLevelMeter { name: "meter"; segments: 15 } 
   Wire { from: surface_prefix + "level_meter"; to: "meter" }
-  Wire { from: "meter.level"; to: DirectPropertyAdapter { path: app_prefix + "level.prefader.linear.sum"; input: false } }
+  Wire { from: "meter.level"; to: DirectPropertyAdapter { path: app_prefix + "level.prefader.linear.meter"; input: false } }
   
   // channel strip
   Wire { from: surface_prefix + "volume";               to: DirectPropertyAdapter { path: app_prefix + "volume"         } }
