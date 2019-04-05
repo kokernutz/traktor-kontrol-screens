@@ -567,34 +567,11 @@ Item {
       cover_small.opacity       = 0;
       cover_small.width         = 0;
       cover_small.height        = cover_small.width;
-      cover_innerBorder.opacity = 0;
     } else {
       cover_small.opacity       = 1;
       cover_small.width         = prefs.displayAlbumCover ? largeHeaderHeight - 2 : 0;
       cover_small.height        = prefs.displayAlbumCover ? largeHeaderHeight - 2 : 0;
-      cover_innerBorder.opacity = (!isLoaded || (headerPropertyCover.value == "")) ? 0 :1;
     }
-  }
-
-  Rectangle {
-    id: blackBorder
-    color: "black"
-    anchors.fill: cover_small
-    anchors.margins: -1
-  }
-
-  DropShadow {
-    anchors.fill: blackBorder
-    cached: false
-    fast: false
-    horizontalOffset: 0
-    verticalOffset: 0
-    radius: 3.0
-    samples: 32
-    spread: 0.5
-    color: "#000000"
-    transparentBorder: true
-    source: blackBorder
   }
 
   Rectangle {
@@ -608,7 +585,6 @@ Item {
 
     // if no cover can be found: blue / grey background (set in parent). Otherwise transparent
     opacity:  (headerPropertyCover.value == "") ? 1.0 : 0.0
-    //visible: headerState == "large" && (opacity == 1.0)
     color:  coverBgEmptyColors[deck_Id]
     Behavior on opacity { NumberAnimation { duration: speed } }
     Behavior on width { NumberAnimation { duration: speed } }
@@ -645,19 +621,6 @@ Item {
       Behavior on height   { NumberAnimation { duration: speed } }
     }
   }
-
-  Rectangle {
-    id: cover_innerBorder
-    color: "transparent"
-    border.width: 1
-    border.color: colors.colorWhite16
-    height: cover_small.height
-    width: height
-    anchors.top: cover_small.top
-    anchors.left: cover_small.left
-  }
-
-
 
   //--------------------------------------------------------------------------------------------------------------------
   //  Loop Size

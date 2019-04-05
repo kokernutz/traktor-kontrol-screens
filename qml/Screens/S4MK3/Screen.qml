@@ -30,6 +30,7 @@ Item {
   Defines.Utils  {id: utils}
   Defines.Durations {id: durations}
   Views.Colors {id: colors}
+  Defines.Prefs {id: prefs}
 
   width:  320
   height: 240

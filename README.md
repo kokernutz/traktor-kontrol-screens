@@ -1,4 +1,4 @@
-# Replacement screens for **Traktor Pro 3.1** and **Kontrol D2/S5/S8**
+# Replacement screens for **Traktor Pro 3.1** and **Kontrol D2/S5/S8 and S4 MK3**
 
 **Contact:**
 
@@ -6,21 +6,24 @@
   - MixCloud: [@kokernutz](http://mixcloud.com/kokernutz)
   - SoundCloud: [@kokernutz](http://soundcloud.com/kokernutz)
 
-**Changes from default screens:**
+**Changes for Kontrol D2/S5/S8 and S4 MK3**
 
-  - Preferences: Edit prefs file at qml/Screens/Defines/Prefs.qml 
+  - Preferences: Edit prefs file at qml/Screens/Defines/Prefs.qml
   - Global: Toggle between Open and Camelot key (toggle in prefs)
+
+**Changes from D2/S5/S8 default screens:**
+
   - Global: User defined phrase length (set in prefs)
   - Browser: Gauges for Key/BPM match (toggle in prefs)
   - Browser: Display 7 or 9 items on screen (toggle in prefs)
   - Deck: Cycle through MixerFX on S5 by pressing SHIFT + FILTER-ON/OFF
-  - Deck: **NEW** Press SHIFT + FLUX to engage flux reverse
+  - Deck: Press SHIFT + FLUX to engage flux reverse
   - Deck: Layout more closely resembles main Traktor layout
   - Deck: All 9 data elements are configurable (set it prefs)
   - Deck: Spectrum colors (toggle in prefs)
   - Deck: Beat/phase meter (toggle in prefs)
   - Deck: Hide Album Art (toggle in prefs)
-  - Deck: **NEW** Hot Cue bar w/cue point names (toggle in prefs)
+  - Deck: Hot Cue bar w/cue point names (toggle in prefs)
   - Deck: Added minute markers
   - Deck: Darkened portion of stripe already played
   - FX: Added 2 additional lines
