@@ -33,6 +33,7 @@ Item {
 
   readonly property variant loopText:           ["/32", "/16", "1/8", "1/4", "1/2", "1", "2", "4", "8", "16", "32"]
   readonly property variant emptyDeckCoverColor:["Blue", "Blue", "White", "White"] // deckId = 0,1,2,3
+  readonly property variant deckIconColor:      ["Blue", "Blue", "Grey", "Grey"]
 
   // these variables can not be changed from outside
   readonly property int speed: 40  // Transition speed
@@ -41,7 +42,8 @@ Item {
 
   readonly property int rightFieldMargin: 2
   readonly property int fieldHeight:      20
-  readonly property int fieldWidth:       78
+  readonly property int rightFieldWidth:  68
+  readonly property int centerFieldWidth: 60
   readonly property int topRowHeight:     24
   readonly property int bottomRowsHeight: 19
 
@@ -217,6 +219,8 @@ Item {
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
     elide:     Text.ElideRight
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.smallFontSize
     font.pixelSize:     fonts.largeFontSize // set in state
     anchors.top:        parent.top
     anchors.left:       cover_small.right
@@ -232,12 +236,14 @@ Item {
     id: top_middle_text
     deckId: deck_Id
     explicitName: ""
-    width: fieldWidth
+    width: centerFieldWidth
     height: topRowHeight
     textState:  topCenterState
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
-    font.pixelSize: fonts.largeFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.smallFontSize
+    font.pixelSize:     fonts.largeFontSize
     anchors.top:          parent.top
     anchors.right:        top_right_text.left
     horizontalAlignment: Text.AlignRight
@@ -252,12 +258,14 @@ Item {
     id: top_right_text
     deckId: deck_Id
     explicitName: ""
-    width: fieldWidth 
+    width: rightFieldWidth
     height: topRowHeight
     textState:  topRightState
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
-    font.pixelSize: fonts.largeFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.smallFontSize
+    font.pixelSize:     fonts.largeFontSize
     anchors.top:          parent.top
     anchors.right:        parent.right
     anchors.rightMargin:  rightFieldMargin
@@ -278,10 +286,12 @@ Item {
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     elide:      Text.ElideRight
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
     font.pixelSize:     fonts.middleFontSize
     anchors.top:        top_left_text.bottom
     anchors.left:       cover_small.right
-    anchors.right:      top_middle_text.left
+    anchors.right:      deckType == DeckType.Remix || !prefs.displayDeckIndicators ? metronome_icon.left : middle_center_text.left
     anchors.leftMargin: 5
     anchors.rightMargin: 5
     verticalAlignment: Text.AlignVCenter
@@ -292,7 +302,7 @@ Item {
     id: middle_center_text
     deckId: deck_Id
     explicitName: ""
-    width: fieldWidth
+    width: centerFieldWidth
     height: bottomRowsHeight
     textState:  middleCenterState
     visible: isLoaded
@@ -300,7 +310,9 @@ Item {
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     anchors.top:          top_middle_text.bottom
     anchors.right:        middle_right_text.left
     horizontalAlignment: Text.AlignRight
@@ -313,7 +325,7 @@ Item {
     id: middle_right_text
     deckId: deck_Id
     explicitName: ""
-    width: fieldWidth
+    width: rightFieldWidth
     height: bottomRowsHeight
     textState: middleRightState
     visible: isLoaded
@@ -323,7 +335,9 @@ Item {
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     opacity:    _intSetInState          // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
     onTextChanged: {updateHeader()}
@@ -332,9 +346,9 @@ Item {
 
   // third row
 
-  // extra_middle_left_text: BOTTOM LEFT
+  // BOTTOM LEFT
   DeckHeaderText {
-    id: extra_middle_left_text
+    id: bottom_left
     deckId: deck_Id
     explicitName: ""
     height: bottomRowsHeight
@@ -343,10 +357,12 @@ Item {
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
     font.pixelSize:     fonts.middleFontSize
-    anchors.top:        middle_left_text.bottom
+    anchors.bottom:        parent.bottom
     anchors.left:       cover_small.right
-    anchors.right:      original_tempo.left
+    anchors.right:      deckType == DeckType.Remix || !prefs.displayDeckIndicators ? loop_size.left : bottom_center.left
     anchors.leftMargin: 5
     anchors.rightMargin: 5
     verticalAlignment: Text.AlignVCenter
@@ -361,13 +377,15 @@ Item {
     height: bottomRowsHeight
     textState: bottomCenterState
     visible: isLoaded
-    width:  fieldWidth
+    width:  centerFieldWidth
     anchors.bottom:           parent.bottom
     anchors.right:            bottom_right.left
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     opacity: _intSetInState          // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
     Behavior on opacity             { NumberAnimation { duration: speed } }
@@ -381,7 +399,7 @@ Item {
     explicitName: ""
     textState: bottomRightState
     visible: isLoaded
-    width:  fieldWidth
+    width:  rightFieldWidth
     height: bottomRowsHeight
     anchors.bottom: parent.bottom
     anchors.right:        parent.right
@@ -389,26 +407,70 @@ Item {
     color:      textState == 17 || textState == 18 || textState == 31 ? 
       parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
     opacity:    _intSetInState          // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
     Behavior on opacity             { NumberAnimation { duration: speed } }
   }
 
+  // LOOP SIZE INDICATOR (CIRCLE)
+  Widgets.SpinningWheel {
+    id: loop_size
+    visible: isLoaded && ( deckType == DeckType.Remix || !prefs.displayDeckIndicators )
+    anchors.top: middle_center_text.bottom
+    anchors.topMargin: 1
+    anchors.right: bottom_center.left
+    anchors.rightMargin: 0
+
+    width: 22
+    height: 22
+
+    spinning: false
+    opacity: loop_size.opacity
+    textColor: headerPropertyLoopActive.value ? colors.colorGreen50 : textColors[deck_Id]
+    Behavior on opacity             { NumberAnimation { duration: speed } }
+    Behavior on anchors.rightMargin { NumberAnimation { duration: speed } }
+
+    Text {
+      id: numberText
+      text: loopText[loopSizePos]
+      color: headerPropertyLoopActive.value ? colors.colorGreen : textColors[deck_Id]
+      font.pixelSize: fonts.scale((loopSizePos < 5) ? fonts.miniFontSize : fonts.smallFontSize);
+      font.family: "Pragmatica MediumTT"
+      anchors.fill: loop_size
+      anchors.topMargin: 2
+      horizontalAlignment: Text.AlignHCenter
+      verticalAlignment:   Text.AlignVCenter
+    }
+  }
+
+  // TEMPO MASTER (METRONOME) ICON
+  Image {
+    id: metronome_icon
+    anchors.top: top_middle_text.bottom
+    anchors.right: middle_center_text.left
+    anchors.rightMargin: 4
+    anchors.topMargin: 3
+    visible: isLoaded && isMaster && ( deckType == DeckType.Remix || !prefs.displayDeckIndicators )
+    source: "./../Images/DeckIconMetronome" + deckIconColor[deckId] + ".png"
+  }
+
   MappingProperty { id: showBrowserOnTouch; path: "mapping.settings.show_browser_on_touch"; onValueChanged: { updateExplicitDeckHeaderNames() } }
 
   // deck header footer
-
   Item {
     id: deck_header_footer
     height: fieldHeight
     width: parent.width
     anchors.top: deck_header.bottom
-    anchors.topMargin: 5
+    anchors.topMargin: prefs.displayDeckIndicators || prefs.displayPhaseMeter ? 5 : 0
 
     Rectangle {
       id: sync_indicator
       width: 62
+      visible: prefs.displayDeckIndicators
       height: parent.height
       anchors.top: parent.top
       color: deckRunning.value && isInSync ? colors.colorDeckBlueBright : colors.colorGrey40
@@ -427,6 +489,7 @@ Item {
     Rectangle {
       id: master_indicator
       width: 62
+      visible: prefs.displayDeckIndicators
       height: parent.height
       anchors.top: parent.top
       anchors.left: sync_indicator.right
@@ -447,6 +510,7 @@ Item {
     Rectangle {
       id: mixerfx_indicator
       width: 62
+      visible: prefs.displayDeckIndicators
       height: parent.height
       anchors.top: parent.top
       anchors.right: loop_indicator.left
@@ -467,6 +531,7 @@ Item {
     Rectangle {
       id: loop_indicator
       width: 62
+      visible: prefs.displayDeckIndicators
       height: parent.height
       anchors.top: parent.top
       anchors.right: parent.right
@@ -494,7 +559,7 @@ Item {
       // opacity: (isLoaded && headerState != "small" && hasTrackStyleHeader(deckType)) ? 1 : 0
     }
 
-    visible: isLoaded
+    visible: isLoaded && deckType != DeckType.Remix && ( prefs.displayDeckIndicators || prefs.displayPhaseMeter )
     Behavior on opacity { NumberAnimation { duration: speed } }
   }
 
@@ -730,7 +795,7 @@ Item {
       PropertyChanges { target: middle_center_text; opacity: 0; }
       PropertyChanges { target: middle_right_text;  opacity: 0; }
 
-      PropertyChanges { target: extra_middle_left_text;   opacity: 0; }
+      PropertyChanges { target: bottom_left;   opacity: 0; }
       PropertyChanges { target: bottom_center;   opacity: 0; }
 
       PropertyChanges { target: deck_header_footer;        opacity: 0; }
@@ -754,7 +819,7 @@ Item {
 
       PropertyChanges { target: middle_right_text;  opacity: 1; }
 
-      PropertyChanges { target: extra_middle_left_text; opacity: 1; }
+      PropertyChanges { target: bottom_left; opacity: 1; }
       PropertyChanges { target: bottom_center;  opacity: 1; }
 
       PropertyChanges { target: deck_header_footer;         opacity: 1; }
