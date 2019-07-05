@@ -90,7 +90,7 @@ Item {
   //  DECK PROPERTIES
   //--------------------------------------------------------------------------------------------------------------------
 
-  AppProperty { id: deckKeyDisplay;     path: "app.traktor.decks." + (deckId+1) + ".track.key.key_for_display"; onValueChanged: { updateKeyColor() } }
+  AppProperty { id: deckKeyDisplay;     path: "app.traktor.decks." + (deckId+1) + ".track.key.resulting.precise"; onValueChanged: { updateKeyColor() } }
   AppProperty { id: propMusicalKey;     path: "app.traktor.decks." + (deckId+1) + ".content.musical_key" }
   AppProperty { id: propSyncMasterDeck; path: "app.traktor.masterclock.source_id" }
 

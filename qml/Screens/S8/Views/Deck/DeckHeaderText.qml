@@ -185,7 +185,7 @@ Text {
     State { 
       name: "key"; 
       PropertyChanges { target: header_text; font.family: fontForNumber;
-                        text:   (!isLoaded)?"":propMusicalKey.value.toString(); }
+                        text:   (!isLoaded)?"":deckKeyDisplay.value.toString(); }
     },
     State { 
       name: "keyText"; 

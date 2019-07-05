@@ -18,7 +18,7 @@ CenterOverlay {
 
   AppProperty { id: keyValue;   path: "app.traktor.decks." + (deckId+1) + ".track.key.adjust" }
   AppProperty { id: keyEnable;  path: "app.traktor.decks." + (deckId+1) + ".track.key.lock_enabled" }
-  AppProperty { id: keyDisplay; path: "app.traktor.decks." + (deckId+1) + ".track.key.key_for_display" }
+  AppProperty { id: keyDisplay; path: "app.traktor.decks." + (deckId+1) + ".track.key.resulting.precise" }
 
   property real key:    keyValue.value * 12
   property int  offset: (key.toFixed(2) - key.toFixed(0)) * 100.0
