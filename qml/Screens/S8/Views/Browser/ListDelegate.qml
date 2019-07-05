@@ -31,7 +31,7 @@ Item {
   property int            browserFontSize:        prefs.displayMoreItems ? fonts.scale(15) : fonts.scale(16)
 
   AppProperty { id: masterClockBpm;   path: "app.traktor.masterclock.tempo"; onValueChanged: { updateMatchInfo(); } }
-  AppProperty { id: masterKeyDisplay; path: "app.traktor.decks." + (masterDeckId.value + 1) + ".track.key.key_for_display" ; onValueChanged: { updateMatchInfo(); }}
+  AppProperty { id: masterKeyDisplay; path: "app.traktor.decks." + (masterDeckId.value + 1) + ".track.key.resulting.precise" ; onValueChanged: { updateMatchInfo(); }}
   AppProperty { id: masterDeckId;     path: "app.traktor.masterclock.source_id"; onValueChanged: { updateMatchInfo(); } }
 
   height: prefs.displayMoreItems ? 25 : 32
