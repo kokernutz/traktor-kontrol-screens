@@ -27,9 +27,9 @@ Item
   readonly property bool    hightlightLoop:       !shift
   readonly property bool    hightlightKey:        shift
   readonly property int     isLoaded:             (propTrackLength.value > 0) || (deckType === DeckType.Remix)
-  readonly property string  keyString:            propKeyForDisplay.value
-  readonly property int     keyIndex:             propFinalKeyId.value
-  readonly property bool    hasKey:               isLoaded && keyIndex >= 0
+  readonly property string  resultingKeyStr:      prefs.camelotKey ? utils.convertToCamelot(propKeyForDisplay.value) : propKeyForDisplay.value // propKeyForDisplay.value
+  readonly property int     resultingKeyIdx:      propFinalKeyId.value 
+  readonly property bool    hasKey:               isLoaded && resultingKeyIdx >= 0
   readonly property bool    isKeyLockOn:          propKeyLockOn.value
   readonly property bool    loopActive:           propLoopActive.value
   readonly property string  loopSizeString:       loopSizeText[propLoopSizeIdx.value]
@@ -43,14 +43,15 @@ Item
   readonly property bool    touchLoop:            false // TODO map shift encoder touch event
 
   readonly property int     deckType:             propDeckType.value
-  readonly property string  keyAdjustString:      (keyAdjustVal < 0 ? "" : "+") + (keyAdjustVal).toFixed(1).toString()
+  readonly property string  keyAdjustFloatText:   (keyAdjustVal < 0 ? "" : "+") + keyAdjustVal.toFixed(2).toString()
+  readonly property string  keyAdjustIntText:     (keyAdjustVal < 0 ? "" : "+") + keyAdjustVal.toFixed(0).toString()
   readonly property real    keyAdjustVal:         propKeyAdjust.value*12
   readonly property variant loopSizeText:         ["1/32", "1/16", "1/8", "1/4", "1/2", "1", "2", "4", "8", "16", "32"]
 
   AppProperty { id: propDeckType;               path: "app.traktor.decks." + deckId + ".type" }
   AppProperty { id: propTitle;                  path: "app.traktor.decks." + deckId + ".content.title" }
   AppProperty { id: propArtist;                 path: "app.traktor.decks." + deckId + ".content.artist" }
-  AppProperty { id: propKeyForDisplay;          path: "app.traktor.decks." + deckId + ".track.key.key_for_display" }
+  AppProperty { id: propKeyForDisplay;          path: "app.traktor.decks." + deckId + ".track.key.resulting.quantized" }
   AppProperty { id: propFinalKeyId;             path: "app.traktor.decks." + deckId + ".track.key.final_id" }
   AppProperty { id: propKeyAdjust;              path: "app.traktor.decks." + deckId + ".track.key.adjust" }
   AppProperty { id: propKeyLockOn;              path: "app.traktor.decks." + deckId + ".track.key.lock_enabled" }

@@ -81,43 +81,57 @@ Item {
       }
 
       // KEY DISPLAY //
-      Rectangle {
-        id: keyBox
-        
-        height: display.firstRowHeight
-        width:  display.infoBoxesWidth
+      Item {
+          id: keyDisplay
 
-        color: deckInfo.shift ? colors.colorDeckGrey : colors.colorDeckDarkGrey
-        radius: display.boxesRadius
+          property var keyColor: deckInfo.hasKey ? colors.musicalKeyColors[deckInfo.resultingKeyIdx] : colors.colorBlack
 
-        Text {
-          id: keyText
-          // text: deckInfo.hasKey ? deckInfo.keyString : "No key"
-          text: deckInfo.hasKey ? (prefs.camelotKey ? utils.convertToCamelot(deckInfo.keyString) : deckInfo.keyString) : "No key"
-          font.pixelSize: 24
-          font.family: "Roboto"
-          font.weight: Font.Normal
-          color: colors.colorWhite
-          anchors.verticalCenter: parent.verticalCenter
-          anchors.horizontalCenter: parent.horizontalCenter
-        }
+          // key box background color
+          property var bgKeyOn: deckInfo.hasKey ? colors.opacity( keyColor, 0.3 ) : colors.opacity( colors.colorEnabledCyan, 0.7 )
+          property var bgKeyOnShift: deckInfo.hasKey ? colors.opacity( keyColor, 0.5 ) : colors.opacity( colors.colorEnabledCyan, 1.0 )
+          property var bgKeyOff: colors.colorDeckDarkGrey
+          property var bgKeyOffShift: colors.colorDeckGrey
+          property var backgroundColor: deckInfo.isKeyLockOn ? ( deckInfo.shift ? bgKeyOnShift   : bgKeyOn  ) :
+                                                               ( deckInfo.shift ? bgKeyOffShift  : bgKeyOff )
 
-        //keylock circle
-        Text {
-          visible: deckInfo.isKeyLockOn && deckInfo.hasKey
-          text: "\u25CF"
-          font.pixelSize: 24
-          font.family: "Roboto"
-          font.weight: Font.Normal
-          color: colors.hotcue.hotcue
-          anchors.left: keyText.right
-          anchors.leftMargin: 3
-          anchors.verticalCenter: parent.verticalCenter
-        }
+          // key text color
+          property var textColor: deckInfo.isKeyLockOn ? keyColor : colors.colorWhite
+
+          // key text string
+          readonly property real keyAdjustThreshold: 0.01
+          property bool isKeyAdjusted: deckInfo.isKeyLockOn && Math.abs(deckInfo.keyAdjustVal) > keyAdjustThreshold
+          property string keyLabelStr: deckInfo.hasKey ?
+                                           // Has Key
+                                           ( deckInfo.resultingKeyStr  + ( isKeyAdjusted && deckInfo.shift ? "  " + deckInfo.keyAdjustIntText : "" ) ) :
+                                           // Has No Key
+                                           ( isKeyAdjusted ? deckInfo.keyAdjustFloatText : "No key" )
+
+          height: display.firstRowHeight
+          width:  display.infoBoxesWidth
+
+          Rectangle {
+            id: keyBackground
+            color: keyDisplay.backgroundColor
+            radius: display.boxesRadius
+            anchors.fill: parent
+          }
+
+          Text {
+            id: keyText
+            text: keyDisplay.keyLabelStr
+            font.pixelSize: 24
+            font.family: "Roboto"
+            color: keyDisplay.textColor
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+          }
       }
+
+
     } // first row
 
-    
+
     // SECOND ROW //
     RowLayout {
       id: secondRow
@@ -139,7 +153,6 @@ Item {
           text: deckInfo.remainingTimeString
           font.pixelSize: 45
           font.family: "Roboto"
-          font.weight: Font.Medium
           color: trackEndBlinkTimer.blink ? "black": "white"
           anchors.fill: parent
           horizontalAlignment: Text.AlignHCenter
@@ -180,7 +193,6 @@ Item {
           text: deckInfo.loopSizeString
           font.pixelSize: 45
           font.family: "Roboto"
-          font.weight: Font.Medium
           color: deckInfo.loopActive ? "black" : ( deckInfo.shift ? colors.colorDeckGrey : colors.defaultTextColor )
           anchors.fill: parent
           horizontalAlignment: Text.AlignHCenter

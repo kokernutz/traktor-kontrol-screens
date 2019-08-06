@@ -4,6 +4,8 @@ QtObject {
 
   function rgba(r,g,b,a) { return Qt.rgba(  r/255. ,  g/255. ,  b/255. , a/255. ) }
   function darkerColor( c, factor ) { return Qt.rgba(factor*c.r, factor*c.g, factor*c.b, c.a); }
+  function opacity( c, factor ) { return Qt.rgba(c.r, c.g, c.b, factor * c.a); }
+
 
   property color defaultBackground:             "black"
   property color defaultTextColor:              "white"
@@ -26,9 +28,9 @@ QtObject {
   property variant colorDeckBlueBright:         rgba(0, 136, 184, 255) 
   property variant colorWhite:                  rgba (255, 255, 255, 255)
 
-  property variant colorQuantizeOn:             rgba ( 20, 255, 255, 170)
-  property variant colorQuantizeOff:            darkerColor(colorQuantizeOn, 0.7)
   property variant colorRed:                    rgba(255,0,80,255)
+
+  property variant colorEnabledCyan:            rgba(96, 220, 255, 255)
 
   //--------------------------------------------------------------------------------------------------------------------
 
@@ -265,49 +267,32 @@ QtObject {
   //  Musical Key coloring
   //--------------------------------------------------------------------------------------------------------------------
 
-  readonly property variant color01MusicalKey: rgba (255,  0,  0, 255) // not yet in use
-  readonly property variant color02MusicalKey: rgba (255,  64,  0, 255)
-  readonly property variant color03MusicalKey: rgba (255, 120,   0, 255) // not yet in use
-  readonly property variant color04MusicalKey: rgba (255, 200,   0, 255)
-  readonly property variant color05MusicalKey: rgba (255, 255,   0, 255)
-  readonly property variant color06MusicalKey: rgba (210, 255,   0, 255) // not yet in use
-  readonly property variant color07MusicalKey: rgba (  0, 255,   0, 255)
-  readonly property variant color08MusicalKey: rgba (  0, 255, 128, 255)
-  readonly property variant color09MusicalKey: colorDeckBlueBright // use the same color as for the browser selection
-  readonly property variant color10MusicalKey: rgba (  0, 100, 255, 255)
-  readonly property variant color11MusicalKey: rgba (  0,  40, 255, 255)
-  readonly property variant color12MusicalKey: rgba (128,   0, 255, 255)
-  readonly property variant color13MusicalKey: rgba (160,   0, 200, 255) // not yet in use
-  readonly property variant color14MusicalKey: rgba (240,   0, 200, 255)
-  readonly property variant color15MusicalKey: rgba (255,   0, 120, 255) // not yet in use
-  readonly property variant color16MusicalKey: rgba (248,   8,  64, 255)
-
   property variant musicalKeyColors: [
-    color15Bright,        //0   -11 c
-    color06Bright,        //1   -4  c#, db
-    color11MusicalKey,    //2   -13 d
-    color03Bright,        //3   -6  d#, eb
-    color09MusicalKey,    //4   -16 e
-    color01Bright,        //5   -9  f
-    color07MusicalKey,    //6   -2  f#, gb
-    color13Bright,        //7   -12 g
-    color04MusicalKey,    //8   -5  g#, ab
-    color10MusicalKey,    //9   -15 a
-    color02MusicalKey,    //10  -7  a#, bb
-    color08MusicalKey,    //11  -1  b
-    color03Bright,        //12  -6  cm
-    color09MusicalKey,    //13  -16 c#m, dbm
-    color01Bright,        //14  -9  dm
-    color07MusicalKey,    //15  -2  d#m, ebm
-    color13Bright,        //16  -12 em
-    color04MusicalKey,    //17  -5  fm
-    color10MusicalKey,    //18  -15 f#m, gbm
-    color02MusicalKey,    //19  -7  gm
-    color08MusicalKey,    //20  -1  g#m, abm
-    color15Bright,        //21  -11 am
-    color06Bright,        //22  -4  a#m, bbm
-    color11MusicalKey     //23  -13 bm
-  ]
+  rgba(255,  64, 235, 255),    //0   -11 c
+  rgba(153, 255,   0, 255),    //1   -4  c#, db
+  rgba( 81, 179, 254, 255),    //2   -13 d
+  rgba(250, 141,  41, 255),    //3   -6  d#, eb
+  rgba(  0, 232, 232, 255),    //4   -16 e
+  rgba(253,  74,  74, 255),    //5   -9  f
+  rgba( 64, 255,  64, 255),    //6   -2  f#, gb
+  rgba(225, 131, 255, 255),    //7   -12 g
+  rgba(255, 215,   0, 255),    //8   -5  g#, ab
+  rgba(  0, 202, 255, 255),    //9   -15 a
+  rgba(255, 101,  46, 255),    //10  -7  a#, bb
+  rgba(  0, 214, 144, 255),    //11  -1  b
+  rgba(250, 141,  41, 255),    //12  -6  cm
+  rgba(  0, 232, 232, 255),    //13  -16 c#m, dbm
+  rgba(253,  74,  74, 255),    //14  -9  dm
+  rgba( 64, 255,  64, 255),    //15  -2  d#m, ebm
+  rgba(213, 125, 255, 255),    //16  -12 em
+  rgba(255, 215,   0, 255),    //17  -5  fm
+  rgba(  0, 202, 255, 255),    //18  -15 f#m, gbm
+  rgba(255, 101,  46, 255),    //19  -7  gm
+  rgba(  0, 214, 144, 255),    //20  -1  g#m, abm
+  rgba(255,  64, 235, 255),    //21  -11 am
+  rgba(153, 255,   0, 255),    //22  -4  a#m, bbm
+  rgba( 86, 189, 254, 255)     //23  -13 bm
+]
 
   //this list will be filled with Component.onCompleted() based on musicalKeyColor (see further down)
   property variant musicalKeyDarkColors: []

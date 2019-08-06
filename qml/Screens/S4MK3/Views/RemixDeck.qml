@@ -123,7 +123,7 @@ Item {
           font.pixelSize: 24
           font.family: "Roboto"
           font.weight: Font.Normal
-          color: colors.hotcue.hotcue
+          color: colors.colorEnabledCyan
           anchors.left: quantText.right
           anchors.leftMargin: 3
           anchors.verticalCenter: parent.verticalCenter
@@ -151,7 +151,6 @@ Item {
           text: deckInfo.beatPositionString
           font.pixelSize: 45
           font.family: "Roboto"
-          font.weight: Font.Medium
           color: "white"
           anchors.fill: parent
           anchors.leftMargin: display.textMargin
@@ -178,7 +177,6 @@ Item {
           text: deckInfo.loopSizeString
           font.pixelSize: 45
           font.family: "Roboto"
-          font.weight: Font.Medium
           color: deckInfo.loopActive ? "black" : colors.defaultTextColor
           anchors.fill: parent
           anchors.leftMargin:   display.textMargin

@@ -17,11 +17,14 @@ CenterOverlay {
   //--------------------------------------------------------------------------------------------------------------------
 
   AppProperty { id: keyValue;   path: "app.traktor.decks." + (deckId+1) + ".track.key.adjust" }
+  AppProperty { id: keyId;      path: "app.traktor.decks." + (deckId+1) + ".track.key.final_id" }
   AppProperty { id: keyEnable;  path: "app.traktor.decks." + (deckId+1) + ".track.key.lock_enabled" }
-  AppProperty { id: keyDisplay; path: "app.traktor.decks." + (deckId+1) + ".track.key.key_for_display" }
+  AppProperty { id: keyDisplay; path: "app.traktor.decks." + (deckId+1) + ".track.key.resulting.precise" }
+  
 
   property real key:    keyValue.value * 12
   property int  offset: (key.toFixed(2) - key.toFixed(0)) * 100.0
+  property var keyColor: keyEnable.value && keyId.value >= 0 ? colors.musicalKeyColors[keyId.value] : colors.colorWhite
 
   //--------------------------------------------------------------------------------------------------------------------
 
@@ -56,18 +59,19 @@ CenterOverlay {
     }
   }
 
-  // value
+  // key
   Text {
     anchors.top:              parent.top
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.topMargin:        55
-    font.pixelSize:           fonts.extraLargeValueFontSize
+    font.pixelSize:           fonts.moreLargeValueFontSize
     font.family   :           "Pragmatica"
-    color:                    colors.colorWhite    
-  	text:  ((key<0)?"":"+") + key.toFixed(2).toString()
+    color:                    keylock.keyColor
+    opacity:                  (keyDisplay.value == "") ? 0 : 1
+    text:                     prefs.camelotKey ? utils.convertToCamelot(keyDisplay.value) : keyDisplay.value
   }
 
-  // key
+  // value
   Text {
     anchors.top:              parent.top
     anchors.right:            parent.right
@@ -77,8 +81,7 @@ CenterOverlay {
     font.family   :           "Pragmatica"
     font.capitalization: Font.AllUppercase
     color:                    colors.colorGrey104
-    opacity: (keyDisplay.value=="") ? 0 : 1
-    text:    "(" + (prefs.camelotKey ? utils.convertToCamelot(keyDisplay.value) : keyDisplay.value) + ((offset==0)?"":" ") + ")"
+    text:  ((key<0)?"":"+") + key.toFixed(2).toString()
   }
   
   // footline
