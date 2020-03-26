@@ -46,7 +46,7 @@ import QtQuick.Controls.Private 1.0
     \inqmlmodule QtQuick.Controls.Styles
     \ingroup controlsstyling
     \since 5.2
-    \brief Provides custom styling for StatusBar
+    \brief Provides custom styling for StatusBar.
 
     The status bar can be defined by overriding the background component and
     setting the content padding.

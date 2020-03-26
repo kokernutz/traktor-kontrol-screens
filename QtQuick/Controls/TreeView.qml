@@ -118,8 +118,8 @@ BasicTableView {
         z: -1
         propagateComposedEvents: true
         focus: true
-        // Note:  with boolean preventStealing we are keeping
-        // the flickable from eating our mouse press events
+        // If there is not a touchscreen, keep the flickable from eating our mouse drags.
+        // If there is a touchscreen, flicking is possible, but selection can be done only by tapping, not by dragging.
         preventStealing: !Settings.hasTouchScreen
 
         property var clickedIndex: undefined
@@ -323,8 +323,22 @@ BasicTableView {
                         modelAdaptor.collapse(modelIndex)
                     else
                         modelAdaptor.expand(modelIndex)
-                } else if (root.__activateItemOnSingleClick) {
-                    root.activated(modelIndex)
+                } else {
+                    if (Settings.hasTouchScreen) {
+                        // compensate for the fact that onPressed didn't select on press: do it here instead
+                        pressedIndex = modelAdaptor.mapRowToModelIndex(clickIndex)
+                        pressedColumn = __listView.columnAt(mouseX)
+                        selectOnRelease = false
+                        __listView.forceActiveFocus()
+                        __listView.currentIndex = clickIndex
+                        if (!clickedIndex)
+                            clickedIndex = pressedIndex
+                        mouseSelect(pressedIndex, mouse.modifiers, false)
+                        if (!mouse.modifiers)
+                            clickedIndex = pressedIndex
+                    }
+                    if (root.__activateItemOnSingleClick && !mouse.modifiers)
+                        root.activated(modelIndex)
                 }
                 root.clicked(modelIndex)
             }

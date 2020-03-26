@@ -24,7 +24,7 @@ Item {
 
   //--------------------------------------------------------------------------------------------------------------------
 
-  AppProperty     { id: primaryKey;        path: "app.traktor.decks."   + (deckId + 1) + ".track.content.primary_key"  }
+  AppProperty     { id: primaryKey;        path: "app.traktor.decks."   + (deckId + 1) + ".track.content.entry_key"  }
   AppProperty     { id: sampleRate;        path: "app.traktor.decks."   + (deckId + 1) + ".track.content.sample_rate"; onValueChanged: { updateLooping(); } }
   AppProperty     { id: propFluxState;     path: "app.traktor.decks."   + (deckId + 1) + ".flux.state"                 }
   AppProperty     { id: propFluxPosition;  path: "app.traktor.decks."   + (deckId + 1) + ".track.player.flux_position" }

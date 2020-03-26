@@ -204,7 +204,7 @@ Style {
                     gradient.addColorStop(1.0, "transparent");
                 } else {
                     // Draw the radial shine.
-                    gradient = ctx.createRadialGradient(width / 2, height / 2, width * 0.25, width / 2, height / 2, width * 0.25);
+                    gradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, width * 0.5 /* (same as height) */);
                     gradient.addColorStop(0.0, Qt.lighter(baseColor, 1.4));
                     gradient.addColorStop(1.0, "transparent");
                 }

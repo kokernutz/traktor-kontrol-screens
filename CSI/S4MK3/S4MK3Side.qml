@@ -1,6 +1,6 @@
 import CSI 1.0
 import "../../Defines"
-import "S4MK3Functions.js" as S4MK3Functions
+import "../Common/DeckHelpers.js" as Helpers
 
 /*
   This file represents a hardware module on the S4MK3
@@ -69,13 +69,13 @@ Module
   Wire
   {
     from: "%surface%.top_deck";
-    to: SetPropertyAdapter  { path: propertiesPath + ".top_deck_focus"; value: true; color: S4MK3Functions.colorForDeck(module.topDeckIdx) }
+    to: SetPropertyAdapter  { path: propertiesPath + ".top_deck_focus"; value: true; color: Helpers.colorForDeck(module.topDeckIdx) }
   } 
 
   Wire
   {
     from: "%surface%.bottom_deck";
-    to: SetPropertyAdapter  { path: propertiesPath + ".top_deck_focus"; value: false; color: S4MK3Functions.colorForDeck(module.bottomDeckIdx) }
+    to: SetPropertyAdapter  { path: propertiesPath + ".top_deck_focus"; value: false; color: Helpers.colorForDeck(module.bottomDeckIdx) }
   } 
 
   // Performace pads mode  //
@@ -96,14 +96,14 @@ Module
   {
     enabled: PadsMode.isPadsModeSupported(PadsMode.stems , focusedDeck().deckType);
     from: "%surface%.stems";
-    to: SetPropertyAdapter  { path: propertiesPath + ".pads_mode"; value: PadsMode.stems; color: S4MK3Functions.colorForDeck(focusedDeckIdx)   }
+    to: SetPropertyAdapter  { path: propertiesPath + ".pads_mode"; value: PadsMode.stems; color: Helpers.colorForDeck(focusedDeckIdx)   }
   } 
 
   Wire
   {
     enabled: PadsMode.isPadsModeSupported(PadsMode.hotcues, focusedDeck().deckType);
     from: "%surface%.hotcues";
-    to: SetPropertyAdapter  { path: propertiesPath + ".pads_mode"; value: PadsMode.hotcues; color: S4MK3Functions.colorForDeck(focusedDeckIdx) }
+    to: SetPropertyAdapter  { path: propertiesPath + ".pads_mode"; value: PadsMode.hotcues; color: Helpers.colorForDeck(focusedDeckIdx) }
   }
 
   Wire

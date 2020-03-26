@@ -122,6 +122,8 @@ Control {
     /*! The image label source as theme name.
         When an icon from the platform icon theme is found, this takes
         precedence over iconSource.
+
+        \include icons.qdocinc iconName
     */
     property string iconName: action ? action.iconName : ""
 
@@ -167,8 +169,10 @@ Control {
     activeFocusOnTab: true
 
     Keys.onPressed: {
-        if (event.key === Qt.Key_Space && !event.isAutoRepeat && !behavior.pressed)
+        if (event.key === Qt.Key_Space && !event.isAutoRepeat && !behavior.pressed) {
             behavior.keyPressed = true;
+            event.accepted = true;
+        }
     }
 
     onFocusChanged: if (!focus) behavior.keyPressed = false
@@ -178,6 +182,7 @@ Control {
             behavior.keyPressed = false;
             __action.trigger(button)
             behavior.toggle()
+            event.accepted = true;
         }
     }
 

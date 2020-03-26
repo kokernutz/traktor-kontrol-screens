@@ -47,7 +47,7 @@ import QtQuick.Controls.Private 1.0
     \since 5.1
     \ingroup viewsstyling
     \ingroup controlsstyling
-    \brief Provides custom styling for TabView
+    \brief Provides custom styling for TabView.
 
 \qml
     TabView {

@@ -46,7 +46,7 @@ import QtQuick.Controls.Private 1.0
     \inqmlmodule QtQuick.Controls.Styles
     \since 5.2
     \ingroup controlsstyling
-    \brief Provides custom styling for Switch
+    \brief Provides custom styling for Switch.
 
     Example:
     \qml

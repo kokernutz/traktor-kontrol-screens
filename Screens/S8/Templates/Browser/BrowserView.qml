@@ -149,7 +149,7 @@ Templates.View {
       Rectangle { 
         color: ( (contentList.count + index)%2 == 0) ? colors.colorGrey08 : "transparent"
         width: qmlBrowser.width; 
-        height: prefs.displayMoreItems ? 25 : 32 }
+        height: prefs.displayMoreItems ? 25 : 33 }
     }
   }
 

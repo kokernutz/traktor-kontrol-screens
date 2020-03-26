@@ -58,7 +58,7 @@ import QtQuick.Controls.Private 1.0
     as the user navigates deeper into the material, and popped off again when he
     chooses to go back.
 
-    The \l{Qt Quick Controls - Touch Gallery}{touch gallery} example is a good
+    The \l{Qt Quick Controls 1 - Touch Gallery}{touch gallery} example is a good
     starting point to understand how StackView works. The following snippet
     from the example shows how it can be used:
 

@@ -46,7 +46,7 @@ import QtQuick.Controls.Private 1.0
     \inqmlmodule QtQuick.Controls.Styles
     \since 5.2
     \ingroup controlsstyling
-    \brief Provides custom styling for BusyIndicatorStyle
+    \brief Provides custom styling for BusyIndicatorStyle.
 
     You can create a busy indicator by replacing the "indicator" delegate
     of the BusyIndicatorStyle with a custom design.

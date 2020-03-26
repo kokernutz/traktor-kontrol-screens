@@ -9,26 +9,24 @@ import QtQuick.tooling 1.2
 Module {
     dependencies: [
         "QtGraphicalEffects 1.0",
-        "QtGraphicalEffects.private 1.0",
         "QtQml.Models 2.2",
-        "QtQuick 2.6",
+        "QtQuick 2.9",
         "QtQuick.Controls.Styles 1.4",
         "QtQuick.Extras 1.4",
-        "QtQuick.Extras.Private.CppUtils 1.1",
         "QtQuick.Layouts 1.1",
         "QtQuick.Window 2.2"
     ]
     Component {
-        name: "QQuickAbstractStyle"
+        name: "QQuickAbstractStyle1"
         defaultProperty: "data"
         prototype: "QObject"
         exports: ["QtQuick.Controls.Private/AbstractStyle 1.0"]
         exportMetaObjectRevisions: [0]
-        Property { name: "padding"; type: "QQuickPadding"; isReadonly: true; isPointer: true }
+        Property { name: "padding"; type: "QQuickPadding1"; isReadonly: true; isPointer: true }
         Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
-        name: "QQuickAction"
+        name: "QQuickAction1"
         prototype: "QObject"
         exports: ["QtQuick.Controls/Action 1.0"]
         exportMetaObjectRevisions: [0]
@@ -40,7 +38,7 @@ Module {
         Property { name: "enabled"; type: "bool" }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
         Property { name: "shortcut"; type: "QVariant" }
         Signal {
             name: "triggered"
@@ -67,7 +65,7 @@ Module {
         Method { name: "trigger" }
     }
     Component {
-        name: "QQuickCalendarModel"
+        name: "QQuickCalendarModel1"
         prototype: "QAbstractListModel"
         exports: ["QtQuick.Controls.Private/CalendarModel 1.0"]
         exportMetaObjectRevisions: [0]
@@ -103,7 +101,7 @@ Module {
         }
     }
     Component {
-        name: "QQuickControlSettings"
+        name: "QQuickControlSettings1"
         prototype: "QObject"
         exports: ["QtQuick.Controls.Private/Settings 1.0"]
         isCreatable: false
@@ -126,26 +124,26 @@ Module {
         }
     }
     Component {
-        name: "QQuickControlsPrivate"
+        name: "QQuickControlsPrivate1"
         prototype: "QObject"
         exports: ["QtQuick.Controls.Private/Controls 1.0"]
         isCreatable: false
         exportMetaObjectRevisions: [0]
-        attachedType: "QQuickControlsPrivateAttached"
+        attachedType: "QQuickControlsPrivate1Attached"
     }
     Component {
-        name: "QQuickControlsPrivateAttached"
+        name: "QQuickControlsPrivate1Attached"
         prototype: "QObject"
         Property { name: "window"; type: "QQuickWindow"; isReadonly: true; isPointer: true }
     }
     Component {
-        name: "QQuickExclusiveGroup"
+        name: "QQuickExclusiveGroup1"
         defaultProperty: "__actions"
         prototype: "QObject"
         exports: ["QtQuick.Controls/ExclusiveGroup 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "current"; type: "QObject"; isPointer: true }
-        Property { name: "__actions"; type: "QQuickAction"; isList: true; isReadonly: true }
+        Property { name: "__actions"; type: "QQuickAction1"; isList: true; isReadonly: true }
         Method {
             name: "bindCheckable"
             Parameter { name: "o"; type: "QObject"; isPointer: true }
@@ -156,9 +154,9 @@ Module {
         }
     }
     Component {
-        name: "QQuickMenu"
+        name: "QQuickMenu1"
         defaultProperty: "items"
-        prototype: "QQuickMenuText"
+        prototype: "QQuickMenuText1"
         exports: ["QtQuick.Controls.Private/MenuPrivate 1.0"]
         exportMetaObjectRevisions: [0]
         Enum {
@@ -177,26 +175,28 @@ Module {
         Property { name: "__font"; type: "QFont" }
         Property { name: "__xOffset"; type: "double" }
         Property { name: "__yOffset"; type: "double" }
-        Property { name: "__action"; type: "QQuickAction"; isReadonly: true; isPointer: true }
+        Property { name: "__action"; type: "QQuickAction1"; isReadonly: true; isPointer: true }
         Property { name: "__popupGeometry"; type: "QRect"; isReadonly: true }
+        Property { name: "__isProxy"; type: "bool" }
         Signal { name: "aboutToShow" }
         Signal { name: "aboutToHide" }
         Signal { name: "popupVisibleChanged" }
         Signal { name: "__menuPopupDestroyed" }
         Signal { name: "menuContentItemChanged" }
         Signal { name: "minimumWidthChanged" }
+        Signal { name: "__proxyChanged" }
         Method { name: "__dismissMenu" }
         Method { name: "__closeAndDestroy" }
         Method { name: "__dismissAndDestroy" }
         Method { name: "popup" }
         Method {
             name: "addItem"
-            type: "QQuickMenuItem*"
+            type: "QQuickMenuItem1*"
             Parameter { type: "string" }
         }
         Method {
             name: "insertItem"
-            type: "QQuickMenuItem*"
+            type: "QQuickMenuItem1*"
             Parameter { type: "int" }
             Parameter { type: "string" }
         }
@@ -208,11 +208,11 @@ Module {
         Method {
             name: "insertItem"
             Parameter { type: "int" }
-            Parameter { type: "QQuickMenuBase"; isPointer: true }
+            Parameter { type: "QQuickMenuBase1"; isPointer: true }
         }
         Method {
             name: "removeItem"
-            Parameter { type: "QQuickMenuBase"; isPointer: true }
+            Parameter { type: "QQuickMenuBase1"; isPointer: true }
         }
         Method { name: "clear" }
         Method {
@@ -232,12 +232,12 @@ Module {
         }
     }
     Component {
-        name: "QQuickMenuBar"
+        name: "QQuickMenuBar1"
         defaultProperty: "menus"
         prototype: "QObject"
         exports: ["QtQuick.Controls.Private/MenuBarPrivate 1.0"]
         exportMetaObjectRevisions: [0]
-        Property { name: "menus"; type: "QQuickMenu"; isList: true; isReadonly: true }
+        Property { name: "menus"; type: "QQuickMenu1"; isList: true; isReadonly: true }
         Property { name: "__contentItem"; type: "QQuickItem"; isPointer: true }
         Property { name: "__parentWindow"; type: "QQuickWindow"; isPointer: true }
         Property { name: "__isNative"; type: "bool" }
@@ -245,28 +245,28 @@ Module {
         Signal { name: "contentItemChanged" }
     }
     Component {
-        name: "QQuickMenuBase"
+        name: "QQuickMenuBase1"
         prototype: "QObject"
         exports: ["QtQuick.Controls/MenuBase 1.0"]
         isCreatable: false
         exportMetaObjectRevisions: [0]
         Property { name: "visible"; type: "bool" }
-        Property { name: "type"; type: "QQuickMenuItemType::MenuItemType"; isReadonly: true }
+        Property { name: "type"; type: "QQuickMenuItemType1::MenuItemType"; isReadonly: true }
         Property { name: "__parentMenu"; type: "QObject"; isReadonly: true; isPointer: true }
         Property { name: "__isNative"; type: "bool"; isReadonly: true }
         Property { name: "__visualItem"; type: "QQuickItem"; isPointer: true }
     }
     Component {
-        name: "QQuickMenuItem"
-        prototype: "QQuickMenuText"
+        name: "QQuickMenuItem1"
+        prototype: "QQuickMenuText1"
         exports: ["QtQuick.Controls/MenuItem 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "text"; type: "string" }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
         Property { name: "shortcut"; type: "QVariant" }
-        Property { name: "action"; type: "QQuickAction"; isPointer: true }
+        Property { name: "action"; type: "QQuickAction1"; isPointer: true }
         Signal { name: "triggered" }
         Signal {
             name: "toggled"
@@ -275,7 +275,7 @@ Module {
         Method { name: "trigger" }
     }
     Component {
-        name: "QQuickMenuItemType"
+        name: "QQuickMenuItemType1"
         exports: ["QtQuick.Controls/MenuItemType 1.0"]
         isCreatable: false
         exportMetaObjectRevisions: [0]
@@ -290,14 +290,14 @@ Module {
         }
     }
     Component {
-        name: "QQuickMenuSeparator"
-        prototype: "QQuickMenuBase"
+        name: "QQuickMenuSeparator1"
+        prototype: "QQuickMenuBase1"
         exports: ["QtQuick.Controls/MenuSeparator 1.0"]
         exportMetaObjectRevisions: [0]
     }
     Component {
-        name: "QQuickMenuText"
-        prototype: "QQuickMenuBase"
+        name: "QQuickMenuText1"
+        prototype: "QQuickMenuBase1"
         Property { name: "enabled"; type: "bool" }
         Property { name: "iconSource"; type: "QUrl" }
         Property { name: "iconName"; type: "string" }
@@ -305,7 +305,7 @@ Module {
         Signal { name: "__textChanged" }
     }
     Component {
-        name: "QQuickPadding"
+        name: "QQuickPadding1"
         prototype: "QObject"
         exports: ["QtQuick.Controls.Private/Padding 1.0"]
         exportMetaObjectRevisions: [0]
@@ -331,7 +331,7 @@ Module {
         }
     }
     Component {
-        name: "QQuickPopupWindow"
+        name: "QQuickPopupWindow1"
         defaultProperty: "popupContentItem"
         prototype: "QQuickWindow"
         exports: ["QtQuick.Controls.Private/PopupWindow 1.0"]
@@ -344,7 +344,7 @@ Module {
         Method { name: "dismissPopup" }
     }
     Component {
-        name: "QQuickRangeModel"
+        name: "QQuickRangeModel1"
         prototype: "QObject"
         exports: ["QtQuick.Controls.Private/RangeModel 1.0"]
         exportMetaObjectRevisions: [0]
@@ -412,7 +412,7 @@ Module {
         }
     }
     Component {
-        name: "QQuickRangedDate"
+        name: "QQuickRangedDate1"
         prototype: "QObject"
         exports: ["QtQuick.Controls.Private/RangedDate 1.0"]
         exportMetaObjectRevisions: [0]
@@ -421,7 +421,7 @@ Module {
         Property { name: "maximumDate"; type: "QDate" }
     }
     Component {
-        name: "QQuickScenePosListener"
+        name: "QQuickScenePosListener1"
         prototype: "QObject"
         exports: ["QtQuick.Controls.Private/ScenePosListener 1.0"]
         exportMetaObjectRevisions: [0]
@@ -430,7 +430,7 @@ Module {
         Property { name: "enabled"; type: "bool" }
     }
     Component {
-        name: "QQuickSelectionMode"
+        name: "QQuickSelectionMode1"
         exports: ["QtQuick.Controls/SelectionMode 1.1"]
         isCreatable: false
         exportMetaObjectRevisions: [0]
@@ -446,7 +446,7 @@ Module {
         }
     }
     Component {
-        name: "QQuickSpinBoxValidator"
+        name: "QQuickSpinBoxValidator1"
         prototype: "QValidator"
         exports: ["QtQuick.Controls.Private/SpinBoxValidator 1.0"]
         exportMetaObjectRevisions: [0]
@@ -462,7 +462,7 @@ Module {
         Method { name: "decrement" }
     }
     Component {
-        name: "QQuickStack"
+        name: "QQuickStack1"
         prototype: "QObject"
         exports: ["QtQuick.Controls/Stack 1.0"]
         isCreatable: false
@@ -484,12 +484,12 @@ Module {
         Property { name: "__view"; type: "QQuickItem"; isPointer: true }
     }
     Component {
-        name: "QQuickStyleItem"
+        name: "QQuickStyleItem1"
         defaultProperty: "data"
         prototype: "QQuickItem"
         exports: ["QtQuick.Controls.Private/StyleItem 1.0"]
         exportMetaObjectRevisions: [0]
-        Property { name: "border"; type: "QQuickPadding"; isReadonly: true; isPointer: true }
+        Property { name: "border"; type: "QQuickPadding1"; isReadonly: true; isPointer: true }
         Property { name: "sunken"; type: "bool" }
         Property { name: "raised"; type: "bool" }
         Property { name: "active"; type: "bool" }
@@ -583,7 +583,7 @@ Module {
         }
     }
     Component {
-        name: "QQuickTooltip"
+        name: "QQuickTooltip1"
         prototype: "QObject"
         exports: ["QtQuick.Controls.Private/Tooltip 1.0"]
         isCreatable: false
@@ -598,7 +598,7 @@ Module {
         Method { name: "hideText" }
     }
     Component {
-        name: "QQuickTreeModelAdaptor"
+        name: "QQuickTreeModelAdaptor1"
         prototype: "QAbstractListModel"
         exports: ["QtQuick.Controls.Private/TreeModelAdaptor 1.0"]
         exportMetaObjectRevisions: [0]
@@ -646,7 +646,7 @@ Module {
         }
     }
     Component {
-        name: "QQuickWheelArea"
+        name: "QQuickWheelArea1"
         defaultProperty: "data"
         prototype: "QQuickItem"
         exports: ["QtQuick.Controls.Private/WheelArea 1.0"]
@@ -661,6 +661,7 @@ Module {
         Property { name: "verticalValue"; type: "double" }
         Property { name: "scrollSpeed"; type: "double" }
         Property { name: "active"; type: "bool" }
+        Property { name: "inverted"; type: "bool"; isReadonly: true }
         Signal { name: "verticalWheelMoved" }
         Signal { name: "horizontalWheelMoved" }
     }
@@ -671,7 +672,7 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
-        Property { name: "menuBar"; type: "MenuBar_QMLTYPE_2"; isPointer: true }
+        Property { name: "menuBar"; type: "MenuBar_QMLTYPE_3"; isPointer: true }
         Property { name: "toolBar"; type: "QQuickItem"; isPointer: true }
         Property { name: "statusBar"; type: "QQuickItem"; isPointer: true }
         Property { name: "style"; type: "QQmlComponent"; isPointer: true }
@@ -679,12 +680,7 @@ Module {
         Property { name: "__qwindowsize_max"; type: "double"; isReadonly: true }
         Property { name: "__width"; type: "double" }
         Property { name: "__height"; type: "double" }
-        Property {
-            name: "contentItem"
-            type: "ContentItem_QMLTYPE_10"
-            isReadonly: true
-            isPointer: true
-        }
+        Property { name: "contentItem"; type: "ContentItem_QMLTYPE_1"; isReadonly: true; isPointer: true }
         Property { name: "__style"; type: "QObject"; isReadonly: true; isPointer: true }
         Property { name: "__panel"; type: "QObject"; isReadonly: true; isPointer: true }
         Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
@@ -711,11 +707,11 @@ Module {
         isComposite: true
         defaultProperty: "data"
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_50"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_48"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
-        Property { name: "action"; type: "QQuickAction"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
+        Property { name: "action"; type: "QQuickAction1"; isPointer: true }
         Property { name: "activeFocusOnPress"; type: "bool" }
         Property { name: "text"; type: "string" }
         Property { name: "tooltip"; type: "string" }
@@ -723,8 +719,8 @@ Module {
         Property { name: "iconName"; type: "string" }
         Property { name: "__position"; type: "string" }
         Property { name: "__iconOverriden"; type: "bool"; isReadonly: true }
-        Property { name: "__action"; type: "QQuickAction"; isPointer: true }
-        Property { name: "__iconAction"; type: "QQuickAction"; isReadonly: true; isPointer: true }
+        Property { name: "__action"; type: "QQuickAction1"; isPointer: true }
+        Property { name: "__iconAction"; type: "QQuickAction1"; isReadonly: true; isPointer: true }
         Property { name: "__behavior"; type: "QVariant" }
         Property { name: "__effectivePressed"; type: "bool" }
         Property { name: "pressed"; type: "bool"; isReadonly: true }
@@ -750,11 +746,73 @@ Module {
         Property { name: "weekNumbersVisible"; type: "bool" }
         Property { name: "navigationBarVisible"; type: "bool" }
         Property { name: "dayOfWeekFormat"; type: "int" }
-        Property { name: "__locale"; type: "QVariant" }
-        Property { name: "__model"; type: "QQuickCalendarModel"; isPointer: true }
+        Property { name: "locale"; type: "QVariant" }
+        Property { name: "__model"; type: "QQuickCalendarModel1"; isPointer: true }
         Property { name: "selectedDate"; type: "QDate" }
         Property { name: "minimumDate"; type: "QDate" }
         Property { name: "maximumDate"; type: "QDate" }
+        Property { name: "__locale"; type: "QVariant" }
+        Signal {
+            name: "hovered"
+            Parameter { name: "date"; type: "QDateTime" }
+        }
+        Signal {
+            name: "pressed"
+            Parameter { name: "date"; type: "QDateTime" }
+        }
+        Signal {
+            name: "released"
+            Parameter { name: "date"; type: "QDateTime" }
+        }
+        Signal {
+            name: "clicked"
+            Parameter { name: "date"; type: "QDateTime" }
+        }
+        Signal {
+            name: "doubleClicked"
+            Parameter { name: "date"; type: "QDateTime" }
+        }
+        Signal {
+            name: "pressAndHold"
+            Parameter { name: "date"; type: "QDateTime" }
+        }
+        Method { name: "showPreviousMonth"; type: "QVariant" }
+        Method { name: "showNextMonth"; type: "QVariant" }
+        Method { name: "showPreviousYear"; type: "QVariant" }
+        Method { name: "showNextYear"; type: "QVariant" }
+        Method { name: "__selectPreviousMonth"; type: "QVariant" }
+        Method { name: "__selectNextMonth"; type: "QVariant" }
+        Method { name: "__selectPreviousWeek"; type: "QVariant" }
+        Method { name: "__selectNextWeek"; type: "QVariant" }
+        Method { name: "__selectFirstDayOfMonth"; type: "QVariant" }
+        Method { name: "__selectLastDayOfMonth"; type: "QVariant" }
+        Method { name: "__selectPreviousDay"; type: "QVariant" }
+        Method { name: "__selectNextDay"; type: "QVariant" }
+        Property { name: "style"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "__style"; type: "QObject"; isPointer: true }
+        Property { name: "__panel"; type: "QQuickItem"; isPointer: true }
+        Property { name: "styleHints"; type: "QVariant" }
+        Property { name: "__styleData"; type: "QObject"; isPointer: true }
+    }
+    Component {
+        prototype: "QQuickFocusScope"
+        name: "QtQuick.Controls/Calendar 1.6"
+        exports: ["QtQuick.Controls/Calendar 1.6"]
+        exportMetaObjectRevisions: [6]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "visibleMonth"; type: "int" }
+        Property { name: "visibleYear"; type: "int" }
+        Property { name: "frameVisible"; type: "bool" }
+        Property { name: "weekNumbersVisible"; type: "bool" }
+        Property { name: "navigationBarVisible"; type: "bool" }
+        Property { name: "dayOfWeekFormat"; type: "int" }
+        Property { name: "locale"; type: "QVariant" }
+        Property { name: "__model"; type: "QQuickCalendarModel1"; isPointer: true }
+        Property { name: "selectedDate"; type: "QDate" }
+        Property { name: "minimumDate"; type: "QDate" }
+        Property { name: "maximumDate"; type: "QDate" }
+        Property { name: "__locale"; type: "QVariant" }
         Signal {
             name: "hovered"
             Parameter { name: "date"; type: "QDateTime" }
@@ -811,8 +869,9 @@ Module {
         Method { name: "__cycleCheckBoxStates"; type: "QVariant" }
         Property { name: "checked"; type: "bool" }
         Property { name: "activeFocusOnPress"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
         Property { name: "text"; type: "string" }
+        Property { name: "tooltip"; type: "string" }
         Property { name: "__cycleStatesHandler"; type: "QVariant" }
         Property { name: "pressed"; type: "bool" }
         Property { name: "hovered"; type: "bool"; isReadonly: true }
@@ -831,11 +890,11 @@ Module {
         isComposite: true
         defaultProperty: "data"
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_50"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_48"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
-        Property { name: "action"; type: "QQuickAction"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
+        Property { name: "action"; type: "QQuickAction1"; isPointer: true }
         Property { name: "activeFocusOnPress"; type: "bool" }
         Property { name: "text"; type: "string" }
         Property { name: "tooltip"; type: "string" }
@@ -843,8 +902,8 @@ Module {
         Property { name: "iconName"; type: "string" }
         Property { name: "__position"; type: "string" }
         Property { name: "__iconOverriden"; type: "bool"; isReadonly: true }
-        Property { name: "__action"; type: "QQuickAction"; isPointer: true }
-        Property { name: "__iconAction"; type: "QQuickAction"; isReadonly: true; isPointer: true }
+        Property { name: "__action"; type: "QQuickAction1"; isPointer: true }
+        Property { name: "__iconAction"; type: "QQuickAction1"; isReadonly: true; isPointer: true }
         Property { name: "__behavior"; type: "QVariant" }
         Property { name: "__effectivePressed"; type: "bool" }
         Property { name: "pressed"; type: "bool"; isReadonly: true }
@@ -1015,11 +1074,11 @@ Module {
         Property { name: "progress"; type: "double"; isReadonly: true }
         Signal { name: "activated" }
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_50"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_48"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
-        Property { name: "action"; type: "QQuickAction"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
+        Property { name: "action"; type: "QQuickAction1"; isPointer: true }
         Property { name: "activeFocusOnPress"; type: "bool" }
         Property { name: "text"; type: "string" }
         Property { name: "tooltip"; type: "string" }
@@ -1027,8 +1086,8 @@ Module {
         Property { name: "iconName"; type: "string" }
         Property { name: "__position"; type: "string" }
         Property { name: "__iconOverriden"; type: "bool"; isReadonly: true }
-        Property { name: "__action"; type: "QQuickAction"; isPointer: true }
-        Property { name: "__iconAction"; type: "QQuickAction"; isReadonly: true; isPointer: true }
+        Property { name: "__action"; type: "QQuickAction1"; isPointer: true }
+        Property { name: "__iconAction"; type: "QQuickAction1"; isReadonly: true; isPointer: true }
         Property { name: "__behavior"; type: "QVariant" }
         Property { name: "__effectivePressed"; type: "bool" }
         Property { name: "pressed"; type: "bool"; isReadonly: true }
@@ -1167,26 +1226,28 @@ Module {
         Property { name: "__font"; type: "QFont" }
         Property { name: "__xOffset"; type: "double" }
         Property { name: "__yOffset"; type: "double" }
-        Property { name: "__action"; type: "QQuickAction"; isReadonly: true; isPointer: true }
+        Property { name: "__action"; type: "QQuickAction1"; isReadonly: true; isPointer: true }
         Property { name: "__popupGeometry"; type: "QRect"; isReadonly: true }
+        Property { name: "__isProxy"; type: "bool" }
         Signal { name: "aboutToShow" }
         Signal { name: "aboutToHide" }
         Signal { name: "popupVisibleChanged" }
         Signal { name: "__menuPopupDestroyed" }
         Signal { name: "menuContentItemChanged" }
         Signal { name: "minimumWidthChanged" }
+        Signal { name: "__proxyChanged" }
         Method { name: "__dismissMenu" }
         Method { name: "__closeAndDestroy" }
         Method { name: "__dismissAndDestroy" }
         Method { name: "popup" }
         Method {
             name: "addItem"
-            type: "QQuickMenuItem*"
+            type: "QQuickMenuItem1*"
             Parameter { type: "string" }
         }
         Method {
             name: "insertItem"
-            type: "QQuickMenuItem*"
+            type: "QQuickMenuItem1*"
             Parameter { type: "int" }
             Parameter { type: "string" }
         }
@@ -1197,7 +1258,7 @@ Module {
         }
         Method {
             name: "removeItem"
-            Parameter { type: "QQuickMenuBase"; isPointer: true }
+            Parameter { type: "QQuickMenuBase1"; isPointer: true }
         }
         Method { name: "clear" }
         Method {
@@ -1221,7 +1282,7 @@ Module {
         Property { name: "__icon"; type: "QVariant"; isReadonly: true }
         Signal { name: "__textChanged" }
         Property { name: "visible"; type: "bool" }
-        Property { name: "type"; type: "QQuickMenuItemType::MenuItemType"; isReadonly: true }
+        Property { name: "type"; type: "QQuickMenuItemType1::MenuItemType"; isReadonly: true }
         Property { name: "__parentMenu"; type: "QObject"; isReadonly: true; isPointer: true }
         Property { name: "__isNative"; type: "bool"; isReadonly: true }
         Property { name: "__visualItem"; type: "QQuickItem"; isPointer: true }
@@ -1236,7 +1297,7 @@ Module {
         Property { name: "style"; type: "QQmlComponent"; isPointer: true }
         Property { name: "__style"; type: "QObject"; isPointer: true }
         Property { name: "__menuBarComponent"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "menus"; type: "QQuickMenu"; isList: true; isReadonly: true }
+        Property { name: "menus"; type: "QQuickMenu1"; isList: true; isReadonly: true }
         Property { name: "__contentItem"; type: "QQuickItem"; isPointer: true }
         Property { name: "__parentWindow"; type: "QQuickWindow"; isPointer: true }
         Property { name: "__isNative"; type: "bool" }
@@ -1256,9 +1317,9 @@ Module {
         Property { name: "boundingItem"; type: "QQuickItem"; isPointer: true }
         Property { name: "__protectedScope"; type: "QObject"; isPointer: true }
         Property { name: "activationMode"; type: "int" }
-        Property { name: "menuItems"; type: "QQuickMenuItem"; isList: true; isReadonly: true }
+        Property { name: "menuItems"; type: "QQuickMenuItem1"; isList: true; isReadonly: true }
         Property { name: "currentIndex"; type: "int"; isReadonly: true }
-        Property { name: "currentItem"; type: "QQuickMenuItem"; isReadonly: true; isPointer: true }
+        Property { name: "currentItem"; type: "QQuickMenuItem1"; isReadonly: true; isPointer: true }
         Property { name: "__mouseThief"; type: "QQuickMouseThief"; isReadonly: true; isPointer: true }
         Method {
             name: "popup"
@@ -1333,8 +1394,9 @@ Module {
         defaultProperty: "data"
         Property { name: "checked"; type: "bool" }
         Property { name: "activeFocusOnPress"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
         Property { name: "text"; type: "string" }
+        Property { name: "tooltip"; type: "string" }
         Property { name: "__cycleStatesHandler"; type: "QVariant" }
         Property { name: "pressed"; type: "bool" }
         Property { name: "hovered"; type: "bool"; isReadonly: true }
@@ -1355,28 +1417,62 @@ Module {
         Property { name: "frameVisible"; type: "bool" }
         Property { name: "highlightOnFocus"; type: "bool" }
         Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
-        Property { name: "__scroller"; type: "QQuickItem"; isPointer: true }
         Property { name: "__scrollBarTopMargin"; type: "int" }
         Property { name: "__viewTopMargin"; type: "int" }
         Property { name: "style"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "__style"; type: "Style_QMLTYPE_1"; isPointer: true }
+        Property { name: "__style"; type: "Style_QMLTYPE_2"; isPointer: true }
         Property { name: "horizontalScrollBarPolicy"; type: "int" }
         Property { name: "verticalScrollBarPolicy"; type: "int" }
         Property { name: "viewport"; type: "QQuickItem"; isReadonly: true; isPointer: true }
         Property { name: "flickableItem"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
+        Property {
+            name: "__scroller"
+            type: "ScrollViewHelper_QMLTYPE_27"
+            isReadonly: true
+            isPointer: true
+        }
+        Property { name: "__verticalScrollbarOffset"; type: "int" }
         Property { name: "__wheelAreaScrollSpeed"; type: "double" }
         Property {
             name: "__horizontalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "__verticalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
+    }
+    Component {
+        prototype: "QQuickFocusScope"
+        name: "QtQuick.Controls/Slider 1.6"
+        exports: ["QtQuick.Controls/Slider 1.6"]
+        exportMetaObjectRevisions: [6]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "orientation"; type: "int" }
+        Property { name: "updateValueWhileDragging"; type: "bool" }
+        Property { name: "activeFocusOnPress"; type: "bool" }
+        Property { name: "tickmarksEnabled"; type: "bool" }
+        Property { name: "__horizontal"; type: "bool" }
+        Property { name: "__handlePos"; type: "double" }
+        Property { name: "minimumValue"; type: "double" }
+        Property { name: "maximumValue"; type: "double" }
+        Property { name: "pressed"; type: "bool"; isReadonly: true }
+        Property { name: "hovered"; type: "bool"; isReadonly: true }
+        Property { name: "stepSize"; type: "double" }
+        Property { name: "value"; type: "double" }
+        Property { name: "wheelEnabled"; type: "bool" }
+        Method { name: "accessibleIncreaseAction"; type: "QVariant" }
+        Method { name: "accessibleDecreaseAction"; type: "QVariant" }
+        Property { name: "style"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "__style"; type: "QObject"; isPointer: true }
+        Property { name: "__panel"; type: "QQuickItem"; isPointer: true }
+        Property { name: "styleHints"; type: "QVariant" }
+        Property { name: "__styleData"; type: "QObject"; isPointer: true }
     }
     Component {
         prototype: "QQuickFocusScope"
@@ -1397,6 +1493,7 @@ Module {
         Property { name: "hovered"; type: "bool"; isReadonly: true }
         Property { name: "stepSize"; type: "double" }
         Property { name: "value"; type: "double" }
+        Property { name: "wheelEnabled"; type: "bool" }
         Method { name: "accessibleIncreaseAction"; type: "QVariant" }
         Method { name: "accessibleDecreaseAction"; type: "QVariant" }
         Property { name: "style"; type: "QQmlComponent"; isPointer: true }
@@ -1591,9 +1688,9 @@ Module {
     }
     Component {
         prototype: "QQuickFocusScope"
-        name: "QtQuick.Extras/StatusIndicator 1.0"
-        exports: ["QtQuick.Extras/StatusIndicator 1.0"]
-        exportMetaObjectRevisions: [0]
+        name: "QtQuick.Extras/StatusIndicator 1.1"
+        exports: ["QtQuick.Extras/StatusIndicator 1.1"]
+        exportMetaObjectRevisions: [1]
         isComposite: true
         defaultProperty: "data"
         Property { name: "active"; type: "bool" }
@@ -1607,9 +1704,9 @@ Module {
     }
     Component {
         prototype: "QQuickFocusScope"
-        name: "QtQuick.Extras/StatusIndicator 1.1"
-        exports: ["QtQuick.Extras/StatusIndicator 1.1"]
-        exportMetaObjectRevisions: [1]
+        name: "QtQuick.Extras/StatusIndicator 1.0"
+        exports: ["QtQuick.Extras/StatusIndicator 1.0"]
+        exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
         Property { name: "active"; type: "bool" }
@@ -1630,7 +1727,7 @@ Module {
         defaultProperty: "data"
         Property { name: "checked"; type: "bool" }
         Property { name: "activeFocusOnPress"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
         Property { name: "pressed"; type: "bool"; isReadonly: true }
         Signal { name: "clicked" }
         Property { name: "style"; type: "QQmlComponent"; isPointer: true }
@@ -1720,7 +1817,7 @@ Module {
         Property { name: "currentRow"; type: "int" }
         Property {
             name: "selection"
-            type: "TableViewSelection_QMLTYPE_281"
+            type: "TableViewSelection_QMLTYPE_257"
             isReadonly: true
             isPointer: true
         }
@@ -1807,25 +1904,31 @@ Module {
         Property { name: "frameVisible"; type: "bool" }
         Property { name: "highlightOnFocus"; type: "bool" }
         Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
-        Property { name: "__scroller"; type: "QQuickItem"; isPointer: true }
         Property { name: "__scrollBarTopMargin"; type: "int" }
         Property { name: "__viewTopMargin"; type: "int" }
         Property { name: "style"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "__style"; type: "Style_QMLTYPE_1"; isPointer: true }
+        Property { name: "__style"; type: "Style_QMLTYPE_2"; isPointer: true }
         Property { name: "horizontalScrollBarPolicy"; type: "int" }
         Property { name: "verticalScrollBarPolicy"; type: "int" }
         Property { name: "viewport"; type: "QQuickItem"; isReadonly: true; isPointer: true }
         Property { name: "flickableItem"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
+        Property {
+            name: "__scroller"
+            type: "ScrollViewHelper_QMLTYPE_27"
+            isReadonly: true
+            isPointer: true
+        }
+        Property { name: "__verticalScrollbarOffset"; type: "int" }
         Property { name: "__wheelAreaScrollSpeed"; type: "double" }
         Property {
             name: "__horizontalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "__verticalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
@@ -1848,148 +1951,6 @@ Module {
         Property { name: "horizontalAlignment"; type: "int" }
         Property { name: "delegate"; type: "QQmlComponent"; isPointer: true }
         Method { name: "resizeToContents"; type: "QVariant" }
-    }
-    Component {
-        prototype: "QQuickFocusScope"
-        name: "QtQuick.Controls/TextArea 1.3"
-        exports: ["QtQuick.Controls/TextArea 1.3"]
-        exportMetaObjectRevisions: [3]
-        isComposite: true
-        defaultProperty: "data"
-        Property { name: "inputMethodComposing"; type: "bool"; isReadonly: true }
-        Property { name: "tabChangesFocus"; type: "bool" }
-        Property { name: "selectByMouse"; type: "bool" }
-        Property { name: "menu"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "activeFocusOnPress"; type: "bool" }
-        Property { name: "baseUrl"; type: "QUrl" }
-        Property { name: "canPaste"; type: "bool"; isReadonly: true }
-        Property { name: "canRedo"; type: "bool"; isReadonly: true }
-        Property { name: "canUndo"; type: "bool"; isReadonly: true }
-        Property { name: "textColor"; type: "QColor" }
-        Property { name: "cursorPosition"; type: "int" }
-        Property { name: "cursorRectangle"; type: "QRectF"; isReadonly: true }
-        Property { name: "font"; type: "QFont" }
-        Property { name: "horizontalAlignment"; type: "int" }
-        Property { name: "effectiveHorizontalAlignment"; type: "int"; isReadonly: true }
-        Property { name: "verticalAlignment"; type: "int" }
-        Property { name: "inputMethodHints"; type: "int" }
-        Property { name: "length"; type: "int"; isReadonly: true }
-        Property { name: "lineCount"; type: "int"; isReadonly: true }
-        Property { name: "readOnly"; type: "bool" }
-        Property { name: "selectedText"; type: "string"; isReadonly: true }
-        Property { name: "selectionEnd"; type: "int"; isReadonly: true }
-        Property { name: "selectionStart"; type: "int"; isReadonly: true }
-        Property { name: "text"; type: "string" }
-        Property { name: "textFormat"; type: "int" }
-        Property { name: "wrapMode"; type: "int" }
-        Property { name: "selectByKeyboard"; type: "bool" }
-        Property { name: "hoveredLink"; type: "string"; isReadonly: true }
-        Property { name: "backgroundVisible"; type: "bool" }
-        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
-        Property { name: "textMargin"; type: "double" }
-        Property { name: "contentWidth"; type: "double"; isReadonly: true }
-        Property { name: "contentHeight"; type: "double"; isReadonly: true }
-        Property { name: "textDocument"; type: "QQuickTextDocument"; isReadonly: true; isPointer: true }
-        Signal {
-            name: "linkActivated"
-            Parameter { name: "link"; type: "string" }
-        }
-        Signal {
-            name: "linkHovered"
-            Parameter { name: "link"; type: "string" }
-        }
-        Signal { name: "editingFinished" }
-        Method {
-            name: "append"
-            type: "QVariant"
-            Parameter { name: "string"; type: "QVariant" }
-        }
-        Method { name: "copy"; type: "QVariant" }
-        Method { name: "cut"; type: "QVariant" }
-        Method { name: "deselect"; type: "QVariant" }
-        Method {
-            name: "getFormattedText"
-            type: "QVariant"
-            Parameter { name: "start"; type: "QVariant" }
-            Parameter { name: "end"; type: "QVariant" }
-        }
-        Method {
-            name: "getText"
-            type: "QVariant"
-            Parameter { name: "start"; type: "QVariant" }
-            Parameter { name: "end"; type: "QVariant" }
-        }
-        Method {
-            name: "insert"
-            type: "QVariant"
-            Parameter { name: "position"; type: "QVariant" }
-            Parameter { name: "text"; type: "QVariant" }
-        }
-        Method {
-            name: "isRightToLeft"
-            type: "QVariant"
-            Parameter { name: "start"; type: "QVariant" }
-            Parameter { name: "end"; type: "QVariant" }
-        }
-        Method {
-            name: "moveCursorSelection"
-            type: "QVariant"
-            Parameter { name: "position"; type: "QVariant" }
-            Parameter { name: "mode"; type: "QVariant" }
-        }
-        Method { name: "paste"; type: "QVariant" }
-        Method {
-            name: "positionAt"
-            type: "QVariant"
-            Parameter { name: "x"; type: "QVariant" }
-            Parameter { name: "y"; type: "QVariant" }
-        }
-        Method {
-            name: "positionToRectangle"
-            type: "QVariant"
-            Parameter { name: "position"; type: "QVariant" }
-        }
-        Method { name: "redo"; type: "QVariant" }
-        Method {
-            name: "remove"
-            type: "QVariant"
-            Parameter { name: "start"; type: "QVariant" }
-            Parameter { name: "end"; type: "QVariant" }
-        }
-        Method {
-            name: "select"
-            type: "QVariant"
-            Parameter { name: "start"; type: "QVariant" }
-            Parameter { name: "end"; type: "QVariant" }
-        }
-        Method { name: "selectAll"; type: "QVariant" }
-        Method { name: "selectWord"; type: "QVariant" }
-        Method { name: "undo"; type: "QVariant" }
-        Property { name: "frameVisible"; type: "bool" }
-        Property { name: "highlightOnFocus"; type: "bool" }
-        Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
-        Property { name: "__scroller"; type: "QQuickItem"; isPointer: true }
-        Property { name: "__scrollBarTopMargin"; type: "int" }
-        Property { name: "__viewTopMargin"; type: "int" }
-        Property { name: "style"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "__style"; type: "Style_QMLTYPE_1"; isPointer: true }
-        Property { name: "horizontalScrollBarPolicy"; type: "int" }
-        Property { name: "verticalScrollBarPolicy"; type: "int" }
-        Property { name: "viewport"; type: "QQuickItem"; isReadonly: true; isPointer: true }
-        Property { name: "flickableItem"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
-        Property { name: "__wheelAreaScrollSpeed"; type: "double" }
-        Property {
-            name: "__horizontalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
-            isReadonly: true
-            isPointer: true
-        }
-        Property {
-            name: "__verticalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
-            isReadonly: true
-            isPointer: true
-        }
     }
     Component {
         prototype: "QQuickFocusScope"
@@ -2110,25 +2071,179 @@ Module {
         Property { name: "frameVisible"; type: "bool" }
         Property { name: "highlightOnFocus"; type: "bool" }
         Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
-        Property { name: "__scroller"; type: "QQuickItem"; isPointer: true }
         Property { name: "__scrollBarTopMargin"; type: "int" }
         Property { name: "__viewTopMargin"; type: "int" }
         Property { name: "style"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "__style"; type: "Style_QMLTYPE_1"; isPointer: true }
+        Property { name: "__style"; type: "Style_QMLTYPE_2"; isPointer: true }
         Property { name: "horizontalScrollBarPolicy"; type: "int" }
         Property { name: "verticalScrollBarPolicy"; type: "int" }
         Property { name: "viewport"; type: "QQuickItem"; isReadonly: true; isPointer: true }
         Property { name: "flickableItem"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
+        Property {
+            name: "__scroller"
+            type: "ScrollViewHelper_QMLTYPE_27"
+            isReadonly: true
+            isPointer: true
+        }
+        Property { name: "__verticalScrollbarOffset"; type: "int" }
         Property { name: "__wheelAreaScrollSpeed"; type: "double" }
         Property {
             name: "__horizontalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "__verticalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
+            isReadonly: true
+            isPointer: true
+        }
+    }
+    Component {
+        prototype: "QQuickFocusScope"
+        name: "QtQuick.Controls/TextArea 1.3"
+        exports: ["QtQuick.Controls/TextArea 1.3"]
+        exportMetaObjectRevisions: [3]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "inputMethodComposing"; type: "bool"; isReadonly: true }
+        Property { name: "tabChangesFocus"; type: "bool" }
+        Property { name: "selectByMouse"; type: "bool" }
+        Property { name: "menu"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "activeFocusOnPress"; type: "bool" }
+        Property { name: "baseUrl"; type: "QUrl" }
+        Property { name: "canPaste"; type: "bool"; isReadonly: true }
+        Property { name: "canRedo"; type: "bool"; isReadonly: true }
+        Property { name: "canUndo"; type: "bool"; isReadonly: true }
+        Property { name: "textColor"; type: "QColor" }
+        Property { name: "cursorPosition"; type: "int" }
+        Property { name: "cursorRectangle"; type: "QRectF"; isReadonly: true }
+        Property { name: "font"; type: "QFont" }
+        Property { name: "horizontalAlignment"; type: "int" }
+        Property { name: "effectiveHorizontalAlignment"; type: "int"; isReadonly: true }
+        Property { name: "verticalAlignment"; type: "int" }
+        Property { name: "inputMethodHints"; type: "int" }
+        Property { name: "length"; type: "int"; isReadonly: true }
+        Property { name: "lineCount"; type: "int"; isReadonly: true }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "selectedText"; type: "string"; isReadonly: true }
+        Property { name: "selectionEnd"; type: "int"; isReadonly: true }
+        Property { name: "selectionStart"; type: "int"; isReadonly: true }
+        Property { name: "text"; type: "string" }
+        Property { name: "textFormat"; type: "int" }
+        Property { name: "wrapMode"; type: "int" }
+        Property { name: "selectByKeyboard"; type: "bool" }
+        Property { name: "hoveredLink"; type: "string"; isReadonly: true }
+        Property { name: "backgroundVisible"; type: "bool" }
+        Property { name: "data"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "textMargin"; type: "double" }
+        Property { name: "contentWidth"; type: "double"; isReadonly: true }
+        Property { name: "contentHeight"; type: "double"; isReadonly: true }
+        Property { name: "textDocument"; type: "QQuickTextDocument"; isReadonly: true; isPointer: true }
+        Signal {
+            name: "linkActivated"
+            Parameter { name: "link"; type: "string" }
+        }
+        Signal {
+            name: "linkHovered"
+            Parameter { name: "link"; type: "string" }
+        }
+        Signal { name: "editingFinished" }
+        Method {
+            name: "append"
+            type: "QVariant"
+            Parameter { name: "string"; type: "QVariant" }
+        }
+        Method { name: "copy"; type: "QVariant" }
+        Method { name: "cut"; type: "QVariant" }
+        Method { name: "deselect"; type: "QVariant" }
+        Method {
+            name: "getFormattedText"
+            type: "QVariant"
+            Parameter { name: "start"; type: "QVariant" }
+            Parameter { name: "end"; type: "QVariant" }
+        }
+        Method {
+            name: "getText"
+            type: "QVariant"
+            Parameter { name: "start"; type: "QVariant" }
+            Parameter { name: "end"; type: "QVariant" }
+        }
+        Method {
+            name: "insert"
+            type: "QVariant"
+            Parameter { name: "position"; type: "QVariant" }
+            Parameter { name: "text"; type: "QVariant" }
+        }
+        Method {
+            name: "isRightToLeft"
+            type: "QVariant"
+            Parameter { name: "start"; type: "QVariant" }
+            Parameter { name: "end"; type: "QVariant" }
+        }
+        Method {
+            name: "moveCursorSelection"
+            type: "QVariant"
+            Parameter { name: "position"; type: "QVariant" }
+            Parameter { name: "mode"; type: "QVariant" }
+        }
+        Method { name: "paste"; type: "QVariant" }
+        Method {
+            name: "positionAt"
+            type: "QVariant"
+            Parameter { name: "x"; type: "QVariant" }
+            Parameter { name: "y"; type: "QVariant" }
+        }
+        Method {
+            name: "positionToRectangle"
+            type: "QVariant"
+            Parameter { name: "position"; type: "QVariant" }
+        }
+        Method { name: "redo"; type: "QVariant" }
+        Method {
+            name: "remove"
+            type: "QVariant"
+            Parameter { name: "start"; type: "QVariant" }
+            Parameter { name: "end"; type: "QVariant" }
+        }
+        Method {
+            name: "select"
+            type: "QVariant"
+            Parameter { name: "start"; type: "QVariant" }
+            Parameter { name: "end"; type: "QVariant" }
+        }
+        Method { name: "selectAll"; type: "QVariant" }
+        Method { name: "selectWord"; type: "QVariant" }
+        Method { name: "undo"; type: "QVariant" }
+        Property { name: "frameVisible"; type: "bool" }
+        Property { name: "highlightOnFocus"; type: "bool" }
+        Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
+        Property { name: "__scrollBarTopMargin"; type: "int" }
+        Property { name: "__viewTopMargin"; type: "int" }
+        Property { name: "style"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "__style"; type: "Style_QMLTYPE_2"; isPointer: true }
+        Property { name: "horizontalScrollBarPolicy"; type: "int" }
+        Property { name: "verticalScrollBarPolicy"; type: "int" }
+        Property { name: "viewport"; type: "QQuickItem"; isReadonly: true; isPointer: true }
+        Property { name: "flickableItem"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
+        Property {
+            name: "__scroller"
+            type: "ScrollViewHelper_QMLTYPE_27"
+            isReadonly: true
+            isPointer: true
+        }
+        Property { name: "__verticalScrollbarOffset"; type: "int" }
+        Property { name: "__wheelAreaScrollSpeed"; type: "double" }
+        Property {
+            name: "__horizontalScrollBar"
+            type: "ScrollBar_QMLTYPE_23"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "__verticalScrollBar"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
@@ -2252,25 +2367,31 @@ Module {
         Property { name: "frameVisible"; type: "bool" }
         Property { name: "highlightOnFocus"; type: "bool" }
         Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
-        Property { name: "__scroller"; type: "QQuickItem"; isPointer: true }
         Property { name: "__scrollBarTopMargin"; type: "int" }
         Property { name: "__viewTopMargin"; type: "int" }
         Property { name: "style"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "__style"; type: "Style_QMLTYPE_1"; isPointer: true }
+        Property { name: "__style"; type: "Style_QMLTYPE_2"; isPointer: true }
         Property { name: "horizontalScrollBarPolicy"; type: "int" }
         Property { name: "verticalScrollBarPolicy"; type: "int" }
         Property { name: "viewport"; type: "QQuickItem"; isReadonly: true; isPointer: true }
         Property { name: "flickableItem"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
+        Property {
+            name: "__scroller"
+            type: "ScrollViewHelper_QMLTYPE_27"
+            isReadonly: true
+            isPointer: true
+        }
+        Property { name: "__verticalScrollbarOffset"; type: "int" }
         Property { name: "__wheelAreaScrollSpeed"; type: "double" }
         Property {
             name: "__horizontalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "__verticalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
@@ -2378,11 +2499,11 @@ Module {
         isComposite: true
         defaultProperty: "data"
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_50"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_48"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
-        Property { name: "action"; type: "QQuickAction"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
+        Property { name: "action"; type: "QQuickAction1"; isPointer: true }
         Property { name: "activeFocusOnPress"; type: "bool" }
         Property { name: "text"; type: "string" }
         Property { name: "tooltip"; type: "string" }
@@ -2390,8 +2511,8 @@ Module {
         Property { name: "iconName"; type: "string" }
         Property { name: "__position"; type: "string" }
         Property { name: "__iconOverriden"; type: "bool"; isReadonly: true }
-        Property { name: "__action"; type: "QQuickAction"; isPointer: true }
-        Property { name: "__iconAction"; type: "QQuickAction"; isReadonly: true; isPointer: true }
+        Property { name: "__action"; type: "QQuickAction1"; isPointer: true }
+        Property { name: "__iconAction"; type: "QQuickAction1"; isReadonly: true; isPointer: true }
         Property { name: "__behavior"; type: "QVariant" }
         Property { name: "__effectivePressed"; type: "bool" }
         Property { name: "pressed"; type: "bool"; isReadonly: true }
@@ -2426,11 +2547,11 @@ Module {
         isComposite: true
         defaultProperty: "data"
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_50"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_48"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
-        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup"; isPointer: true }
-        Property { name: "action"; type: "QQuickAction"; isPointer: true }
+        Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
+        Property { name: "action"; type: "QQuickAction1"; isPointer: true }
         Property { name: "activeFocusOnPress"; type: "bool" }
         Property { name: "text"; type: "string" }
         Property { name: "tooltip"; type: "string" }
@@ -2438,8 +2559,8 @@ Module {
         Property { name: "iconName"; type: "string" }
         Property { name: "__position"; type: "string" }
         Property { name: "__iconOverriden"; type: "bool"; isReadonly: true }
-        Property { name: "__action"; type: "QQuickAction"; isPointer: true }
-        Property { name: "__iconAction"; type: "QQuickAction"; isReadonly: true; isPointer: true }
+        Property { name: "__action"; type: "QQuickAction1"; isPointer: true }
+        Property { name: "__iconAction"; type: "QQuickAction1"; isReadonly: true; isPointer: true }
         Property { name: "__behavior"; type: "QVariant" }
         Property { name: "__effectivePressed"; type: "bool" }
         Property { name: "pressed"; type: "bool"; isReadonly: true }
@@ -2451,140 +2572,6 @@ Module {
         Property { name: "__panel"; type: "QQuickItem"; isPointer: true }
         Property { name: "styleHints"; type: "QVariant" }
         Property { name: "__styleData"; type: "QObject"; isPointer: true }
-    }
-    Component {
-        prototype: "QQuickFocusScope"
-        name: "QtQuick.Controls/TreeView 1.5"
-        exports: ["QtQuick.Controls/TreeView 1.5"]
-        exportMetaObjectRevisions: [5]
-        isComposite: true
-        defaultProperty: "__columns"
-        Property { name: "model"; type: "QVariant" }
-        Property { name: "currentIndex"; type: "QVariant"; isReadonly: true }
-        Property { name: "selection"; type: "QItemSelectionModel"; isPointer: true }
-        Property { name: "rootIndex"; type: "QModelIndex" }
-        Signal {
-            name: "activated"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Signal {
-            name: "clicked"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Signal {
-            name: "doubleClicked"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Signal {
-            name: "pressAndHold"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Signal {
-            name: "expanded"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Signal {
-            name: "collapsed"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Method {
-            name: "isExpanded"
-            type: "QVariant"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Method {
-            name: "collapse"
-            type: "QVariant"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Method {
-            name: "expand"
-            type: "QVariant"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Method {
-            name: "indexAt"
-            type: "QVariant"
-            Parameter { name: "x"; type: "QVariant" }
-            Parameter { name: "y"; type: "QVariant" }
-        }
-        Property { name: "alternatingRowColors"; type: "bool" }
-        Property { name: "headerVisible"; type: "bool" }
-        Property { name: "itemDelegate"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "rowDelegate"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "headerDelegate"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "sortIndicatorColumn"; type: "int" }
-        Property { name: "sortIndicatorVisible"; type: "bool" }
-        Property { name: "sortIndicatorOrder"; type: "int" }
-        Property { name: "selectionMode"; type: "int" }
-        Property { name: "__viewTypeName"; type: "string" }
-        Property { name: "__isTreeView"; type: "bool"; isReadonly: true }
-        Property { name: "__itemDelegateLoader"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "__model"; type: "QVariant" }
-        Property { name: "__activateItemOnSingleClick"; type: "bool" }
-        Property { name: "__mouseArea"; type: "QQuickItem"; isPointer: true }
-        Property { name: "backgroundVisible"; type: "bool" }
-        Property { name: "contentHeader"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "contentFooter"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "columnCount"; type: "int"; isReadonly: true }
-        Property { name: "section"; type: "QQuickViewSection"; isReadonly: true; isPointer: true }
-        Property { name: "__columns"; type: "QObject"; isList: true; isReadonly: true }
-        Property { name: "__currentRowItem"; type: "QQuickItem"; isReadonly: true; isPointer: true }
-        Property { name: "__currentRow"; type: "int" }
-        Property { name: "__listView"; type: "QQuickListView"; isReadonly: true; isPointer: true }
-        Method {
-            name: "addColumn"
-            type: "QVariant"
-            Parameter { name: "column"; type: "QVariant" }
-        }
-        Method {
-            name: "insertColumn"
-            type: "QVariant"
-            Parameter { name: "index"; type: "QVariant" }
-            Parameter { name: "column"; type: "QVariant" }
-        }
-        Method {
-            name: "removeColumn"
-            type: "QVariant"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Method {
-            name: "moveColumn"
-            type: "QVariant"
-            Parameter { name: "from"; type: "QVariant" }
-            Parameter { name: "to"; type: "QVariant" }
-        }
-        Method {
-            name: "getColumn"
-            type: "QVariant"
-            Parameter { name: "index"; type: "QVariant" }
-        }
-        Method { name: "resizeColumnsToContents"; type: "QVariant" }
-        Property { name: "frameVisible"; type: "bool" }
-        Property { name: "highlightOnFocus"; type: "bool" }
-        Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
-        Property { name: "__scroller"; type: "QQuickItem"; isPointer: true }
-        Property { name: "__scrollBarTopMargin"; type: "int" }
-        Property { name: "__viewTopMargin"; type: "int" }
-        Property { name: "style"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "__style"; type: "Style_QMLTYPE_1"; isPointer: true }
-        Property { name: "horizontalScrollBarPolicy"; type: "int" }
-        Property { name: "verticalScrollBarPolicy"; type: "int" }
-        Property { name: "viewport"; type: "QQuickItem"; isReadonly: true; isPointer: true }
-        Property { name: "flickableItem"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
-        Property { name: "__wheelAreaScrollSpeed"; type: "double" }
-        Property {
-            name: "__horizontalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
-            isReadonly: true
-            isPointer: true
-        }
-        Property {
-            name: "__verticalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
-            isReadonly: true
-            isPointer: true
-        }
     }
     Component {
         prototype: "QQuickFocusScope"
@@ -2697,25 +2684,171 @@ Module {
         Property { name: "frameVisible"; type: "bool" }
         Property { name: "highlightOnFocus"; type: "bool" }
         Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
-        Property { name: "__scroller"; type: "QQuickItem"; isPointer: true }
         Property { name: "__scrollBarTopMargin"; type: "int" }
         Property { name: "__viewTopMargin"; type: "int" }
         Property { name: "style"; type: "QQmlComponent"; isPointer: true }
-        Property { name: "__style"; type: "Style_QMLTYPE_1"; isPointer: true }
+        Property { name: "__style"; type: "Style_QMLTYPE_2"; isPointer: true }
         Property { name: "horizontalScrollBarPolicy"; type: "int" }
         Property { name: "verticalScrollBarPolicy"; type: "int" }
         Property { name: "viewport"; type: "QQuickItem"; isReadonly: true; isPointer: true }
         Property { name: "flickableItem"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
+        Property {
+            name: "__scroller"
+            type: "ScrollViewHelper_QMLTYPE_27"
+            isReadonly: true
+            isPointer: true
+        }
+        Property { name: "__verticalScrollbarOffset"; type: "int" }
         Property { name: "__wheelAreaScrollSpeed"; type: "double" }
         Property {
             name: "__horizontalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
         Property {
             name: "__verticalScrollBar"
-            type: "ScrollBar_QMLTYPE_24"
+            type: "ScrollBar_QMLTYPE_23"
+            isReadonly: true
+            isPointer: true
+        }
+    }
+    Component {
+        prototype: "QQuickFocusScope"
+        name: "QtQuick.Controls/TreeView 1.5"
+        exports: ["QtQuick.Controls/TreeView 1.5"]
+        exportMetaObjectRevisions: [5]
+        isComposite: true
+        defaultProperty: "__columns"
+        Property { name: "model"; type: "QVariant" }
+        Property { name: "currentIndex"; type: "QVariant"; isReadonly: true }
+        Property { name: "selection"; type: "QItemSelectionModel"; isPointer: true }
+        Property { name: "rootIndex"; type: "QModelIndex" }
+        Signal {
+            name: "activated"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Signal {
+            name: "clicked"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Signal {
+            name: "doubleClicked"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Signal {
+            name: "pressAndHold"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Signal {
+            name: "expanded"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Signal {
+            name: "collapsed"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Method {
+            name: "isExpanded"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Method {
+            name: "collapse"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Method {
+            name: "expand"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Method {
+            name: "indexAt"
+            type: "QVariant"
+            Parameter { name: "x"; type: "QVariant" }
+            Parameter { name: "y"; type: "QVariant" }
+        }
+        Property { name: "alternatingRowColors"; type: "bool" }
+        Property { name: "headerVisible"; type: "bool" }
+        Property { name: "itemDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "rowDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "headerDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "sortIndicatorColumn"; type: "int" }
+        Property { name: "sortIndicatorVisible"; type: "bool" }
+        Property { name: "sortIndicatorOrder"; type: "int" }
+        Property { name: "selectionMode"; type: "int" }
+        Property { name: "__viewTypeName"; type: "string" }
+        Property { name: "__isTreeView"; type: "bool"; isReadonly: true }
+        Property { name: "__itemDelegateLoader"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "__model"; type: "QVariant" }
+        Property { name: "__activateItemOnSingleClick"; type: "bool" }
+        Property { name: "__mouseArea"; type: "QQuickItem"; isPointer: true }
+        Property { name: "backgroundVisible"; type: "bool" }
+        Property { name: "contentHeader"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "contentFooter"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "columnCount"; type: "int"; isReadonly: true }
+        Property { name: "section"; type: "QQuickViewSection"; isReadonly: true; isPointer: true }
+        Property { name: "__columns"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "__currentRowItem"; type: "QQuickItem"; isReadonly: true; isPointer: true }
+        Property { name: "__currentRow"; type: "int" }
+        Property { name: "__listView"; type: "QQuickListView"; isReadonly: true; isPointer: true }
+        Method {
+            name: "addColumn"
+            type: "QVariant"
+            Parameter { name: "column"; type: "QVariant" }
+        }
+        Method {
+            name: "insertColumn"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+            Parameter { name: "column"; type: "QVariant" }
+        }
+        Method {
+            name: "removeColumn"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Method {
+            name: "moveColumn"
+            type: "QVariant"
+            Parameter { name: "from"; type: "QVariant" }
+            Parameter { name: "to"; type: "QVariant" }
+        }
+        Method {
+            name: "getColumn"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+        Method { name: "resizeColumnsToContents"; type: "QVariant" }
+        Property { name: "frameVisible"; type: "bool" }
+        Property { name: "highlightOnFocus"; type: "bool" }
+        Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
+        Property { name: "__scrollBarTopMargin"; type: "int" }
+        Property { name: "__viewTopMargin"; type: "int" }
+        Property { name: "style"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "__style"; type: "Style_QMLTYPE_2"; isPointer: true }
+        Property { name: "horizontalScrollBarPolicy"; type: "int" }
+        Property { name: "verticalScrollBarPolicy"; type: "int" }
+        Property { name: "viewport"; type: "QQuickItem"; isReadonly: true; isPointer: true }
+        Property { name: "flickableItem"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
+        Property {
+            name: "__scroller"
+            type: "ScrollViewHelper_QMLTYPE_27"
+            isReadonly: true
+            isPointer: true
+        }
+        Property { name: "__verticalScrollbarOffset"; type: "int" }
+        Property { name: "__wheelAreaScrollSpeed"; type: "double" }
+        Property {
+            name: "__horizontalScrollBar"
+            type: "ScrollBar_QMLTYPE_23"
+            isReadonly: true
+            isPointer: true
+        }
+        Property {
+            name: "__verticalScrollBar"
+            type: "ScrollBar_QMLTYPE_23"
             isReadonly: true
             isPointer: true
         }
@@ -2752,6 +2885,7 @@ Module {
             type: "QVariant"
             Parameter { name: "columnIndex"; type: "QVariant" }
             Parameter { name: "itemIndex"; type: "QVariant" }
+            Parameter { name: "interval"; type: "QVariant" }
         }
         Method {
             name: "getColumn"

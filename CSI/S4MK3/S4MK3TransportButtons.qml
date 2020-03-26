@@ -1,5 +1,5 @@
 import CSI 1.0
-import "S4MK3Functions.js" as S4MK3Functions
+import "../Common/DeckHelpers.js" as Helpers
 
 Module
 {
@@ -7,7 +7,7 @@ Module
   property string surface: "" // e.g. "s4mk3.left"
   property int deckIdx: 0 // Traktor deck 1..4
   property bool active: false
-  property var deckColor: S4MK3Functions.colorForDeck(deckIdx)
+  property var deckColor: Helpers.colorForDeck(deckIdx)
   property bool shift: false
 
   TransportSection

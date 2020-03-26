@@ -46,7 +46,7 @@ import QtQuick.Controls.Private 1.0
     \inqmlmodule QtQuick.Controls.Styles
     \since 5.4
     \ingroup controlsstyling
-    \brief Provides custom styling for ApplicationWindow
+    \brief Provides custom styling for ApplicationWindow.
 
     You can create a custom window background by replacing the "background"
     delegate of ApplicationWindowStyle with a custom design.

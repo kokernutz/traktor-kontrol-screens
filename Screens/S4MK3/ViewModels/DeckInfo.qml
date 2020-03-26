@@ -27,7 +27,7 @@ Item
   readonly property bool    hightlightLoop:       !shift
   readonly property bool    hightlightKey:        shift
   readonly property int     isLoaded:             (propTrackLength.value > 0) || (deckType === DeckType.Remix)
-  readonly property string  resultingKeyStr:      prefs.camelotKey ? utils.convertToCamelot(propKeyForDisplay.value) : propKeyForDisplay.value // propKeyForDisplay.value
+  readonly property string  resultingKeyStr:      prefs.camelotKey ? utils.convertToCamelot(propKeyForDisplay.value) : propKeyForDisplay.value
   readonly property int     resultingKeyIdx:      propFinalKeyId.value 
   readonly property bool    hasKey:               isLoaded && resultingKeyIdx >= 0
   readonly property bool    isKeyLockOn:          propKeyLockOn.value
@@ -62,7 +62,7 @@ Item
   AppProperty { id: propTrackLength;            path: "app.traktor.decks." + deckId + ".track.content.track_length"; }
   AppProperty { id: propElapsedTime;            path: "app.traktor.decks." + deckId + ".track.player.elapsed_time"; }
   AppProperty { id: propertyCover;              path: "app.traktor.decks." + deckId + ".content.cover_md5" }
-  AppProperty { id: propPrimaryKey;             path: "app.traktor.decks." + deckId + ".track.content.primary_key"; }
+  AppProperty { id: propPrimaryKey;             path: "app.traktor.decks." + deckId + ".track.content.entry_key"; }
   AppProperty { id: propTrackEndWarning;        path: "app.traktor.decks." + deckId + ".track.track_end_warning" }
 
   MappingProperty { id: propShift;     path: "mapping.state." + (isLeftScreen(deckId) ? "left" : "right") + ".shift" }

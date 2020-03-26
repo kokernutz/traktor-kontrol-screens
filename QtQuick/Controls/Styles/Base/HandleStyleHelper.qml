@@ -67,8 +67,8 @@ QtObject {
         }
 
         ctx.beginPath();
-        var gradient = ctx.createRadialGradient(handleX, handleY, handleWidth / 2,
-            handleX, handleY, handleWidth);
+        var gradient = ctx.createRadialGradient(handleX, handleY, 0,
+            handleX, handleY, handleWidth * 1.5);
         gradient.addColorStop(0, handleColorTop);
         gradient.addColorStop(handleColorBottomStop, handleColorBottom);
         ctx.ellipse(handleX, handleY, handleWidth, handleHeight);

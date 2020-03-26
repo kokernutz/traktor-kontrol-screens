@@ -19,7 +19,7 @@ Rectangle {
   AppProperty { id: playPosition; path: propertyPath + ".play_position"                     }
   AppProperty { id: trackLength;  path: propertyPath + ".content.track_length"              }
   AppProperty { id: volume;       path: propertyPath + ".level"                             }  
-  AppProperty { id: primaryKey;   path: propertyPath + ".content.primary_key";              }
+  AppProperty { id: primaryKey;   path: propertyPath + ".content.entry_key";                }
   AppProperty { id: isMemoryOnly; path: propertyPath + ".content.is_memory_only";           } 
   AppProperty { id: timeStamp;    path: propertyPath + ".content.memory_audio_time_stamp"   }
   

@@ -260,6 +260,17 @@ ScrollView {
         if (index >= 0 && index <= columnCount && object.Accessible.role === Accessible.ColumnHeader) {
             object.__view = root
             columnModel.insert(index, {columnItem: object})
+            if (root.__columns[index] !== object) {
+                // The new column needs to be put into __columns at the specified index
+                // so the list needs to be recreated to be correct
+                var arr = []
+                for (var i = 0; i < index; ++i)
+                    arr.push(root.__columns[i])
+                arr.push(object)
+                for (i = index; i < root.__columns.length; ++i)
+                    arr.push(root.__columns[i])
+                root.__columns = arr
+            }
             return object
         }
 
@@ -348,6 +359,8 @@ ScrollView {
         }
     }
 
+    activeFocusOnTab: true
+
     implicitWidth: 200
     implicitHeight: 150
 
@@ -409,9 +422,9 @@ ScrollView {
         interactive: Settings.hasTouchScreen
         property var rowItemStack: [] // Used as a cache for rowDelegates
 
-        readonly property bool transientScrollbars: __style && !!__style.transientScrollBars
+        readonly property bool transientScrollBars: __style && !!__style.transientScrollBars
         readonly property real vScrollbarPadding: __scroller.verticalScrollBar.visible
-                                                  && !transientScrollbars && Qt.platform.os === "osx" ?
+                                                  && !transientScrollBars && Qt.platform.os === "osx" ?
                                                   __verticalScrollBar.width + __scroller.scrollBarSpacing + root.__style.padding.right : 0
 
         Binding {
@@ -474,8 +487,8 @@ ScrollView {
                     property bool pressed: false
                 }
             }
-            property int rowHeight: rowSizeItem.implicitHeight
-            property int paddedRowCount: height/rowHeight
+            property int rowHeight: Math.floor(rowSizeItem.implicitHeight)
+            property int paddedRowCount: rowHeight != 0 ? height/rowHeight : 0
 
             y: listView.contentHeight - listView.contentY + listView.originY
             width: parent.width

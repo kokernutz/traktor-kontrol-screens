@@ -38,7 +38,7 @@ Text {
   //  DECK PROPERTIES
   //--------------------------------------------------------------------------------------------------------------------
   AppProperty { id: propDeckType;       path: "app.traktor.decks." + (deckId+1) + ".type" }
-  AppProperty { id: primaryKey;         path: "app.traktor.decks." + (deckId+1) + ".track.content.primary_key" }
+  AppProperty { id: primaryKey;         path: "app.traktor.decks." + (deckId+1) + ".track.content.entry_key" }
   
   AppProperty { id: propTitle;          path: "app.traktor.decks." + (deckId+1) + ".content.title" }
   AppProperty { id: propArtist;         path: "app.traktor.decks." + (deckId+1) + ".content.artist" }
@@ -264,7 +264,7 @@ Text {
       PropertyChanges { target: header_text; font.family: fontForNumber;
                         text:   (!isLoaded)?"":(prefs.camelotKey ? utils.convertToCamelot(propKeyDisplay.value) : propKeyDisplay.value); }
     }
-  ]
+  ] 
 
 
   //--------------------------------------------------------------------------------------------------------------------
