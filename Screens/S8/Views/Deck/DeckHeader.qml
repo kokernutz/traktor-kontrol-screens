@@ -90,7 +90,7 @@ Item {
   //  DECK PROPERTIES
   //--------------------------------------------------------------------------------------------------------------------
 
-  AppProperty { id: deckKeyDisplay;     path: "app.traktor.decks." + (deckId+1) + ".track.key.key_for_display"; onValueChanged: { updateKeyColor() } }
+  AppProperty { id: deckKeyDisplay;     path: "app.traktor.decks." + (deckId+1) + ".track.key.resulting.precise"; onValueChanged: { updateKeyColor() } }
   AppProperty { id: propMusicalKey;     path: "app.traktor.decks." + (deckId+1) + ".content.musical_key" }
   AppProperty { id: propSyncMasterDeck; path: "app.traktor.masterclock.source_id" }
 
@@ -214,9 +214,10 @@ Item {
     explicitName: ""
     height: topRowHeight
     textState: topLeftState
-    color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
+    color:      (textState == 17 || textState == 18) ? parent.colorForKey(utils.returnKeyIndex(propMusicalKey.value)) :  textState == 31 ? parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) :  textColors[deck_Id]
     elide:     Text.ElideRight
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.smallFontSize
     font.pixelSize:     fonts.largeFontSize // set in state
     anchors.top:        parent.top
     anchors.left:       cover_small.right
@@ -235,9 +236,10 @@ Item {
     width: fieldWidth
     height: topRowHeight
     textState:  topCenterState
-    color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
-    font.pixelSize: fonts.largeFontSize
+    color:      (textState == 17 || textState == 18) ? parent.colorForKey(utils.returnKeyIndex(propMusicalKey.value)) :  textState == 31 ? parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) :  textColors[deck_Id]
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.smallFontSize
+    font.pixelSize:     fonts.largeFontSize
     anchors.top:          parent.top
     anchors.right:        top_right_text.left
     horizontalAlignment: Text.AlignRight
@@ -255,9 +257,10 @@ Item {
     width: fieldWidth 
     height: topRowHeight
     textState:  topRightState
-    color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
-    font.pixelSize: fonts.largeFontSize
+    color:      (textState == 17 || textState == 18) ? parent.colorForKey(utils.returnKeyIndex(propMusicalKey.value)) :  textState == 31 ? parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) :  textColors[deck_Id]
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.smallFontSize
+    font.pixelSize:     fonts.largeFontSize
     anchors.top:          parent.top
     anchors.right:        parent.right
     anchors.rightMargin:  rightFieldMargin
@@ -275,9 +278,10 @@ Item {
     explicitName: ""
     height: bottomRowsHeight
     textState:  middleLeftState
-    color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+    color:      (textState == 17 || textState == 18) ? parent.colorForKey(utils.returnKeyIndex(propMusicalKey.value)) :  textState == 31 ? parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) :  darkerTextColors[deck_Id]
     elide:      Text.ElideRight
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
     font.pixelSize:     fonts.middleFontSize
     anchors.top:        top_left_text.bottom
     anchors.left:       cover_small.right
@@ -296,11 +300,12 @@ Item {
     height: bottomRowsHeight
     textState:  middleCenterState
     visible: isLoaded
-    color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+    color:      (textState == 17 || textState == 18) ? parent.colorForKey(utils.returnKeyIndex(propMusicalKey.value)) :  textState == 31 ? parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) :  darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     anchors.top:          top_middle_text.bottom
     anchors.right:        middle_right_text.left
     horizontalAlignment: Text.AlignRight
@@ -320,10 +325,11 @@ Item {
     anchors.top: top_right_text.bottom
     anchors.right:        parent.right
     anchors.rightMargin:  rightFieldMargin
-    color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+    color:      (textState == 17 || textState == 18) ? parent.colorForKey(utils.returnKeyIndex(propMusicalKey.value)) :  textState == 31 ? parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) :  darkerTextColors[deck_Id]
     opacity:    _intSetInState          // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSiz
     horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
     onTextChanged: {updateHeader()}
@@ -339,10 +345,11 @@ Item {
     explicitName: ""
     height: bottomRowsHeight
     textState:  bottomLeftState
-    color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+    color:      (textState == 17 || textState == 18) ? parent.colorForKey(utils.returnKeyIndex(propMusicalKey.value)) :  textState == 31 ? parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) :  darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
     font.pixelSize:     fonts.middleFontSize
     anchors.top:        middle_left_text.bottom
     anchors.left:       cover_small.right
@@ -364,10 +371,11 @@ Item {
     width:  fieldWidth
     anchors.bottom:           parent.bottom
     anchors.right:            bottom_right.left
-    color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+    color:      (textState == 17 || textState == 18) ? parent.colorForKey(utils.returnKeyIndex(propMusicalKey.value)) :  textState == 31 ? parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) :  darkerTextColors[deck_Id]
     opacity: _intSetInState          // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
     Behavior on opacity             { NumberAnimation { duration: speed } }
@@ -386,10 +394,11 @@ Item {
     anchors.bottom: parent.bottom
     anchors.right:        parent.right
     anchors.rightMargin:  rightFieldMargin
-    color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+    color:      (textState == 17 || textState == 18) ? parent.colorForKey(utils.returnKeyIndex(propMusicalKey.value)) :  textState == 31 ? parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) :  darkerTextColors[deck_Id]
     opacity:    _intSetInState          // set by 'state'
-    font.pixelSize: fonts.middleFontSize
+    fontSizeMode:       Text.HorizontalFit
+    minimumPixelSize:   fonts.miniFontSize
+    font.pixelSize:     fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
     Behavior on opacity             { NumberAnimation { duration: speed } }

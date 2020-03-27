@@ -59,7 +59,7 @@ Text {
 
   AppProperty { id: propMusicalKey;       path: "app.traktor.decks." + (deckId+1) + ".content.musical_key" }
   AppProperty { id: propLegacyKey;        path: "app.traktor.decks." + (deckId+1) + ".content.legacy_key" }
-  AppProperty { id: propKeyDisplay;       path: "app.traktor.decks." + (deckId+1) + ".track.key.key_for_display" }
+  AppProperty { id: propKeyDisplay;       path: "app.traktor.decks." + (deckId+1) + ".track.key.resulting.precise"  }
   AppProperty { id: propPitchRange;       path: "app.traktor.decks." + (deckId+1) + ".tempo.range" }
   AppProperty { id: propTempoAbsolute;    path: "app.traktor.decks." + (deckId+1) + ".tempo.absolute" }  
   AppProperty { id: propMixerBpm;         path: "app.traktor.decks." + (deckId+1) + ".tempo.base_bpm" }
@@ -183,8 +183,8 @@ Text {
     },
   //--------------------------------------------------------------------------------------------------------------------
     State { 
-      name: "key"; 
-      PropertyChanges { target: header_text; font.family: fontForNumber;
+      name: "key";
+      PropertyChanges { target: header_text; font.family: fontForNumber; 
                         text:   (!isLoaded)?"":propMusicalKey.value.toString(); }
     },
     State { 
