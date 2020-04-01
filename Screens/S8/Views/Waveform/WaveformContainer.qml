@@ -211,7 +211,7 @@ Item {
     deckId:          view.deckId
     anchors.fill:    stemWaveform
     visible:         stemWaveform.visible
-    indicatorHeight: (slicer.enabled && !beatgrid.editEnabled ) ? [34 , 33 , 33 , 33] : [36 , 36 , 36 , 36]
+    indicatorHeight: (slicer.enabled && !beatgrid.editEnabled ) ? [26 , 26 , 26 , 26] : [30 , 30 , 30 , 30]
   }
 
   //--------------------------------------------------------------------------------------------------------------------

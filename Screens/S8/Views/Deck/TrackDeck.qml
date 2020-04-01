@@ -16,8 +16,8 @@ Item {
 
   readonly property int waveformHeight: (deckSizeState == "small") ? 0 : ( parent ? ( (deckSizeState == "medium") ? (parent.height-55) : (parent.height-70) ) : 0 )
 
-  readonly property int largeDeckBottomMargin: (waveformContainer.isStemStyleDeck) ? 6 : 6  
-  readonly property int smallDeckBottomMargin: (deckId > 1) ? 9 : 6
+  readonly property int largeDeckBottomMargin: (waveformContainer.isStemStyleDeck) ? 1 : 1  
+  readonly property int smallDeckBottomMargin: (deckId > 1) ? 1 : 1
 
   property bool showLoopSize: false
   property int  zoomLevel:    1
