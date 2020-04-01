@@ -2,6 +2,10 @@ import QtQuick 2.0
 
 QtObject {
 
+	// controller preferences
+	readonly property bool fineMasterTempoAdjust:    true
+	readonly property bool fineDeckTempoAdjust:        true
+
 	// global preferences
 	readonly property bool camelotKey: 				true
 	readonly property int  phraseLength:            4
