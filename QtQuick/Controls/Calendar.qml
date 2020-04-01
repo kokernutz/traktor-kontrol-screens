@@ -37,8 +37,8 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.2
-import QtQuick.Controls 1.2
+import QtQuick 2.9
+import QtQuick.Controls 1.5
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Controls.Private 1.0
 
@@ -47,7 +47,7 @@ import QtQuick.Controls.Private 1.0
     \inqmlmodule QtQuick.Controls
     \since 5.3
     \ingroup controls
-    \brief Provides a way to select dates from a calendar
+    \brief Provides a way to select dates from a calendar.
 
     \image calendar.png
 
@@ -61,6 +61,13 @@ import QtQuick.Controls.Private 1.0
     A minimum and maximum date can be set through \l minimumDate and
     \l maximumDate. The earliest minimum date that can be set is 1 January, 1
     AD. The latest maximum date that can be set is 25 October, 275759 AD.
+
+    \code
+    Calendar {
+        minimumDate: new Date(2017, 0, 1)
+        maximumDate: new Date(2018, 0, 1)
+    }
+    \endcode
 
     The selected date is displayed using the format in the application's
     default locale.
@@ -195,20 +202,27 @@ Control {
     property int dayOfWeekFormat: Locale.ShortFormat
 
     /*!
-        The locale that this calendar should use to display itself.
+        \qmlproperty object Calendar::locale
+        \since QtQuick.Controls 1.6
 
-        Affects how dates and day names are localized, as well as which
-        day is considered the first in a week.
+        This property controls the locale that this calendar uses to display
+        itself.
 
-        To set an Australian locale, for example:
+        The locale affects how dates and day names are localized, as well as
+        which day is considered the first in a week.
+
+        The following example sets an Australian locale:
 
         \code
         locale: Qt.locale("en_AU")
         \endcode
 
-        The default locale is \c Qt.locale().
+        The default value is equivalent to \c Qt.locale().
     */
-    property var __locale: Qt.locale()
+    property var locale: Qt.locale()
+
+    // left for compatibility reasons; can be removed in next minor version/Qt 6
+    property alias __locale: calendar.locale
 
     /*!
         \internal
@@ -217,8 +231,10 @@ Control {
         populate the dates available to the user.
     */
     property CalendarModel __model: CalendarModel {
-        locale: calendar.__locale
-        visibleDate: new Date(visibleYear, visibleMonth, 1)
+        locale: calendar.locale
+
+        // TODO: don't set the hour when QTBUG-56787 is fixed
+        visibleDate: new Date(visibleYear, visibleMonth, 1, 12)
     }
 
     style: Settings.styleComponent(Settings.style, "CalendarStyle.qml", calendar)

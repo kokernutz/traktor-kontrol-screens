@@ -19,7 +19,7 @@ function colorForDeck(deckIdx)
     return Color.Black;
 }
 
-// primary decks defualt to track, secondary decks default to remix   
+// primary decks defualt to track, secondary decks default to remix
 function defaultTypeForDeck(deckIdx)
 {
     return (deckIdx > 2) ? DeckType.Remix : DeckType.Track

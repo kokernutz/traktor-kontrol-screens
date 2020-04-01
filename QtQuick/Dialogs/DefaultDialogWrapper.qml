@@ -47,6 +47,9 @@ import "qml"
 AbstractDialog {
     id: root
     default property alias data: defaultContentItem.data
+
+    signal actionChosen(var action)
+
     onVisibilityChanged: if (visible && contentItem) contentItem.forceActiveFocus()
 
     Rectangle {
@@ -63,19 +66,7 @@ AbstractDialog {
             defaultContentItem.implicitWidth, buttonsRowImplicitWidth, Screen.pixelDensity * 50) + outerSpacing * 2)
         color: palette.window
         Keys.onPressed: {
-            event.accepted = true
-            switch (event.key) {
-                case Qt.Key_Escape:
-                case Qt.Key_Back:
-                    reject()
-                    break
-                case Qt.Key_Enter:
-                case Qt.Key_Return:
-                    accept()
-                    break
-                default:
-                    event.accepted = false
-            }
+            event.accepted = handleKey(event.key)
         }
 
         SystemPalette { id: palette }
@@ -109,7 +100,7 @@ AbstractDialog {
                 id: buttonsLeftRepeater
                 Button {
                     text: (buttonsLeftRepeater.model && buttonsLeftRepeater.model[index] ? buttonsLeftRepeater.model[index].text : index)
-                    onClicked: root.click(buttonsLeftRepeater.model[index].standardButton)
+                    onClicked: content.handleButton(buttonsLeftRepeater.model[index].standardButton)
                 }
             }
 
@@ -136,9 +127,54 @@ AbstractDialog {
                 // TODO maybe: insert gaps if the button requires it (destructive buttons only)
                 Button {
                     text: (buttonsRightRepeater.model && buttonsRightRepeater.model[index] ? buttonsRightRepeater.model[index].text : index)
-                    onClicked: root.click(buttonsRightRepeater.model[index].standardButton)
+                    onClicked: content.handleButton(buttonsRightRepeater.model[index].standardButton)
                 }
             }
+        }
+
+        function handleButton(button) {
+            var action = {
+                "button": button,
+                "key": 0,
+                "accepted": true,
+            }
+            root.actionChosen(action)
+            if (action.accepted) {
+                click(button)
+            }
+        }
+
+        function handleKey(key) {
+            var button = 0
+            switch (key) {
+                case Qt.Key_Escape:
+                case Qt.Key_Back:
+                    button = StandardButton.Cancel
+                    break
+                case Qt.Key_Enter:
+                case Qt.Key_Return:
+                    button = StandardButton.Ok
+                    break
+                default:
+                    return false
+            }
+            var action = {
+                "button": button,
+                "key": key,
+                "accepted": true,
+            }
+            root.actionChosen(action)
+            if (action.accepted) {
+                switch (button) {
+                    case StandardButton.Cancel:
+                        reject()
+                        break
+                    case StandardButton.Ok:
+                        accept()
+                        break
+                }
+            }
+            return true
         }
     }
     function setupButtons() {

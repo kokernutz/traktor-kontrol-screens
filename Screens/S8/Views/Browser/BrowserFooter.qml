@@ -84,7 +84,7 @@ Rectangle {
     anchors.left:   parent.left
     anchors.right:  parent.right
     anchors.bottom: parent.bottom
-    height:         17
+    height:         17 // 15
     color:          colors.colorBrowserHeader // footer background color
   }
 
@@ -96,7 +96,7 @@ Rectangle {
 
     Item {
       width:  120
-      height: 17
+      height: 17 // 15
 
       Text {
         font.pixelSize: fonts.scale(12) 
@@ -135,7 +135,7 @@ Rectangle {
 
       Item {
         width:  120
-        height: 17
+        height: 17 // 15
         Text {
           font.pixelSize: fonts.scale(12) 
           anchors.left:   parent.left
@@ -145,7 +145,7 @@ Rectangle {
           text: ""
         }
 
-        Text {
+        Rectangle {
           id: divider
           height: 15
           width: 1
@@ -158,7 +158,7 @@ Rectangle {
     // Preview Player footer
     Item {
       width:  120
-      height: 17
+      height: 17 // 15
 
       Text {
         font.pixelSize: fonts.scale(12) 

@@ -1,4 +1,5 @@
 import CSI 1.0
+import "../Common/ChannelFX"
 
 Module
 {
@@ -56,8 +57,9 @@ Module
     shift: module.shift
   }
 
-  S4MK3ChannelFXSelector
+  FourChannelFXSelector
   {
     name: "channelFxSelector"
+    surface: "s4mk3"
   }
 }

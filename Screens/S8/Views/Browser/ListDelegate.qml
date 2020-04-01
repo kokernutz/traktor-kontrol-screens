@@ -19,7 +19,7 @@ Item {
   property color         textColor :            ListView.isCurrentItem ? deckColor : colors.colorFontsListBrowser
   property bool          isCurrentItem :        ListView.isCurrentItem
   property string        prepIconColorPostfix:  (screenFocus < 2 && ListView.isCurrentItem) ? "Blue" : ((screenFocus > 1 && ListView.isCurrentItem) ? "White" : "Grey")
-  readonly property int  textTopMargin:         1 // centers text vertically
+  readonly property int  textTopMargin:         1 // 7 // centers text vertically
   readonly property bool isLoaded:              (model.dataType == BrowserDataType.Track) ? model.loadedInDeck.length > 0 : false
   // visible: !ListView.isCurrentItem
 
@@ -31,7 +31,10 @@ Item {
   property int            browserFontSize:        prefs.displayMoreItems ? fonts.scale(15) : fonts.scale(16)
 
   AppProperty { id: masterClockBpm;   path: "app.traktor.masterclock.tempo"; onValueChanged: { updateMatchInfo(); } }
-  AppProperty { id: masterKeyDisplay; path: "app.traktor.decks." + (masterDeckId.value + 1) + ".track.key.key_for_display" ; onValueChanged: { updateMatchInfo(); }}
+  AppProperty { id: masterKeyDisplay; path: "app.traktor.decks." + (masterDeckId.value + 1) + ".track.content.entry_key" ; onValueChanged: { updateMatchInfo(); }}
+//  AppProperty { id: masterKeyDisplay; path: "app.traktor.decks." + (masterDeckId.value + 1) + ".track.key.key_for_display" ; onValueChanged: { updateMatchInfo(); }}
+//  AppProperty { id: primaryKey;         path: "app.traktor.decks." + (deckId+1) + ".track.content.entry_key" }
+
   AppProperty { id: masterDeckId;     path: "app.traktor.masterclock.source_id"; onValueChanged: { updateMatchInfo(); } }
 
   height: prefs.displayMoreItems ? 25 : 32
@@ -60,6 +63,7 @@ Item {
       anchors.top: parent.top
       anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
+      // anchors.leftMargin: 37
       width: 190
       visible: (model.dataType == BrowserDataType.Track)
 
@@ -88,9 +92,12 @@ Item {
         id: prepListIcon
         visible: (model.dataType == BrowserDataType.Track) ? model.prepared : false
         source: "./../Images/PrepListIcon" + prepIconColorPostfix + ".png"
+        // width: sourceSize.width
+        // height: sourceSize.height
         anchors.left: firstFieldText.right 
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: 2
+        // anchors.leftMargin: 5
       }
     }   
 
@@ -101,6 +108,7 @@ Item {
       anchors.top: parent.top
       anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
+      // anchors.leftMargin: 37
       color: textColor
       clip: true
       text: (model.dataType == BrowserDataType.Folder) ? model.nodeName : ""
@@ -175,7 +183,7 @@ Item {
         color:              tempoMatchColor
         visible:            masterDeckId.value >= 0 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) < 1
       }
-    }
+    }  
 
     function colorForKey(keyIndex) {
       return colors.musicalKeyColors[keyIndex]
@@ -229,7 +237,6 @@ Item {
       }
     }
 
-
     // track rating
     Widgets.TrackRating {
       id: ratingField
@@ -249,6 +256,7 @@ Item {
     ListHighlight {
       anchors.fill: parent
       visible: contactDelegate.isCurrentItem
+      // anchors.leftMargin: (model.dataType == BrowserDataType.Track) ? 34 : 0
       anchors.rightMargin: 0 
     }
   }
@@ -318,6 +326,8 @@ Item {
 
     Image {
       anchors.centerIn: trackImage
+      // width: 17
+      // height: 17
       source: "../Images/PreviewIcon_Big.png"
       fillMode: Image.Pad
       clip: true
@@ -390,8 +400,8 @@ Item {
   Image {
     id:       folderIcon
     source:   (model.dataType == BrowserDataType.Folder) ? ("image://icons/" + model.nodeIconId ) : ""
-    width:    parent.height
-    height:   parent.height
+    width:    parent.height // 33
+    height:   parent.height // 33
     fillMode: Image.PreserveAspectFit
     anchors.top: parent.top
     anchors.left: parent.left
@@ -437,6 +447,8 @@ Item {
   }
 
   function updateTempoMatch() {
+
+tempoMatchColor = colors.colorGreen;
 
     if (masterDeckId.value < 0) return;
 

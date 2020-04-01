@@ -48,7 +48,7 @@ import QtQuick.Controls.Private 1.0
     \inqmlmodule QtQuick.Controls.Styles
     \since 5.1
     \ingroup controlsstyling
-    \brief Provides custom styling for CheckBox
+    \brief Provides custom styling for CheckBox.
 
     Example:
     \qml
@@ -182,13 +182,11 @@ Style {
             Loader {
                 id: indicatorLoader
                 sourceComponent: indicator
-                anchors.verticalCenter: parent.verticalCenter
             }
             Loader {
                 id: labelLoader
                 Layout.fillWidth: true
                 sourceComponent: label
-                anchors.verticalCenter: parent.verticalCenter
             }
         }
     }

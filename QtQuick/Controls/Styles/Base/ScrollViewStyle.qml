@@ -47,7 +47,7 @@ import QtQuick.Controls.Private 1.0
     \since 5.1
     \ingroup viewsstyling
     \ingroup controlsstyling
-    \brief Provides custom styling for ScrollView
+    \brief Provides custom styling for ScrollView.
 */
 Style {
     id: root
@@ -370,8 +370,8 @@ Style {
 
         property var flickableItem: control.flickableItem
         property int extent: Math.max(minimumHandleLength, __styleData.horizontal ?
-                                          (flickableItem ? flickableItem.width/flickableItem.contentWidth : 0 ) * bg.width :
-                                          (flickableItem ? flickableItem.height/flickableItem.contentHeight : 0) * bg.height)
+                                          Math.min(1, ((flickableItem && flickableItem.contentWidth > 0.0) ? flickableItem.width/flickableItem.contentWidth : 1)) * bg.width :
+                                          Math.min(1, ((flickableItem && flickableItem.contentHeight > 0.0) ? flickableItem.height/flickableItem.contentHeight : 1)) * bg.height)
         readonly property real range: __control.maximumValue - __control.minimumValue
         readonly property real begin: __control.value - __control.minimumValue
 

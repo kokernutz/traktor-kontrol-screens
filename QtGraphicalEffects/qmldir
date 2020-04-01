@@ -28,4 +28,4 @@ ThresholdMask 1.0 ThresholdMask.qml
 ZoomBlur 1.0 ZoomBlur.qml
 designersupported
 depends QtGraphicalEffects/private 1.0
-
+depends QtQuick.Window 2.1

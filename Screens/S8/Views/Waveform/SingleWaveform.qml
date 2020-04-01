@@ -17,7 +17,7 @@ Item {
                                                                 : ["PrimaryKey", primaryKey.value, streamId]
   //--------------------------------------------------------------------------------------------------------------------
 
-  AppProperty { id: primaryKey; path: "app.traktor.decks." + (deckId + 1) + ".track.content.primary_key" }
+  AppProperty { id: primaryKey; path: "app.traktor.decks." + (deckId + 1) + ".track.content.entry_key" }
   
 
   //--------------------------------------------------------------------------------------------------------------------

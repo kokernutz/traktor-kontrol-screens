@@ -1,7 +1,7 @@
 import CSI 1.0
 import "../../Defines"
 import "../Common"
-import "S4MK3Functions.js" as S4MK3Functions
+import "../Common/DeckHelpers.js" as Helpers
 
 Module
 {
@@ -17,7 +17,7 @@ Module
   property bool deckPlaying: deckPlayingProp.value
   property bool isEncoderInUse: samples.isSlotSelected || stems.isStemSelected
   property bool isLinkedDeckEncoderInUse: false
-  property var deckColor: S4MK3Functions.colorForDeck(deckIdx)
+  property var deckColor: Helpers.colorForDeck(deckIdx)
   property bool hapticHotcuesEnabled: true
 
   MappingPropertyDescriptor {
@@ -56,7 +56,7 @@ Module
 
   readonly property bool gridAdjustAvailable: module.active
                                               && jogMode.value === JogwheelMode.Jogwheel
-                                              && S4MK3Functions.deckTypeSupportsGridAdjust(deckType)
+                                              && Helpers.deckTypeSupportsGridAdjust(deckType)
                                               && !gridLockedProp.value;
 
   Wire
@@ -231,7 +231,7 @@ Module
     canLock: jogMode.value != JogwheelMode.Turntable
   }
 
-  S4MK3Browse
+  ExtendedBrowserModule
   {
     name: "browse"
     surface: module.surface

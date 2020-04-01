@@ -1,5 +1,5 @@
 import CSI 1.0
-import "S4MK3Functions.js" as S4MK3Functions
+import "../Common/DeckHelpers.js" as Helpers
 
 Module
 {
@@ -12,7 +12,7 @@ Module
 
   AppProperty { id: deckInSync; path: "app.traktor.decks." + deckIdx + ".sync.enabled" }
 
-  TempoControl { name: "tempo_control"; channel: deckIdx; color: S4MK3Functions.colorForDeck(deckIdx) }
+  TempoControl { name: "tempo_control"; channel: deckIdx; color: Helpers.colorForDeck(deckIdx) }
 
   DirectPropertyAdapter { name: "tempo_fader_relative"; path: "mapping.settings.tempo_fader_relative"; input: false }
   Wire{ from: "tempo_fader_relative"; to: "tempo_control.enable_relative_mode" }

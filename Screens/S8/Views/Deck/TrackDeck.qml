@@ -32,8 +32,8 @@ Item {
 
   //--------------------------------------------------------------------------------------------------------------------
 
-  AppProperty   { id: deckType;          path: "app.traktor.decks." + (deckId + 1) + ".type"                         }
-  AppProperty   { id: primaryKey;        path: "app.traktor.decks." + (deckId + 1) + ".track.content.primary_key" }
+  AppProperty   { id: deckType;          path: "app.traktor.decks." + (deckId + 1) + ".type"                    }
+  AppProperty   { id: primaryKey;        path: "app.traktor.decks." + (deckId + 1) + ".track.content.entry_key" }
 
   AppProperty { id: trackLength;         path: "app.traktor.decks." + (deckId + 1) + ".track.content.track_length" }
 
@@ -61,7 +61,7 @@ Item {
     isInEditMode:         trackDeck.isInEditMode
     stemStyle:            trackDeck.stemStyle
 
-    anchors.topMargin:    30
+    anchors.topMargin:    30 // -2 
     anchors.bottomMargin: 5
 
     // the height of the waveform is defined as the remaining space of deckHeight - stripe.height - spacerWaveStripe.height
@@ -96,8 +96,8 @@ Item {
     visible:        trackDeck.trackIsLoaded // && deckSizeState != "small"
   }
 
- //--------------------------------------------------------------------------------------------------------------------
-  
+  //--------------------------------------------------------------------------------------------------------------------
+
   Rectangle
   {
     id: trackDeckIndicator
@@ -157,13 +157,17 @@ Item {
   WF.Stripe {
     id: stripe
 
-    anchors.left:           trackDeckIndicator.right
-    anchors.right:          keyLockIndicatorBox.left
-    anchors.bottom:         hotcues.top
+    // readonly property int largeDeckBottomMargin: (waveformContainer.isStemStyleDeck) ? 6 : 12
+    
+    // readonly property int smallDeckBottomMargin: (deckId > 1) ? 9 : 6
+
+    anchors.left:           trackDeckIndicator.right // trackDeck.left
+    anchors.right:          keyLockIndicatorBox.left // trackDeck.right
+    anchors.bottom:         hotcues.top              // trackDeck.bottom
     anchors.bottomMargin:   (deckSizeState == "large") ? largeDeckBottomMargin : smallDeckBottomMargin
     anchors.leftMargin:     9
     anchors.rightMargin:    9
-    height:                 30
+    height:                 30 // 28
     opacity:                trackDeck.trackIsLoaded ? 1 : 0
 
     deckId:                 trackDeck.deckId

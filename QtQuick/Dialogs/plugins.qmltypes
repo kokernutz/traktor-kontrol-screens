@@ -325,7 +325,7 @@ Module {
         Property { name: "contentItem"; type: "QQuickItem"; isPointer: true }
     }
     Component {
-        name: "QQuickDialog"
+        name: "QQuickDialog1"
         defaultProperty: "contentItem"
         prototype: "QQuickAbstractDialog"
         exports: ["QtQuick.Dialogs/AbstractDialog 1.2"]

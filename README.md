@@ -1,4 +1,4 @@
-# Replacement screens for **Traktor Pro 3.2** and **Kontrol D2/S5/S8 and S4 MK3**
+# Replacement screens for **Traktor Pro 3.3** and **Kontrol D2/S5/S8 and S4 MK3**
 
 **Contact:**
 
@@ -43,7 +43,8 @@
   - Right click **Traktor**, then click **Show Package Contents**
   - Navigate to **Contents/Resources/**
   - Rename the **qml** folder to **qmlBackup** 
-  - Copy the **qml** folder from the download into this folder
+  - Create a folder named **qml**
+  - Copy the contents of the unzipped repo into the newly created **qml** folder
   - Start Traktor
 
 **Windows:**
@@ -51,7 +52,8 @@
   - Quit Traktor
   - Navigate to **C:\Program Files\Native Instruments\Traktor Pro 3\Resources64\\**
   - Rename the **qml** directory to **qmlBackup**
-  - Copy the **qml** directory from the download into this directory     
+  - Create a directory named **qml**
+  - Copy the contents of the unzipped repot into the new created **qml** directory     
   - Start Traktor
 
 ## Screenshots

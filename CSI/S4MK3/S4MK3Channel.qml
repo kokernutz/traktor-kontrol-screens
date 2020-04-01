@@ -1,5 +1,5 @@
 import CSI 1.0
-import "S4MK3Functions.js" as S4MK3Functions
+import "../Common/DeckHelpers.js" as Helpers
 
 Module
 {
@@ -23,7 +23,7 @@ Module
         if(!module.shift)
         {
           deckType.value = (deckType.value == DeckType.Live) ? 
-            S4MK3Functions.defaultTypeForDeck(module.index) : DeckType.Live;
+            Helpers.defaultTypeForDeck(module.index) : DeckType.Live;
         }
       }
       brightness: (deckType.value == DeckType.Live) ? 1.0 : 0.0

@@ -16,14 +16,14 @@ Item {
   property int  activeTab:       1
   property int  currentView:     (activeTab == FxOverlay.upper_button_1) ? 2 : ((activeTab < FxOverlay.lower_button_1) || (fxViewSelectProp.value == FxType.Group) ? 1 : 0)
 
-  readonly property int delegateHeight:   26
+  readonly property int delegateHeight:   26 // 27
   readonly property int emptyView:        0
   readonly property int tableView:        1
   readonly property int settingsView:     2
   readonly property int macroEffectChar:  0x00B6
 
   clip:                 true
-  anchors.margins:      7
+  anchors.margins:      7 // 5
 //  anchors.bottomMargin: 10
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Item {
     // anchors.top:       parent.top
     // anchors.left:      parent.left
     // anchors.right:     parent.right
-    anchors.topMargin:    20
+    anchors.topMargin: 20 // 33
     anchors.bottomMargin: 4
     // height:            189
     clip:              true
@@ -85,10 +85,10 @@ Item {
         fillMode:            Image.PreserveAspectCrop
         width:               sourceSize.width
         height:              sourceSize.height
-        anchors.left:        fxName.right
+        anchors.left:       fxName.right
         anchors.top:         parent.top
-        anchors.leftMargin:  5
-        anchors.topMargin:   4
+        anchors.leftMargin: 5
+        anchors.topMargin:   4 // 5
         visible:             false  
         smooth:              false    
       }

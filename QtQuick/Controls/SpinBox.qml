@@ -273,6 +273,7 @@ Control {
 
     Accessible.name: input.text
     Accessible.role: Accessible.SpinBox
+    Accessible.editable: true
 
     MouseArea {
         id: mouseArea
@@ -358,8 +359,9 @@ Control {
 
         property bool autoincrement: false;
         onReleased: autoincrement = false
+        onExited: autoincrement = false
         Timer { running: mouseUp.pressed; interval: 350 ; onTriggered: mouseUp.autoincrement = true }
-        Timer { running: mouseUp.autoincrement; interval: 60 ; repeat: true ; onTriggered: __increment() }
+        Timer { running: mouseUp.autoincrement && mouseUp.containsMouse; interval: 60 ; repeat: true ; onTriggered: __increment() }
     }
 
     // Spinbox decrement button
@@ -385,8 +387,9 @@ Control {
 
         property bool autoincrement: false;
         onReleased: autoincrement = false
+        onExited: autoincrement = false
         Timer { running: mouseDown.pressed; interval: 350 ; onTriggered: mouseDown.autoincrement = true }
-        Timer { running: mouseDown.autoincrement; interval: 60 ; repeat: true ; onTriggered: __decrement() }
+        Timer { running: mouseDown.autoincrement && mouseDown.containsMouse; interval: 60 ; repeat: true ; onTriggered: __decrement() }
     }
 
     Keys.onUpPressed: __increment()

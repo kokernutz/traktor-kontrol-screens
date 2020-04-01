@@ -77,7 +77,11 @@ Style {
     readonly property Tumbler control: __control
 
     /*!
+        \obsolete
+
         This property holds the spacing between each delegate.
+
+        This property has no effect.
     */
     property real spacing: 0
 

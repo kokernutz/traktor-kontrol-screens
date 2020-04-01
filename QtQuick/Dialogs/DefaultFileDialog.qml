@@ -472,8 +472,8 @@ AbstractFileDialog {
                     id: okButton
                     text: root.selectFolder ? qsTr("Choose") : (selectExisting ? qsTr("Open") : qsTr("Save"))
                     onClicked: {
-                        if (view.model.isFolder(view.currentIndex) && !selectFolder)
-                            dirDown(view.model.get(view.currentIndex, "filePath"))
+                        if (view.model.isFolder(view.currentRow) && !selectFolder)
+                            dirDown(view.model.get(view.currentRow, "filePath"))
                         else if (!(root.selectExisting))
                             currentPathField.doAccept()
                         else

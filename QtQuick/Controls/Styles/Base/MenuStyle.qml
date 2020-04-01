@@ -47,7 +47,7 @@ import QtQuick.Controls.Private 1.0
     \inqmlmodule QtQuick.Controls.Styles
     \since 5.3
     \ingroup controlsstyling
-    \brief Provides custom styling for Menu
+    \brief Provides custom styling for Menu.
 
     \target styleData properties
     The \b styleData object contains the following read-only properties:

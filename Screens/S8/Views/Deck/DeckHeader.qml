@@ -36,8 +36,8 @@ Item {
 
   // these variables can not be changed from outside
   readonly property int speed: 40  // Transition speed
-  readonly property int smallHeaderHeight: 26
-  readonly property int largeHeaderHeight: 64
+  readonly property int smallHeaderHeight: 26 // 17
+  readonly property int largeHeaderHeight: 64 // 45
 
   readonly property int rightFieldMargin: 2
   readonly property int fieldHeight:      20
@@ -90,9 +90,8 @@ Item {
   //  DECK PROPERTIES
   //--------------------------------------------------------------------------------------------------------------------
 
-  AppProperty { id: deckKeyDisplay;     path: "app.traktor.decks." + (deckId+1) + ".track.key.key_for_display"; onValueChanged: { updateKeyColor() } }
-  AppProperty { id: propMusicalKey;     path: "app.traktor.decks." + (deckId+1) + ".content.musical_key" }
   AppProperty { id: propSyncMasterDeck; path: "app.traktor.masterclock.source_id" }
+  AppProperty { id: keyDisplay;         path: "app.traktor.decks." + (deckId+1) + ".track.key.resulting.precise" }
 
   AppProperty { id: propElapsedTime;    path: "app.traktor.decks." + (deckId+1) + ".track.player.elapsed_time"; } 
   AppProperty { id: propNextCuePoint;   path: "app.traktor.decks." + (deckId+1) + ".track.player.next_cue_point"; }
@@ -106,7 +105,7 @@ Item {
   AppProperty { id: headerPropertyLoopActive;   path: "app.traktor.decks." + (deck_Id+1) + ".loop.active"; }
   AppProperty { id: headerPropertyLoopSize;     path: "app.traktor.decks." + (deck_Id+1) + ".loop.size"; }
   AppProperty { id: keyLockEnabled;             path: "app.traktor.decks." + (deck_Id+1) + ".track.key.lock_enabled" }
-
+  
   AppProperty { id: deckHeaderWarningActive;       path: "app.traktor.informer.deckheader_message." + (deck_Id+1) + ".active"; }
   AppProperty { id: deckHeaderWarningType;         path: "app.traktor.informer.deckheader_message." + (deck_Id+1) + ".type";   }
   AppProperty { id: deckHeaderWarningMessage;      path: "app.traktor.informer.deckheader_message." + (deck_Id+1) + ".long";   }
@@ -181,6 +180,9 @@ Item {
 
   Rectangle {
     id:top_line;
+    // anchors.horizontalCenter: parent.horizontalCenter
+    // width:  (headerState == "small") ? deck_header.width-18 : deck_header.width
+    // height: 1
     width:  deck_header.width 
     height: deck_Id >= 2 ? 1 : 0
     color:  colors.colorBgEmpty
@@ -215,7 +217,7 @@ Item {
     height: topRowHeight
     textState: topLeftState
     color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
+      parent.colorForKey(utils.returnKeyIndex(keyDisplay.value)) : textColors[deck_Id]
     elide:     Text.ElideRight
     font.pixelSize:     fonts.largeFontSize // set in state
     anchors.top:        parent.top
@@ -236,7 +238,7 @@ Item {
     height: topRowHeight
     textState:  topCenterState
     color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
+      parent.colorForKey(utils.returnKeyIndex(keyDisplay.value)) : textColors[deck_Id]
     font.pixelSize: fonts.largeFontSize
     anchors.top:          parent.top
     anchors.right:        top_right_text.left
@@ -256,7 +258,7 @@ Item {
     height: topRowHeight
     textState:  topRightState
     color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : textColors[deck_Id]
+      parent.colorForKey(utils.returnKeyIndex(keyDisplay.value)) : textColors[deck_Id]
     font.pixelSize: fonts.largeFontSize
     anchors.top:          parent.top
     anchors.right:        parent.right
@@ -276,7 +278,7 @@ Item {
     height: bottomRowsHeight
     textState:  middleLeftState
     color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+      parent.colorForKey(utils.returnKeyIndex(keyDisplay.value)) : darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     font.pixelSize:     fonts.middleFontSize
     anchors.top:        top_left_text.bottom
@@ -297,7 +299,7 @@ Item {
     textState:  middleCenterState
     visible: isLoaded
     color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+      parent.colorForKey(utils.returnKeyIndex(keyDisplay.value)) : darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
     font.pixelSize: fonts.middleFontSize
@@ -321,7 +323,7 @@ Item {
     anchors.right:        parent.right
     anchors.rightMargin:  rightFieldMargin
     color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+      parent.colorForKey(utils.returnKeyIndex(keyDisplay.value)) : darkerTextColors[deck_Id]
     opacity:    _intSetInState          // set by 'state'
     font.pixelSize: fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
@@ -340,7 +342,7 @@ Item {
     height: bottomRowsHeight
     textState:  bottomLeftState
     color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+      parent.colorForKey(utils.returnKeyIndex(keyDisplay.value)) : darkerTextColors[deck_Id]
     elide:      Text.ElideRight
     opacity:    _intSetInState        // set by 'state'
     font.pixelSize:     fonts.middleFontSize
@@ -365,7 +367,7 @@ Item {
     anchors.bottom:           parent.bottom
     anchors.right:            bottom_right.left
     color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+      parent.colorForKey(utils.returnKeyIndex(keyDisplay.value)) : darkerTextColors[deck_Id]
     opacity: _intSetInState          // set by 'state'
     font.pixelSize: fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
@@ -387,7 +389,7 @@ Item {
     anchors.right:        parent.right
     anchors.rightMargin:  rightFieldMargin
     color:      textState == 17 || textState == 18 || textState == 31 ? 
-      parent.colorForKey(utils.returnKeyIndex(deckKeyDisplay.value)) : darkerTextColors[deck_Id]
+      parent.colorForKey(utils.returnKeyIndex(keyDisplay.value)) : darkerTextColors[deck_Id]
     opacity:    _intSetInState          // set by 'state'
     font.pixelSize: fonts.middleFontSize
     horizontalAlignment: Text.AlignRight
@@ -578,10 +580,10 @@ Item {
     id: cover_small
     anchors.top: top_line.bottom
     anchors.left: parent.left
-    anchors.topMargin: 1
-    anchors.leftMargin: 0
-    width:  prefs.displayAlbumCover ? largeHeaderHeight - 4 : 0
-    height: width
+    anchors.topMargin: 1 // 3
+    anchors.leftMargin: 0 // 3
+    width:  prefs.displayAlbumCover ? largeHeaderHeight - 4 : 0 // _intSetInState
+    height: width // _intSetInState
 
     // if no cover can be found: blue / grey background (set in parent). Otherwise transparent
     opacity:  (headerPropertyCover.value == "") ? 1.0 : 0.0
@@ -637,7 +639,7 @@ Item {
     }
   }
 
-   //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
   //  Key & Lock indicator
   //--------------------------------------------------------------------------------------------------------------------
 

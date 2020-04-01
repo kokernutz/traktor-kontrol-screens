@@ -130,7 +130,7 @@ Traktor.Stripe {
     AppProperty { id: elapsedTime; path: "app.traktor.decks." + (deckId+1) + ".track.player.elapsed_time" }
     x:                 roundedX            
     anchors.top:       parent.top
-    height:            parent.height
+    height:            parent.height // 28
     width:             Math.max (parent.indicatorBoxWidth - (1 - parent.indicatorBoxWidth%2) , 5) // 
     
     radius:            1

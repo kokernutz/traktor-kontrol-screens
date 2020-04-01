@@ -81,7 +81,7 @@ TableViewItemDelegateLoader {
         readonly property color textColor: __rowItem ? __rowItem.itemTextColor : "black"
         readonly property string role: __column ? __column.role : ""
         readonly property var value: model && model.hasOwnProperty(role) ? model[role] : ""
-        readonly property var index: model ? model["_q_TreeView_ModelIndex"] : __treeModel.index(-1,-1,null)
+        readonly property var index: model ? model["_q_TreeView_ModelIndex"] : __treeModel.index(-1,-1)
         readonly property int depth: model && column === 0 ? model["_q_TreeView_ItemDepth"] : 0
         readonly property bool hasChildren: model ? model["_q_TreeView_HasChildren"] : false
         readonly property bool hasSibling: model ? model["_q_TreeView_HasSibling"] : false

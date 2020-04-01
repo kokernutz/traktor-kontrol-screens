@@ -65,7 +65,9 @@ Loader {
     width: __column ? __column.width : 0
     height: parent ? parent.height : 0
     visible: __column ? __column.visible : false
-    sourceComponent: __model === undefined || styleData.row === -1 ? null
+
+    property bool isValid: false
+    sourceComponent: (__model === undefined || !isValid) ? null
                      : __column && __column.delegate ? __column.delegate : __itemDelegate
 
     // All these properties are internal
@@ -95,5 +97,6 @@ Loader {
         readonly property var value: model && model.hasOwnProperty(role) ? model[role] // Qml ListModel and QAbstractItemModel
                                      : modelData && modelData.hasOwnProperty(role) ? modelData[role] // QObjectList / QObject
                                      : modelData != undefined ? modelData : "" // Models without role
+        onRowChanged: if (row !== -1) itemDelegateLoader.isValid = true
     }
 }

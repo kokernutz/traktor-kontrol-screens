@@ -89,7 +89,10 @@ ListModel {
         dayOfWeek: Locale.Saturday
     }
 
-    Component.onCompleted: {
+    Component.onCompleted: updateFirstDayOfWeek()
+    onLocaleChanged: updateFirstDayOfWeek()
+
+    function updateFirstDayOfWeek() {
         var daysOfWeek = [Locale.Sunday, Locale.Monday, Locale.Tuesday,
             Locale.Wednesday, Locale.Thursday, Locale.Friday, Locale.Saturday];
         var firstDayOfWeek = root.locale.firstDayOfWeek;
@@ -97,7 +100,7 @@ ListModel {
         var shifted = daysOfWeek.splice(firstDayOfWeek, daysOfWeek.length - firstDayOfWeek);
         daysOfWeek = shifted.concat(daysOfWeek)
 
-        if (firstDayOfWeek !== Locale.Sunday) {
+        if (firstDayOfWeek !== root.get(0).dayOfWeek) {
             for (var i = 0; i < daysOfWeek.length; ++i) {
                 root.setProperty(i, "dayOfWeek", daysOfWeek[i]);
             }

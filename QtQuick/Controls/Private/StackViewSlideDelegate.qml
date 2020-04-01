@@ -135,7 +135,7 @@ StackViewDelegate {
                 to: target.height
                 duration: 300
             }
-            property Component replaceTransition: pushTransition
         }
+        property Component replaceTransition: pushTransition
     }
 }

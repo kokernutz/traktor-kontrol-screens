@@ -5,6 +5,9 @@ Module
   id: module
   property bool cancelMultiSelection: false
   property int currentlySelectedFx: -1
+  property string surface: ""
+
+  readonly property string surfacePrefix: surface + ".mixer.channel_fx"
 
   // Mixer Effects Color Scheme
   readonly property variant colorScheme: [
@@ -15,38 +18,42 @@ Module
     Color.Yellow        // FX4
   ]
 
-   // Channel Fx  
-  S4MK3ChannelFX
+   // Channel Fx
+  ChannelFX
   {
     id: channel1
     name: "channel1"
+    surface: module.surface
     index: 1
     onFxChanged : { module.cancelMultiSelection = true; }
     channelFxSelectorVal: module.currentlySelectedFx
   }
 
-  S4MK3ChannelFX
+  ChannelFX
   {
     id: channel2
     name: "channel2"
+    surface: module.surface
     index: 2
     onFxChanged : { module.cancelMultiSelection = true; }
     channelFxSelectorVal: module.currentlySelectedFx
   }
 
-  S4MK3ChannelFX
+  ChannelFX
   {
     id: channel3
     name: "channel3"
+    surface: module.surface
     index: 3
     onFxChanged : { module.cancelMultiSelection = true; }
     channelFxSelectorVal: module.currentlySelectedFx
   }
 
-  S4MK3ChannelFX
+  ChannelFX
   {
     id: channel4
     name: "channel4"
+    surface: module.surface
     index: 4
     onFxChanged : { module.cancelMultiSelection = true; }
     channelFxSelectorVal: module.currentlySelectedFx
@@ -59,7 +66,7 @@ Module
       channel1.selectedFx.value = fxSelection;
       channel2.selectedFx.value = fxSelection;
       channel3.selectedFx.value = fxSelection;
-      channel4.selectedFx.value = fxSelection; 
+      channel4.selectedFx.value = fxSelection;
     }
     if (module.currentlySelectedFx == fxSelection)
       module.currentlySelectedFx = -1;
@@ -70,7 +77,7 @@ Module
     module.cancelMultiSelection = (module.currentlySelectedFx != -1);
     module.currentlySelectedFx = fxSelection;
   }
-    
+
   function isFxUsed(index)
   {
     return channel1.selectedFx.value == index ||
@@ -84,9 +91,9 @@ Module
     return on ? 1.0 : 0.0;
   }
 
-  Wire 
-  { 
-    from: "s4mk3.mixer.channel_fx.filter"; 
+  Wire
+  {
+    from: surfacePrefix + ".filter";
     to: ButtonScriptAdapter
     {
       onPress :
@@ -97,13 +104,13 @@ Module
       {
         onFxSelectReleased(0);
       }
-      color: module.colorScheme[0]  
+      color: module.colorScheme[0]
       brightness: ledBrightness(isFxUsed(0))
     }
   }
-  Wire 
-  { 
-    from: "s4mk3.mixer.channel_fx.fx1"; 
+  Wire
+  {
+    from: surfacePrefix + ".fx1";
     to: ButtonScriptAdapter
     {
       onPress :
@@ -114,13 +121,13 @@ Module
       {
         onFxSelectReleased(1);
       }
-      color: module.colorScheme[1]  
+      color: module.colorScheme[1]
       brightness: ledBrightness(isFxUsed(1))
     }
   }
-  Wire 
-  { 
-    from: "s4mk3.mixer.channel_fx.fx2"; 
+  Wire
+  {
+    from: surfacePrefix + ".fx2";
     to: ButtonScriptAdapter
     {
       onPress :
@@ -131,13 +138,13 @@ Module
       {
         onFxSelectReleased(2);
       }
-      color: module.colorScheme[2]   
-      brightness: ledBrightness(isFxUsed(2))  
+      color: module.colorScheme[2]
+      brightness: ledBrightness(isFxUsed(2))
     }
   }
-  Wire 
-  { 
-    from: "s4mk3.mixer.channel_fx.fx3"; 
+  Wire
+  {
+    from: surfacePrefix + ".fx3";
     to: ButtonScriptAdapter
     {
       onPress :
@@ -148,13 +155,13 @@ Module
       {
         onFxSelectReleased(3);
       }
-      color: module.colorScheme[3] 
-      brightness: ledBrightness(isFxUsed(3))  
+      color: module.colorScheme[3]
+      brightness: ledBrightness(isFxUsed(3))
     }
   }
-  Wire 
-  { 
-    from: "s4mk3.mixer.channel_fx.fx4"; 
+  Wire
+  {
+    from: surfacePrefix + ".fx4";
     to: ButtonScriptAdapter
     {
       onPress :
@@ -165,7 +172,7 @@ Module
       {
         onFxSelectReleased(4);
       }
-      color: module.colorScheme[4]    
+      color: module.colorScheme[4]
       brightness: ledBrightness(isFxUsed(4))
     }
   }

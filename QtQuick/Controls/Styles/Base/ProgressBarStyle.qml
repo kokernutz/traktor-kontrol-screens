@@ -47,7 +47,7 @@ import QtQuick.Controls.Private 1.0
     \inqmlmodule QtQuick.Controls.Styles
     \since 5.1
     \ingroup controlsstyling
-    \brief Provides custom styling for ProgressBar
+    \brief Provides custom styling for ProgressBar.
 
     Example:
     \qml
@@ -134,8 +134,7 @@ Style {
         clip: true
         Rectangle {
             id: base
-            width: control.width
-            height: control.height
+            anchors.fill: parent
             radius: TextSingleton.implicitHeight * 0.16
             antialiasing: true
             gradient: Gradient {

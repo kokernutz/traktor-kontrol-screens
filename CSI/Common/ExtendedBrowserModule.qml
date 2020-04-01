@@ -1,7 +1,9 @@
 import CSI 1.0
 import "../../Defines"
-import "S4MK3Functions.js" as S4MK3Functions
+import "DeckHelpers.js" as Helpers
 
+// Module for browser components containing "Preview", "Favorite", "Preparation", and "View",
+// along with an encoder for browsing.
 
 Module
 {
@@ -9,7 +11,7 @@ Module
   property string surface: ""
   property int deckIdx: 1
   property bool active: false
-  
+
   // Encoder Modes ----------------------
   readonly property int listMode:           0
   readonly property int favoritesMode:      1
@@ -23,7 +25,7 @@ Module
   readonly property real onBrightness:     1.0
   readonly property real dimmedBrightness: 0.0
 
-  readonly property var deckColor: S4MK3Functions.colorForDeck(module.deckIdx)
+  readonly property var deckColor: Helpers.colorForDeck(module.deckIdx)
 
   Browser {
     name: "browser"
@@ -43,41 +45,41 @@ Module
     Wire { from: "%surface%.browse.add_to_list";  to: "browser.add_remove_from_prep_list" }
 
     // enable favortie browsing
-    Wire 
-    { 
-      from: "%surface%.browse.favorite";   
-      to: ButtonScriptAdapter 
-      { 
-        onPress: 
-        { 
-          module.encoderMode = module.favoritesMode; 
+    Wire
+    {
+      from: "%surface%.browse.favorite";
+      to: ButtonScriptAdapter
+      {
+        onPress:
+        {
+          module.encoderMode = module.favoritesMode;
           brightness = onBrightness;
         }
-        onRelease: 
-        { 
+        onRelease:
+        {
           module.encoderMode = module.listMode;
           brightness = dimmedBrightness;
-        } 
+        }
         brightness: dimmedBrightness
         color: module.deckColor
       }
     }
 
     // Load/unload current track to preview play and enable encoder seek
-    Wire 
-    { 
-      from: "%surface%.browse.preview"; 
-      to: ButtonScriptAdapter 
-      { 
-        onPress: 
-        { 
-          loadPreviewProp.value = true; 
+    Wire
+    {
+      from: "%surface%.browse.preview";
+      to: ButtonScriptAdapter
+      {
+        onPress:
+        {
+          loadPreviewProp.value = true;
           module.encoderMode = module.previewPlayerMode;
           brightness = onBrightness;
 
         }
-        onRelease: 
-        { 
+        onRelease:
+        {
           unloadPreviewProp.value = true;
           module.encoderMode = module.listMode;
           brightness = dimmedBrightness;
@@ -110,31 +112,29 @@ Module
       Wire { from: "%surface%.browse.encoder"; to: "browser.list_navigation" }
       Wire { from: "%surface%.browse.encoder.push"; to: TriggerPropertyAdapter { path: "app.traktor.decks." + deckIdx + ".load.selected" } }
     }
-   
+
     // favourites mode
-    Wire 
-    { 
+    Wire
+    {
       enabled: module.encoderMode == module.favoritesMode;
-      from: "%surface%.browse.encoder"; 
-      to: "browser.favorites_navigation" 
+      from: "%surface%.browse.encoder";
+      to: "browser.favorites_navigation"
     }
 
     // tree mode
-    Wire 
-    { 
+    Wire
+    {
       enabled: module.encoderMode == module.treeMode;
-      from: "%surface%.browse.encoder"; 
-      to: "browser.tree_navigation" 
+      from: "%surface%.browse.encoder";
+      to: "browser.tree_navigation"
     }
 
     // preview mode
-    Wire 
+    Wire
     {
       enabled: module.encoderMode == module.previewPlayerMode
-      from: "%surface%.browse.encoder"; 
+      from: "%surface%.browse.encoder";
       to: RelativePropertyAdapter { path: "app.traktor.browser.preview_player.seek"; step: 0.01; mode: RelativeMode.Stepped }
     }
   }
 }
-            
- 
