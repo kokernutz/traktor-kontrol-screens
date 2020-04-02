@@ -42,18 +42,17 @@
   - Navigate to **/Applications/Native Instruments/Traktor Pro 3**
   - Right click **Traktor**, then click **Show Package Contents**
   - Navigate to **Contents/Resources/**
-  - Rename the **qml** folder to **qmlBackup** 
-  - Create a folder named **qml**
-  - Copy the contents of the unzipped repo into the newly created **qml** folder
+  - Make a copy of the **qml** folder in case you need to restore it 
+  - Copy the contents of the unzipped repo into **qml** folder, replacing the **CSI**, **Defines**, and **Screens** folders
   - Start Traktor
 
 **Windows:**
 
   - Quit Traktor
   - Navigate to **C:\Program Files\Native Instruments\Traktor Pro 3\Resources64\\**
-  - Rename the **qml** directory to **qmlBackup**
+  - Make a copy of the **qml** directory in case you need to restore it
   - Create a directory named **qml**
-  - Copy the contents of the unzipped repot into the new created **qml** directory     
+  - Copy the contents of the unzipped repot into the **qml** directory, replacing the **CSI**, **Defines**, and **Screens** directories     
   - Start Traktor
 
 ## Screenshots
