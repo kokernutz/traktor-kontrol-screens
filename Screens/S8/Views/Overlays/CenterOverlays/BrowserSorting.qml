@@ -17,7 +17,6 @@ CenterOverlay {
   function getText(id) {
     // the given numbers are determined by the EContentListColumns in Traktor
     switch (id) {
-      case -1:
       case 0:   return "#"
       case 2:   return "TITLE"
       case 3:   return "ARTIST"

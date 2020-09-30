@@ -1,4 +1,4 @@
-# Replacement screens for **Traktor Pro 3.3** and **Kontrol D2/S5/S8 and S4 MK3**
+# Replacement screens for **Traktor Pro 3.4** and **Kontrol D2/S5/S8 and S4 MK3**
 
 **Contact:**
 

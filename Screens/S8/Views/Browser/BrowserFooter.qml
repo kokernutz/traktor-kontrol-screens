@@ -268,9 +268,13 @@ Rectangle {
 
 
     function getSortingNameForSortId(id) {
-      var pos = getPosForSortId(id);
-      if (pos >= 0 && pos < sortNames.length)
-      return sortNames[pos];
+      if (id >= 0)
+      {
+        var pos = getPosForSortId(id);
+
+        if (pos >= 0 && pos < sortNames.length)
+          return sortNames[pos];
+      }
       return "SORTED";
     }
 

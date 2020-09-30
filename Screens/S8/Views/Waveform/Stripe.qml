@@ -35,22 +35,6 @@ Traktor.Stripe {
 
    //--------------------------------------------------------------------------------------------------------------------
 
-  Rectangle
-  {
-    id: darkenAlreadyPlayedBox
-
-    anchors.top:       parent.top
-    anchors.left:      parent.left
-    height:            parent.height
-    width:             Math.max(Math.min(elapsedTime.value / trackLength.value, 1), 0) * parent.width
-    
-    radius:            1
-    color:             colors.colorBlack66
-    antialiasing:      false
-  }
-
-   //--------------------------------------------------------------------------------------------------------------------
-
   Rectangle {
     id: trackEndWarningOverlay
 
@@ -196,6 +180,22 @@ Traktor.Stripe {
       height: fluxPosIndicator.height + 2
       color: colors.colorBlack50
     }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+
+  Rectangle
+  {
+    id: darkenAlreadyPlayedBox
+
+    anchors.top:       parent.top
+    anchors.left:      parent.left
+    height:            parent.height
+    width:             Math.max(Math.min(elapsedTime.value / trackLength.value, 1), 0) * parent.width
+    
+    radius:            1
+    color:             colors.colorBlack66
+    antialiasing:      false
   }
 
   //--------------------------------------------------------------------------------------------------------------------
