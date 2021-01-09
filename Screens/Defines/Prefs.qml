@@ -2,6 +2,10 @@ import QtQuick 2.0
 
 QtObject {
 
+    // controller preferences
+    readonly property bool mixerFXSelector:			false
+	readonly property bool prioritizeFXSelection:	true
+
 	// global preferences
 	readonly property bool camelotKey: 				true
 	readonly property int  phraseLength:            4
