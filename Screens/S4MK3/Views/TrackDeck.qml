@@ -216,8 +216,7 @@ Item {
       //of the stripe.
       height: display.secondRowHeight
       width:  2*display.infoBoxesWidth + display.spacing - 6
-      anchors.left: parent.left
-      anchors.leftMargin: 6
+      Layout.leftMargin: 6
 
 
       hotcuesModel: deckInfo.hotcues

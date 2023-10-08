@@ -3,6 +3,7 @@ import CSI 1.0
 
 import '../Widgets' as Widgets
 
+import 'FxUnitHelpers.js' as FxUnitHelpers
 
 
 Rectangle {
@@ -45,7 +46,7 @@ Rectangle {
 
 
   
-  readonly property string finalLabel:       (column == 0) ? (singleMode.value ? fxSelect1.description : "DRY/WET") : name.description
+  readonly property string finalLabel:       (column == 0) ? FxUnitHelpers.fxUnitFirstParameterLabel(fxUnitMode, fxSelect1) : name.description
   readonly property int    macroEffectChar:  0x00B6
   readonly property bool   isMacroFx:        (finalLabel.charCodeAt(0) == macroEffectChar)
 
@@ -57,7 +58,7 @@ Rectangle {
   AppProperty { id: active;          path: playerPath + ".filter_on"                   } 
   AppProperty { id: name  ;          path: fxUnitPath + ".name"                        }
   AppProperty { id: fxButtonName;    path: fxUnitPath + ".buttons." + column + ".name" }
-  AppProperty { id: singleMode;      path: fxUnitPath + ".type"                        }
+  AppProperty { id: fxUnitMode;      path: fxUnitPath + ".type"                        }
   AppProperty { id: fxSelect1;       path: fxUnitPath + ".select.1"                    }
   AppProperty { id: fxColumnSelect;  path: fxUnitPath + ".select." + column            }
 
@@ -274,8 +275,8 @@ Rectangle {
       PropertyChanges { target: valueString;                font.pixelSize: fonts.largeValueFontSize }
       PropertyChanges { target: name;                       path:      (column == 0) ? (fxUnitPath + ".enabled") : (fxUnitPath + ".knobs."      + column + ".name") }
       PropertyChanges { target: bottomInfoSampleName;       labelText: isMacroFx ? finalLabel.substr(1) : finalLabel }
-      PropertyChanges { target: bottomInfoFilterButtonText; text:      (column == 0) ? (singleMode.value ? "ON" : "") : fxButtonName.value }
-      PropertyChanges { target: bottomInfoDetails;          isEnabled: (column == 0) ? ((!singleMode.value) || fxSelect1.value)  : (fxColumnSelect.value || (singleMode.value && fxSelect1.value)) } 
+      PropertyChanges { target: bottomInfoFilterButtonText; text:      (column == 0) ? (fxUnitMode.value ? "ON" : "") : fxButtonName.value }
+      PropertyChanges { target: bottomInfoDetails;          isEnabled: (column == 0) ? ((!fxUnitMode.value) || fxSelect1.value)  : (fxColumnSelect.value || (fxUnitMode.value && fxSelect1.value)) } 
     },
     State {
       name: "FILTER"

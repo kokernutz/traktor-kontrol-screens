@@ -23,7 +23,7 @@ Text {
   readonly property int     isMaster:  (propSyncMasterDeck.value == deckId) ? 1 : 0
 
   readonly property string  fontForNumber: "Pragmatica"
-  readonly property string  fontForString: "Pragmatica" //  MediumTT"
+  readonly property string  fontForString: "Pragmatica MediumTT"
 
 
   // Properties of the TextItem itself. Anchors are set from outside

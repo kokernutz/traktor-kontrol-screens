@@ -1,6 +1,6 @@
 import CSI 1.0
 import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import Qt5Compat.GraphicalEffects
 
 import '../Widgets' as Widgets
 
@@ -9,7 +9,7 @@ import '../Widgets' as Widgets
 //------------------------------------------------------------------------------------------------------------------
 
 // the model contains the following roles:
-//  dataType, nodeIconId, nodeName, nrOfSubnodes, coverUrl, artistName, trackName, bpm, key, keyIndex, rating, loadedInDeck, prevPlayed, prelisten
+//  dataType, nodeIconId, nodeName, coverUrl, artistName, trackName, bpm, key, keyIndex, rating, loadedInDeck, prevPlayed, prelisten
 
 Item {
   id: contactDelegate

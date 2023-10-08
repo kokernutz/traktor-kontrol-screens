@@ -1,6 +1,6 @@
 import CSI 1.0
 import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import Qt5Compat.GraphicalEffects
 
 import './CenterOverlays/' as CenterOverlays
 import './FullscreenOverlays/' as FullscreenOverlays

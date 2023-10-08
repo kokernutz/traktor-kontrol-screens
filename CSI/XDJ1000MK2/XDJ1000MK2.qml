@@ -1,12 +1,12 @@
 import CSI 1.0
-import "../Common/XDJ"
+import "../Common/Pioneer"
 
 Mapping
 {
     id: mapping
     XDJ1000MK2 { name: "surface" }
 
-    XDJDeckSelectionModule { name: "deck_selection"; id: deckSelection }
+    DeckSelectionModule { name: "deck_selection"; id: deckSelection }
 
     XDJ1000MK2Deck { name:"deck_a"; id: deckA; deck: 1; enabled: deckSelection.selectedDeck === 1 }
     XDJ1000MK2Deck { name:"deck_b"; id: deckB; deck: 2; enabled: deckSelection.selectedDeck === 2 }

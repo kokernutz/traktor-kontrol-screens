@@ -1,6 +1,6 @@
 import CSI 1.0
 import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import Qt5Compat.GraphicalEffects
 import Traktor.Gui 1.0 as Traktor
 
 
@@ -19,7 +19,9 @@ import './Widgets/' as Widgets
 Item {
   id: screen
 
-  property bool  isLeftScreen:    true
+  property int side: ScreenSide.Left;
+  readonly property bool isLeftScreen: (screen.side == ScreenSide.Left)
+
   property string settingsPath: ""
   property string propertiesPath: ""
   property var flavor

@@ -1,7 +1,10 @@
-singleton Overlay     Overlay.qml
-singleton FxOverlay   FxOverlay.qml
-singleton FooterPage  FooterPage.qml
-singleton StemStyle   StemStyle.qml
-singleton ScreenView  ScreenView.qml
-singleton PadsMode    PadsMode.qml
-singleton LoopSize    LoopSize.qml
+singleton Overlay           Overlay.qml
+singleton FxOverlay         FxOverlay.qml
+singleton FooterPage        FooterPage.qml
+singleton StemStyle         StemStyle.qml
+singleton ScreenView        ScreenView.qml
+singleton PadsMode          PadsMode.qml
+singleton LoopSize          LoopSize.qml
+singleton MoveSize          MoveSize.qml
+singleton JumpSize          JumpSize.qml
+singleton NavigationMode    NavigationMode.qml
