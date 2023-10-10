@@ -479,16 +479,16 @@ Item {
       }
     }
 
-//    Widgets.PhaseMeter {
-//      id: phase_meter
-//      deckId: deck_Id
-//      visible: prefs.displayPhaseMeter
-//      width: parent.width - 4 - ((master_indicator.width + 2)* 4)
-//      height: parent.height - 4
-//      anchors.verticalCenter: parent.verticalCenter
-//      anchors.horizontalCenter: parent.horizontalCenter
-//      opacity: (isLoaded && headerState != "small" && hasTrackStyleHeader(deckType)) ? 1 : 0
-//    }
+    Widgets.PhaseMeter {
+      id: phase_meter
+      deckId: deck_Id
+      visible: prefs.displayPhaseMeter
+      width: parent.width - 4 - ((master_indicator.width + 2)* 4)
+      height: parent.height - 4
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.horizontalCenter: parent.horizontalCenter
+      opacity: (isLoaded && headerState != "small" && hasTrackStyleHeader(deckType)) ? 1 : 0
+    }
 
     visible: isLoaded
     Behavior on opacity { NumberAnimation { duration: speed } }
