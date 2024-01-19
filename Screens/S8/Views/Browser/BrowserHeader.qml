@@ -28,7 +28,7 @@ Item {
   anchors.left:  parent.left
   anchors.right: parent.right
   anchors.top:   parent.top
-  height:        18 // 15 // set in state
+  height:        18 // set in state
 
   onPathStringsChanged: { updateStringList(textLengthDummy) }
   
@@ -74,7 +74,7 @@ Item {
     anchors.left:  parent.left
     anchors.right: parent.right
     anchors.top:   parent.top
-    height:        18 // 15
+    height:        18
     color:         colors.colorBrowserHeader //colors.colorGrey24
   }
 
@@ -210,7 +210,7 @@ Item {
   states: [
     State {
       name: "show"
-      PropertyChanges{target: header; height: 17 /* 15 */ }
+      PropertyChanges{target: header; height: 17}
     },
     State {
       name: "hide"

@@ -24,10 +24,10 @@ Templates.View {
   property color focusColor:    (screen.focusDeckId < 2) ? colors.colorDeckBlueBright : "white" 
   property int   speed:         150
   property real  sortingKnobValue:  0
-  property int   pageSize:          prefs.displayMoreItems ? 9 : 7
+  property int   pageSize:          prefs.displayMoreItems ? 9 : 7 // 7
   property int   fastScrollCenter:  3
 
-  readonly property int  maxItemsOnScreen: prefs.displayMoreItems ? 9 : 7
+  readonly property int  maxItemsOnScreen: prefs.displayMoreItems ? 9 : 7 // 8
 
   // This is used by the footer to change/display the sorting!
   property alias sortingId:         browser.sorting
@@ -149,7 +149,7 @@ Templates.View {
       Rectangle { 
         color: ( (contentList.count + index)%2 == 0) ? colors.colorGrey08 : "transparent"
         width: qmlBrowser.width; 
-        height: prefs.displayMoreItems ? 25 : 32 }
+        height: prefs.displayMoreItems ? 25 : 32 /* 33 */ }
     }
   }
 

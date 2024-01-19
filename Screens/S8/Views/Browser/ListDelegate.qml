@@ -9,7 +9,7 @@ import '../Widgets' as Widgets
 //------------------------------------------------------------------------------------------------------------------
 
 // the model contains the following roles:
-//  dataType, nodeIconId, nodeName, nrOfSubnodes, coverUrl, artistName, trackName, bpm, key, keyIndex, rating, loadedInDeck, prevPlayed, prelisten
+//  dataType, nodeIconId, nodeName, coverUrl, artistName, trackName, bpm, key, keyIndex, rating, loadedInDeck, prevPlayed, prelisten
 
 Item {
   id: contactDelegate
@@ -19,7 +19,7 @@ Item {
   property color         textColor :            ListView.isCurrentItem ? deckColor : colors.colorFontsListBrowser
   property bool          isCurrentItem :        ListView.isCurrentItem
   property string        prepIconColorPostfix:  (screenFocus < 2 && ListView.isCurrentItem) ? "Blue" : ((screenFocus > 1 && ListView.isCurrentItem) ? "White" : "Grey")
-  readonly property int  textTopMargin:         1 // 7 // centers text vertically
+  readonly property int  textTopMargin:         1 // centers text vertically
   readonly property bool isLoaded:              (model.dataType == BrowserDataType.Track) ? model.loadedInDeck.length > 0 : false
   // visible: !ListView.isCurrentItem
 

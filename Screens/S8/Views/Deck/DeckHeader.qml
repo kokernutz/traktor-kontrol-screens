@@ -160,7 +160,7 @@ Item {
                                && !directThru.value
                                && !isMaster 
                                && deckType != DeckType.Live 
-                               && middle_right_text.text == "SYNC"
+                               && middle_right_text.text == "SYNC" 
                                && syncPhase != 0.0 ) ? 1 : 0;
   }
 
@@ -208,6 +208,7 @@ Item {
   }
 
   // first row
+
   // top_left_text: TOP LEFT
   DeckHeaderText {
     id: top_left_text
@@ -761,7 +762,6 @@ Item {
       PropertyChanges { target: deck_header_footer;         opacity: 1; }
 
       PropertyChanges { target: beat_indicators;         opacity: 1; }
-
       PropertyChanges { target: key_lock;                opacity: 1; }
       PropertyChanges { target: key_lock_overlay;        opacity: 1; }
       PropertyChanges { target: key_text;                opacity: 1; }
