@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import Traktor.Gui 1.0 as Traktor
-import QtGraphicalEffects 1.0
+import Qt5Compat.GraphicalEffects
 import CSI 1.0
 
 // The hotcue can be used to show all different types of hotcues. Type switching is done by using the 'hotcue state'.

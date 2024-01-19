@@ -1,6 +1,6 @@
 import CSI 1.0
 import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import Qt5Compat.GraphicalEffects
 import Traktor.Gui 1.0 as Traktor
 
 
