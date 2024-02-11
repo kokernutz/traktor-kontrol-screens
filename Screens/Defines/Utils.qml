@@ -48,7 +48,7 @@ QtObject {
       if (getKeyOffset(masterKeyMatches[1] - 1) == trackKeyMatches[1]) return -1;
       if (getKeyOffset(masterKeyMatches[1] - 2) == trackKeyMatches[1]) return -2;
     }
- }
+  }
 
   function convertToCamelot(keyToConvert)
   {
