@@ -30,9 +30,9 @@ Item {
   property color          tempoMatchColor:      textColor
   property int            browserFontSize:      prefs.displayMoreItems ? fonts.scale(15) : fonts.scale(16)
 
-  AppProperty { id: masterClockBpm;   path: "app.traktor.masterclock.tempo"; onValueChanged: { updateMatchInfo(); } }
-  AppProperty { id: masterKeyDisplay; path: "app.traktor.decks." + (masterDeckId.value + 1) + ".content.legacy_key"; onValueChanged: { updateMatchInfo(); }}
-  AppProperty { id: masterDeckId;     path: "app.traktor.masterclock.source_id"; onValueChanged: { updateMatchInfo(); } }
+  AppProperty { id: masterClockBpm;    path: "app.traktor.masterclock.tempo"; onValueChanged: { updateMatchInfo(); } }
+  AppProperty { id: masterKeyDisplay;  path: "app.traktor.decks." + (masterDeckId.value + 1) + ".content.musical_key"; onValueChanged: { updateMatchInfo(); }}
+  AppProperty { id: masterDeckId;      path: "app.traktor.masterclock.source_id"; onValueChanged: { updateMatchInfo(); } }
 
   height: prefs.displayMoreItems ? 25 : 32
   anchors.left: parent.left
@@ -166,8 +166,8 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width:              8
         height:             8
-        //color: masterDeckId.value >= 0 ? tempoMatchColor : textColor
-        color:              tempoMatchColor
+        color:              masterDeckId.value >= 0 ? tempoMatchColor : textColor
+        //color:              tempoMatchColor
         rotation:           model.bpm > masterClockBpm.value ? 180 : 0
         visible:            masterDeckId.value >= 0 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) >= 1 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) <= 4
         antialiasing:       false
@@ -179,8 +179,8 @@ Item {
         width:              8
         height:             width
         radius:             width * 0.5
-        //color: masterDeckId.value >= 0 ? tempoMatchColor : textColor
-        color:              tempoMatchColor
+        color:              masterDeckId.value >= 0 ? tempoMatchColor : textColor
+        //color:              tempoMatchColor
         visible:            masterDeckId.value >= 0 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) < 1
       }
     }  
@@ -436,18 +436,17 @@ Item {
       case -1:
       case  0:
       case  1:
-        keyMatchColor = colors.colorGreen;
+        keyMatchColor = "green";
         break;
       case  2:
       case  7:
-        keyMatchColor = "yellow"; // colors.color07MusicalKey; // Green
+        keyMatchColor = "yellow";
         break;
     }
   }
 
   function updateTempoMatch() {
-
-    tempoMatchColor = colors.colorGreen;
+    tempoMatchColor = "green";
 
     if (masterDeckId.value < 0) return;
 
@@ -455,11 +454,11 @@ Item {
       case 0:
       case 1:
       case 2:
-        tempoMatchColor = colors.colorGreen;
+        tempoMatchColor = "green";
         break;
       case 3: 
       case 4:
-        tempoMatchColor = "yellow"; //colors.colorOrange;
+        tempoMatchColor = "yellow";
         break;
     }
   }
