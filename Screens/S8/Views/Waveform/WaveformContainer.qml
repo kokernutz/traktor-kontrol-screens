@@ -270,6 +270,6 @@ Item {
 
   Prefs
   {
-    id:prefs
+    id: prefs
   }
 } 

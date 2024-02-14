@@ -4598,7 +4598,7 @@ Module
 
   Prefs
   {
-    id:prefs
+    id: prefs
   }
 
   /* #ifdef DEVELOPMENT_MODE

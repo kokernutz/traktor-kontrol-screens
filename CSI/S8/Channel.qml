@@ -1,4 +1,6 @@
 import CSI 1.0
+import QtQuick 2.0
+import "../../Screens/Defines"
 
 Module
 {
@@ -35,19 +37,60 @@ Module
   // fx Assign
 
   AppProperty { id: fxMode; path: "app.traktor.fx.4fx_units" }
+  AppProperty { id: mixerFXOn; path: app_prefix + "fx.on" }
+  AppProperty { id: mixerFX; path: app_prefix + "fx.select" }
 
   WiresGroup
   {
-    enabled: !channel.shift || (fxMode.value == FxMode.TwoFxUnits)
+    enabled: (!channel.shift || (fxMode.value == FxMode.TwoFxUnits)) && !prefs.mixerFXSelector && !prefs.prioritizeFXSelection
     Wire { from: surface_prefix + "fx.assign.1"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.1"; } }
     Wire { from: surface_prefix + "fx.assign.2"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.2"; } }
   }
 
   WiresGroup
   {
-    enabled: channel.shift && (fxMode.value == FxMode.FourFxUnits)
+    enabled: (!channel.shift) && prefs.mixerFXSelector && !prefs.prioritizeFXSelection
+    Wire { from: surface_prefix + "fx.assign.1"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.1"; } }
+    Wire { from: surface_prefix + "fx.assign.2"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.2"; } }
+  }
+
+  WiresGroup
+  {
+    enabled: (!channel.shift) && prefs.mixerFXSelector && prefs.prioritizeFXSelection
+    Wire { from: surface_prefix + "fx.assign.1"; to: ButtonScriptAdapter { onRelease: { mixerFX.value = (mixerFX.value + 4) % 5; } } }
+    Wire { from: surface_prefix + "fx.assign.2"; to: ButtonScriptAdapter { onRelease: { mixerFX.value = (mixerFX.value + 1) % 5; } } }
+  }
+
+  WiresGroup
+  {
+    enabled: (channel.shift && (fxMode.value == FxMode.FourFxUnits)) && !prefs.mixerFXSelector && !prefs.prioritizeFXSelection
     Wire { from: surface_prefix + "fx.assign.1"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.3"; } }
     Wire { from: surface_prefix + "fx.assign.2"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.4"; } }
   }
 
+  WiresGroup
+  {
+    enabled: (channel.shift && (!mixerFXOn.value && fxMode.value == FxMode.FourFxUnits)) && prefs.mixerFXSelector && !prefs.prioritizeFXSelection
+    Wire { from: surface_prefix + "fx.assign.1"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.3"; } }
+    Wire { from: surface_prefix + "fx.assign.2"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.4"; } }
+  }
+
+  WiresGroup
+  {
+    enabled: (channel.shift && (mixerFXOn.value || fxMode.value == FxMode.TwoFxUnits)) && prefs.mixerFXSelector && !prefs.prioritizeFXSelection
+    Wire { from: surface_prefix + "fx.assign.1"; to: ButtonScriptAdapter { onRelease: { mixerFX.value = (mixerFX.value + 4) % 5; } } }
+    Wire { from: surface_prefix + "fx.assign.2"; to: ButtonScriptAdapter { onRelease: { mixerFX.value = (mixerFX.value + 1) % 5; } } }
+  }
+
+  WiresGroup
+  {
+    enabled: (channel.shift) && prefs.mixerFXSelector && prefs.prioritizeFXSelection
+    Wire { from: surface_prefix + "fx.assign.1"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.1"; } }
+    Wire { from: surface_prefix + "fx.assign.2"; to: TogglePropertyAdapter { path: app_prefix + "fx.assign.2"; } }
+  }
+
+  Prefs 
+  {
+    id: prefs
+  }
 }

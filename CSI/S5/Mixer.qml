@@ -60,6 +60,6 @@ Module
   
   Prefs
   {
-    id:prefs
+    id: prefs
   }
 }

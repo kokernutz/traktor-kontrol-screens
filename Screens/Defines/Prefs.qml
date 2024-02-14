@@ -1,8 +1,10 @@
 import QtQuick 2.0
 
 QtObject {
-	
+
 	// controller preferences
+    readonly property bool mixerFXSelector:			false
+	readonly property bool prioritizeFXSelection:	true
 	readonly property bool fineMasterTempoAdjust:	true
 	readonly property bool fineDeckTempoAdjust:		true
 
