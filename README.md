@@ -11,6 +11,8 @@
   - SoundCloud: [@kokernutz](http://soundcloud.com/kokernutz)
 
 **New**
+  - Updated the property path for track key. https://github.com/kokernutz/traktor-kontrol-screens/commit/65e7598568652f25a8285ff4d1fa54db12374ce4
+  - Deck: Cycle through MixerFX on S5 by pressing SHIFT + FILTER-ON/OFF
   - Fixing the phase meter. https://github.com/derzw3rg/traktor-kontrol-screens/commit/f64f6ae7822d858dc2d4f94366f3e3b3c9e2ba95
   - Mixer FX Selector [S8 and S5]. https://github.com/kokernutz/traktor-kontrol-screens/pull/45
   - Stem Color Bars Fix. https://github.com/kokernutz/traktor-kontrol-screens/pull/42
