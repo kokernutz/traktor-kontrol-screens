@@ -83,6 +83,35 @@
 
 ## Screenshots
 
+**General**
 ![Deck](https://user-images.githubusercontent.com/757885/47607125-e35e1000-d9e9-11e8-8005-36d73a504fa6.jpeg)
 ![Browser](https://user-images.githubusercontent.com/757885/47607126-e6f19700-d9e9-11e8-95cd-b26d9b72ca34.jpeg)
 ![FX Browser](https://user-images.githubusercontent.com/757885/33605793-1ce1edb8-d989-11e7-861a-869e0d495d5e.jpg)
+
+**QTs dynamic font sizing**
+![QTs dynamic font sizing](https://user-images.githubusercontent.com/1044267/50608377-cd2e6d80-0ecc-11e9-918a-416ccfed17d0.jpg)
+![QTs dynamic font sizing](https://user-images.githubusercontent.com/1044267/50608389-d4ee1200-0ecc-11e9-90b6-a4e2b8a27bae.jpg)
+![QTs dynamic font sizing](https://user-images.githubusercontent.com/1044267/50608412-e6cfb500-0ecc-11e9-9d25-a4a3d2ffd1b8.jpg)
+
+**Display issue with Remix decks will be fixed.**
+Before:
+![Before: Display issue with Remix decks](https://user-images.githubusercontent.com/1044267/50618900-ffa09080-0ef5-11e9-89a0-ab1b6e412194.jpg)
+
+After. You can see the Loop Length, and Tempo Master (Metronome) icon up top:
+![After: Display issue with Remix decks](https://user-images.githubusercontent.com/1044267/50618902-03341780-0ef6-11e9-8363-bc4173275bf2.jpg)
+
+**More Indicator Options**
+  - Here is what a regular Stereo track looks like when displayDeckIndicators and displayPhaseMeter are true:
+![More Indicator Options](https://user-images.githubusercontent.com/1044267/50618929-38d90080-0ef6-11e9-9076-d69a77a39301.jpg)
+
+  - When displayDeckIndicators and displayPhaseMeter are false:
+![More Indicator Options](https://user-images.githubusercontent.com/1044267/50618942-573efc00-0ef6-11e9-8724-d4686ee1d66f.jpg)
+
+**Fixed the Stem color bars being oversized**
+- Fixed the Stem color bars being oversized and therefore misaligned with the actual tracks, also fixed the gap between the waveform preview and the footer as to make it look cleaner and be more space efficient.
+
+Before:
+![Before: Fixed the Stem](https://user-images.githubusercontent.com/16992805/78146245-48e8d400-7408-11ea-9518-ecbab05333dd.jpg)
+
+After:
+![After: Fixed the Stem](https://user-images.githubusercontent.com/16992805/78146245-48e8d400-7408-11ea-9518-ecbab05333dd.jpg)
