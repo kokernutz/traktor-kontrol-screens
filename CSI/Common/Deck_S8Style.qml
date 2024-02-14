@@ -4093,7 +4093,8 @@ Module
 
     enabled: (focusedDeckId == 1) && (hasTransport(deckAType))
 
-    Wire { from: "%surface%.flux"; to: "decks.1.transport.flux" }
+    Wire { from: "%surface%.flux"; to: "decks.1.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.1.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
     {
@@ -4151,7 +4152,8 @@ Module
 
     enabled: (focusedDeckId == 2) && (hasTransport(deckBType))
 
-    Wire { from: "%surface%.flux";  to: "decks.2.transport.flux" }
+    Wire { from: "%surface%.flux"; to: "decks.2.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.2.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
     {
@@ -4209,7 +4211,8 @@ Module
 
     enabled: (focusedDeckId == 3) && (hasTransport(deckCType))
 
-    Wire { from: "%surface%.flux";  to: "decks.3.transport.flux" }
+    Wire { from: "%surface%.flux"; to: "decks.3.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.3.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
     {
@@ -4267,7 +4270,8 @@ Module
 
     enabled: (focusedDeckId == 4) && (hasTransport(deckDType))
 
-    Wire { from: "%surface%.flux";  to: "decks.4.transport.flux" }
+    Wire { from: "%surface%.flux"; to: "decks.4.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.4.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
     {
@@ -4591,5 +4595,7 @@ Module
     }
   }
 
-  
+  /* #ifdef DEVELOPMENT_MODE
+  Wire { from: "%surface%.fx.select"; to: TriggerPropertyAdapter  { path:"app.traktor.debug.take_screenshot" } enabled: module.shift }
+  #endif */
 }

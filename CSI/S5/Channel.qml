@@ -19,7 +19,9 @@ Module
   Wire { from: surface_prefix + "eq.mid";     to: DirectPropertyAdapter { path: app_prefix + "eq.mid"    } }
   Wire { from: surface_prefix + "eq.low";     to: DirectPropertyAdapter { path: app_prefix + "eq.low"    } }
   Wire { from: surface_prefix + "filter";     to: DirectPropertyAdapter { path: app_prefix + "fx.adjust" } }
-  Wire { from: surface_prefix + "filter_on";  to: TogglePropertyAdapter { path: app_prefix + "fx.on"     } }
+  Wire { enabled: !shift; from: surface_prefix + "filter_on"; to: TogglePropertyAdapter { path: app_prefix + "fx.on"; } }
+  Wire { enabled: shift;  from: surface_prefix + "filter_on"; to: ButtonScriptAdapter { onPress: { mixerFX.value = (mixerFX.value + 1) % 5; } } }
+
   Wire { from: surface_prefix + "cue";        to: TogglePropertyAdapter { path: app_prefix + "cue"       } }
 
   // level meter
@@ -30,6 +32,8 @@ Module
   // fx Assign
 
   AppProperty { id: fxMode; path: "app.traktor.fx.4fx_units" }
+
+  AppProperty { id: mixerFX; path: app_prefix + "fx.select" }
 
   WiresGroup
   {

@@ -2,6 +2,7 @@ import CSI 1.0
 import QtQuick 2.0
 
 import "Defines"
+
 Mapping
 {
   id: mapping
@@ -39,7 +40,11 @@ Mapping
   MappingPropertyDescriptor { id: hotcue34ShiftPushActionProp; path: "mapping.settings.hotcue34_shiftpush_action"; type: MappingPropertyDescriptor.Integer; value: 5 /* Delete Hotcues 3-4 */ }
 
   MappingPropertyDescriptor { id: browseShiftActionProp; path: "mapping.settings.browse_shift_action"; type: MappingPropertyDescriptor.Integer; value: 0 /* Tree Up/Down */ }
+  MappingPropertyDescriptor { id: browseShiftPushActionProp; path: "mapping.settings.browse_shiftpush_action"; type: MappingPropertyDescriptor.Integer; value: 0 /* Expand/Collapse tree folders */ }
+
   MappingPropertyDescriptor { id: loopShiftActionProp; path: "mapping.settings.loop_shift_action"; type: MappingPropertyDescriptor.Integer; value: 0 /* Beatjump Loop */ }
+
+  MappingPropertyDescriptor { id: maximizeBrowserWhenBrowsingProp; path: "mapping.settings.maximize_browser_when_browsing"; type: MappingPropertyDescriptor.Boolean; value: false }
 
   MappingPropertyDescriptor { path: "mapping.settings.deck_display.main_info"; type: MappingPropertyDescriptor.Integer; value: 0 /* Remaining Time */ }
 
@@ -122,6 +127,8 @@ Mapping
     hotcue34ShiftPushAction: hotcue34ShiftPushActionProp.value
 
     browseShiftAction: browseShiftActionProp.value
+    browseShiftPushAction: browseShiftPushActionProp.value
+
     loopShiftAction: loopShiftActionProp.value
 
     showEndWarning: showEndWarningProp.value
@@ -150,12 +157,64 @@ Mapping
     hotcue34ShiftPushAction: hotcue34ShiftPushActionProp.value
 
     browseShiftAction: browseShiftActionProp.value
+    browseShiftPushAction: browseShiftPushActionProp.value
+
     loopShiftAction: loopShiftActionProp.value
 
     showEndWarning: showEndWarningProp.value
     showSyncWarning: showSyncWarningProp.value
     showActiveLoop: showActiveLoopProp.value
     bottomLedsDefaultColor: bottomLedsDefaultColorProp.value
+  }
+
+  AppProperty { id: browserFullScreen; path: "app.traktor.browser.full_screen" }
+
+  property bool fullScreenTimerRunning: false
+
+  SwitchTimer {
+    name: "show_browser_full_screen_timer";
+    setTimeout: 0;
+    resetTimeout: 2000;
+
+    onSet: {
+      fullScreenTimerRunning = true;
+      browserFullScreen.value = true;
+    }
+
+    onReset: {
+      browserFullScreen.value = false
+      fullScreenTimerRunning = false;
+    }
+  }
+
+  WiresGroup {
+    enabled: (deviceSetup.state == DeviceSetupState.assigned) && maximizeBrowserWhenBrowsingProp.value
+
+    Wire {
+      from: Or
+      {
+        inputs: [ "surface.left.browse.is_turned", "surface.right.browse.is_turned" ]
+      }
+      to: "show_browser_full_screen_timer.input"
+    }
+
+    Wire {
+      enabled: shiftProp.value && browseShiftPushActionProp.value == BrowseEncoderAction.browse_expand_tree;
+      from: Or
+      {
+        inputs: [ "surface.left.browse.push", "surface.right.browse.push" ]
+      }
+      to: "show_browser_full_screen_timer.input"
+    }
+
+    Wire {
+      enabled: !shiftProp.value && fullScreenTimerRunning && browserFullScreen.value;
+      from: Or
+      {
+        inputs: [ "surface.left.browse.push", "surface.right.browse.push" ]
+      }
+      to: ValuePropertyAdapter { path: "app.traktor.browser.full_screen"; output: false; ignoreEvents: PinEvent.WireEnabled | PinEvent.WireDisabled }
+    }
   }
 
   X1MK3FXSection

@@ -13,7 +13,9 @@ import 'Views' as Views
 Item {
   id: screen
 
-  property bool isLeftScreen: true
+  property int side: ScreenSide.Left;
+  readonly property bool isLeftScreen: (screen.side == ScreenSide.Left)
+
   property string settingsPath: ""
   property string propertiesPath: ""
 

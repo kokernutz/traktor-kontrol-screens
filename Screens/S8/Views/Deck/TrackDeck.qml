@@ -61,7 +61,7 @@ Item {
     isInEditMode:         trackDeck.isInEditMode
     stemStyle:            trackDeck.stemStyle
 
-    anchors.topMargin:    30 // -2 
+    anchors.topMargin:    30
     anchors.bottomMargin: 5
 
     // the height of the waveform is defined as the remaining space of deckHeight - stripe.height - spacerWaveStripe.height
@@ -157,17 +157,13 @@ Item {
   WF.Stripe {
     id: stripe
 
-    // readonly property int largeDeckBottomMargin: (waveformContainer.isStemStyleDeck) ? 6 : 12
-    
-    // readonly property int smallDeckBottomMargin: (deckId > 1) ? 9 : 6
-
-    anchors.left:           trackDeckIndicator.right // trackDeck.left
-    anchors.right:          keyLockIndicatorBox.left // trackDeck.right
-    anchors.bottom:         hotcues.top              // trackDeck.bottom
+    anchors.left:           trackDeckIndicator.right
+    anchors.right:          keyLockIndicatorBox.left
+    anchors.bottom:         hotcues.top
     anchors.bottomMargin:   (deckSizeState == "large") ? largeDeckBottomMargin : smallDeckBottomMargin
     anchors.leftMargin:     9
     anchors.rightMargin:    9
-    height:                 30 // 28
+    height:                 30
     opacity:                trackDeck.trackIsLoaded ? 1 : 0
 
     deckId:                 trackDeck.deckId

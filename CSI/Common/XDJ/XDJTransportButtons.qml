@@ -25,7 +25,7 @@ Module
       Wire { from: "surface.reverse"; to: HoldPropertyAdapter { path: "app.traktor.decks." + module.deck + ".reverse" } }
   }
 
-  TrackSeek { name: "track_seek"; channel: module.deck }
+  TouchstripTrackSeek { name: "track_seek"; channel: module.deck }
 
   AppProperty { id: elapsedTime;     path: "app.traktor.decks." + deck + ".track.player.elapsed_time" }
   readonly property bool isAtBeginning: elapsedTime.value < module.trackBeginningTolerance

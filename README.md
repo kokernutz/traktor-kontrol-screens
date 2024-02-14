@@ -4,9 +4,15 @@
 
   - Twitter: [@tipesoft](http://twitter.com/tipesoft)
 
+  - MrPatben8: https://github.com/MrPatben8
+
   - Twitter: [@kokernutz](http://twitter.com/kokernutz)
   - MixCloud: [@kokernutz](http://mixcloud.com/kokernutz)
   - SoundCloud: [@kokernutz](http://soundcloud.com/kokernutz)
+
+**New**
+  - Responsive Loop Indicator. https://github.com/kokernutz/traktor-kontrol-screens/pull/43
+  - Dynamic font sizing in deck header fields. https://github.com/kokernutz/traktor-kontrol-screens/pull/22
 
 **Changes for Kontrol D2/S5/S8 and S4 MK3**
 

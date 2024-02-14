@@ -3,16 +3,17 @@ import QtQuick 2.0
 QtObject {
 
 	// global preferences
-	readonly property bool camelotKey: 				true
+	readonly property bool camelotKey:              true
 	readonly property int  phraseLength:            4
 
 	// browser preferences
-	readonly property bool displayMatchGuides:		true
-	readonly property bool displayMoreItems:		true
+	readonly property bool displayMatchGuides:      true
+	readonly property bool displayMoreItems:        true
 
 	// deck preferences
 	readonly property bool displayAlbumCover:		true
 	readonly property bool displayHotCueBar:		true
+	readonly property bool displayDeckIndicators:		true
 	readonly property bool displayPhaseMeter:		true
 	readonly property bool spectrumWaveformColors:	true
  	readonly property variant mixerFXNames:         ["FLTR", "MFX 1", "MFX 2", "MFX 3", "MFX 4"] // do not change FLTR

@@ -19,7 +19,7 @@ Item {
   property color         textColor :            ListView.isCurrentItem ? deckColor : colors.colorFontsListBrowser
   property bool          isCurrentItem :        ListView.isCurrentItem
   property string        prepIconColorPostfix:  (screenFocus < 2 && ListView.isCurrentItem) ? "Blue" : ((screenFocus > 1 && ListView.isCurrentItem) ? "White" : "Grey")
-  readonly property int  textTopMargin:         1 // 7 // centers text vertically
+  readonly property int  textTopMargin:         1 // centers text vertically
   readonly property bool isLoaded:              (model.dataType == BrowserDataType.Track) ? model.loadedInDeck.length > 0 : false
   // visible: !ListView.isCurrentItem
 
@@ -59,7 +59,7 @@ Item {
       anchors.left: parent.left //listImage.right
       anchors.top: parent.top
       anchors.bottom: parent.bottom
-      anchors.topMargin: textTopMargin
+      anchors.topMargin: contactDelegate.textTopMargin
       // anchors.leftMargin: 37
       width: 190
       visible: (model.dataType == BrowserDataType.Track)
@@ -89,12 +89,9 @@ Item {
         id: prepListIcon
         visible: (model.dataType == BrowserDataType.Track) ? model.prepared : false
         source: "./../Images/PrepListIcon" + prepIconColorPostfix + ".png"
-        // width: sourceSize.width
-        // height: sourceSize.height
         anchors.left: firstFieldText.right 
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: 2
-        // anchors.leftMargin: 5
       }
     }   
 
@@ -104,8 +101,7 @@ Item {
       anchors.left: parent.left
       anchors.top: parent.top
       anchors.bottom: parent.bottom
-      anchors.topMargin: textTopMargin
-      // anchors.leftMargin: 37
+      anchors.topMargin: contactDelegate.textTopMargin
       color: textColor
       clip: true
       text: (model.dataType == BrowserDataType.Folder) ? model.nodeName : ""
@@ -125,7 +121,7 @@ Item {
       anchors.right: bpmField.left
       anchors.top: parent.top
       anchors.bottom: parent.bottom
-      anchors.topMargin: textTopMargin
+      anchors.topMargin: contactDelegate.textTopMargin
       width: 140
       color: textColor
       clip: true
@@ -142,7 +138,7 @@ Item {
       anchors.right: tempoMatch.left    
       anchors.top: parent.top
       anchors.bottom: parent.bottom
-      anchors.topMargin: textTopMargin
+      anchors.topMargin: contactDelegate.textTopMargin
       horizontalAlignment: Text.AlignRight
       verticalAlignment: Text.AlignVCenter
       width: 29
@@ -167,7 +163,6 @@ Item {
         width:              8
         height:             8
         color:              masterDeckId.value >= 0 ? tempoMatchColor : textColor
-        //color:              tempoMatchColor
         rotation:           model.bpm > masterClockBpm.value ? 180 : 0
         visible:            masterDeckId.value >= 0 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) >= 1 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) <= 4
         antialiasing:       false
@@ -180,7 +175,6 @@ Item {
         height:             width
         radius:             width * 0.5
         color:              masterDeckId.value >= 0 ? tempoMatchColor : textColor
-        //color:              tempoMatchColor
         visible:            masterDeckId.value >= 0 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) < 1
       }
     }  
@@ -195,7 +189,7 @@ Item {
       anchors.right: keyMatchField.left
       anchors.top: parent.top
       anchors.bottom: parent.bottom
-      anchors.topMargin: textTopMargin
+      anchors.topMargin: contactDelegate.textTopMargin
       horizontalAlignment: Text.AlignRight
       verticalAlignment: Text.AlignVCenter
       color: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? textColor : parent.colorForKey(model.keyIndex)) : textColor
@@ -247,15 +241,14 @@ Item {
       anchors.verticalCenter: parent.verticalCenter
       height: 13
       width: 20
-      bigLineColor:   isCurrentItem ? ((screenFocus < 2) ? colors.colorDeckBlueBright       : colors.colorWhite )    : colors.colorGrey64
-      smallLineColor: isCurrentItem ? ((screenFocus < 2) ? colors.colorDeckBlueBright50Full : colors.colorGrey32 )   : colors.colorGrey32
+      bigLineColor:   contactDelegate.isCurrentItem ? ((contactDelegate.screenFocus < 2) ? colors.colorDeckBlueBright       : colors.colorWhite )    : colors.colorGrey64
+      smallLineColor: contactDelegate.isCurrentItem ? ((contactDelegate.screenFocus < 2) ? colors.colorDeckBlueBright50Full : colors.colorGrey32 )   : colors.colorGrey32
     }
 
     
     ListHighlight {
       anchors.fill: parent
-      visible: isCurrentItem
-      // anchors.leftMargin: (model.dataType == BrowserDataType.Track) ? 34 : 0
+      visible: contactDelegate.isCurrentItem
       anchors.rightMargin: 0 
     }
   }
@@ -267,7 +260,7 @@ Item {
     anchors.leftMargin: 3              
     width: parent.height
     height: parent.height
-    color: (model.coverUrl != "") ? "transparent" : ((screenFocus < 2) ? colors.colorDeckBlueBright50Full : colors.colorGrey128 )
+    color: (model.coverUrl != "") ? "transparent" : ((contactDelegate.screenFocus < 2) ? colors.colorDeckBlueBright50Full : colors.colorGrey128 )
     visible: (model.dataType == BrowserDataType.Track)
 
     Image {
@@ -325,8 +318,6 @@ Item {
 
     Image {
       anchors.centerIn: trackImage
-      // width: 17
-      // height: 17
       source: "../Images/PreviewIcon_Big.png"
       fillMode: Image.Pad
       clip: true
@@ -399,8 +390,8 @@ Item {
   Image {
     id:       folderIcon
     source:   (model.dataType == BrowserDataType.Folder) ? ("image://icons/" + model.nodeIconId ) : ""
-    width:    parent.height // 33
-    height:   parent.height // 33
+    width:    parent.height
+    height:   parent.height
     fillMode: Image.PreserveAspectFit
     anchors.top: parent.top
     anchors.left: parent.left
@@ -412,7 +403,7 @@ Item {
 
   ColorOverlay {
     id: folderIconColorOverlay
-    color: isCurrentItem == false ? colors.colorFontsListBrowser : deckColor // unselected vs. selected
+    color: isCurrentItem == false ? colors.colorFontsListBrowser : contactDelegate.deckColor // unselected vs. selected
     anchors.fill: folderIcon
     source: folderIcon
   }
@@ -427,7 +418,7 @@ Item {
   function updateKeyMatch() {
 
     if (masterDeckId.value < 0) return;
-    
+
     switch (utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) {
       case -7:
       case -2:
@@ -436,7 +427,7 @@ Item {
       case -1:
       case  0:
       case  1:
-        keyMatchColor = "green";
+        keyMatchColor = colors.colorGreen;
         break;
       case  2:
       case  7:
@@ -446,7 +437,8 @@ Item {
   }
 
   function updateTempoMatch() {
-    tempoMatchColor = "green";
+
+    //tempoMatchColor = colors.colorGreen;
 
     if (masterDeckId.value < 0) return;
 
@@ -454,7 +446,7 @@ Item {
       case 0:
       case 1:
       case 2:
-        tempoMatchColor = "green";
+        tempoMatchColor = colors.colorGreen;
         break;
       case 3: 
       case 4:

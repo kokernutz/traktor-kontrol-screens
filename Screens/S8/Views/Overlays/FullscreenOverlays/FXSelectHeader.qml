@@ -7,15 +7,15 @@ Item {
   property int fxUnitId: 0
 
   property          string  fxUnitName:  "FX UNIT " + (fxUnitId + 1)   // used to compose the selcted fxunit name for header tab
-  readonly property variant headerNames: [fxUnitName, fxSelectProp1.description, fxSelectProp2.description, fxSelectProp3.description]
+  readonly property variant headerNames: getHeaderTexts()
 
   readonly property int macroEffectChar:  0x00B6
 
   AppProperty { id: fxSelectProp1;    path: "app.traktor.fx." + (fxUnitId + 1) + ".select.1" }
   AppProperty { id: fxSelectProp2;    path: "app.traktor.fx." + (fxUnitId + 1) + ".select.2" }
   AppProperty { id: fxSelectProp3;    path: "app.traktor.fx." + (fxUnitId + 1) + ".select.3" }
-
-
+  AppProperty { id: patternPlayerKitSelection; path: "app.traktor.fx." + (fxUnitId + 1) + ".pattern_player.kit_shortname" }
+  AppProperty { id: patternPlayerEnabled; path: "app.traktor.settings.pro.plus.pattern_player" }
 
   Row {
     spacing: 1

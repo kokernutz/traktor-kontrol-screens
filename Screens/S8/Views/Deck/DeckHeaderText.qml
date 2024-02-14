@@ -264,7 +264,7 @@ Text {
       PropertyChanges { target: header_text; font.family: fontForNumber;
                         text: (!isLoaded)?"":(prefs.camelotKey ? utils.convertToCamelot(keyDisplay.value) : keyDisplay.value); }
     }
-  ] 
+  ]
 
 
   //--------------------------------------------------------------------------------------------------------------------

@@ -1298,6 +1298,7 @@ Module
           QuantizeControl { name: "quantize_control"; channel: 1 }
 
           Hotcues      { name: "hotcues";       channel: 1 }
+          Beatjump     { name: "beatjump";      channel: 1 }
           FreezeSlicer { name: "freeze_slicer"; channel: 1; numberOfSlices: 8 }
 
           TransportSection { name: "transport"; channel: 1 }
@@ -1363,6 +1364,7 @@ Module
           QuantizeControl { name: "quantize_control"; channel: 2 }
 
           Hotcues      { name: "hotcues";       channel: 2 }
+          Beatjump     { name: "beatjump";      channel: 2 }
           FreezeSlicer { name: "freeze_slicer"; channel: 2; numberOfSlices: 8 }
 
           TransportSection { name: "transport"; channel: 2 }
@@ -1428,6 +1430,7 @@ Module
           QuantizeControl { name: "quantize_control"; channel: 3 }
 
           Hotcues      { name: "hotcues";       channel: 3 }
+          Beatjump     { name: "beatjump";      channel: 3 }
           FreezeSlicer { name: "freeze_slicer"; channel: 3; numberOfSlices: 8 }
 
           TransportSection { name: "transport"; channel: 3 }
@@ -1493,6 +1496,7 @@ Module
           QuantizeControl { name: "quantize_control"; channel: 4 }
 
           Hotcues      { name: "hotcues";       channel: 4 }
+          Beatjump     { name: "beatjump";      channel: 4 }
           FreezeSlicer { name: "freeze_slicer"; channel: 4; numberOfSlices: 8 }
 
           TransportSection { name: "transport"; channel: 4 }
@@ -3742,7 +3746,8 @@ Module
 
     enabled: (focusedDeckId == 1) && (hasTransport(deckAType))
 
-    Wire { from: "%surface%.flux"; to: "decks.1.transport.flux" }
+    Wire { from: "%surface%.flux"; to: "decks.1.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.1.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
     {
@@ -3800,7 +3805,8 @@ Module
 
     enabled: (focusedDeckId == 2) && (hasTransport(deckBType))
 
-    Wire { from: "%surface%.flux";  to: "decks.2.transport.flux" }
+    Wire { from: "%surface%.flux"; to: "decks.2.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.2.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
     {
@@ -3858,7 +3864,8 @@ Module
 
     enabled: (focusedDeckId == 3) && (hasTransport(deckCType))
 
-    Wire { from: "%surface%.flux";  to: "decks.3.transport.flux" }
+    Wire { from: "%surface%.flux"; to: "decks.3.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.3.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
     {
@@ -3916,7 +3923,8 @@ Module
 
     enabled: (focusedDeckId == 4) && (hasTransport(deckDType))
 
-    Wire { from: "%surface%.flux";  to: "decks.4.transport.flux" }
+    Wire { from: "%surface%.flux"; to: "decks.4.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.4.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
     {
@@ -4114,5 +4122,7 @@ Module
     }
   }
 
-  
+  /* #ifdef DEVELOPMENT_MODE
+  Wire { from: "%surface%.back"; to: TriggerPropertyAdapter  { path:"app.traktor.debug.take_screenshot" } enabled: module.shift }
+  #endif */
 }

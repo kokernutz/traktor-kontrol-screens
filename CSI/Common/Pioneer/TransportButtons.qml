@@ -22,7 +22,7 @@ Module {
       Wire { from: "surface.quantize"; to: TogglePropertyAdapter { path: "app.traktor.snap" } }
   }
 
-  TrackSeek { name: "track_seek"; channel: deck }
+  TouchstripTrackSeek { name: "track_seek"; channel: deck }
 
   AppProperty { id: elapsedTime;     path: "app.traktor.decks." + deck + ".track.player.elapsed_time" }
   readonly property bool isAtBeginning: elapsedTime.value < timeTolerance
