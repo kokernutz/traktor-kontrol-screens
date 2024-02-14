@@ -123,7 +123,7 @@ Rectangle {
         id: valueString
         anchors.verticalCenter: parent.verticalCenter
         text: isEnabled ? ( toPercent ? Math.floor(parameter.description * 100 + 0.1) + "%" : parameter.description ) : ""
-        color: colors.musicalKeyColors[(utils.returnKeyIndex(deckInfo.keyString))]
+        color: colors.colorWhite
         font.family: "Pragmatica" // is monospaced
         font.pixelSize: fonts.largeValueFontSize
        
