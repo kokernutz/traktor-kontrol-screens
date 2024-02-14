@@ -11,6 +11,7 @@
   - SoundCloud: [@kokernutz](http://soundcloud.com/kokernutz)
 
 **New**
+  - Enable prefs and camelot key for S4 MK3. https://github.com/jlertle/traktor-kontrol-screens/commit/e723b8b5fbacb80b23eef7e8ddd47a7950861c97
   - Updated the property path for track key. https://github.com/kokernutz/traktor-kontrol-screens/commit/65e7598568652f25a8285ff4d1fa54db12374ce4
   - Deck: Cycle through MixerFX on S5 by pressing SHIFT + FILTER-ON/OFF
   - Fixing the phase meter. https://github.com/derzw3rg/traktor-kontrol-screens/commit/f64f6ae7822d858dc2d4f94366f3e3b3c9e2ba95

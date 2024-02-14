@@ -102,7 +102,8 @@ Item {
           property bool isKeyAdjusted: deckInfo.isKeyLockOn && Math.abs(deckInfo.keyAdjustVal) > keyAdjustThreshold
           property string keyLabelStr: deckInfo.hasKey ?
                                            // Has Key
-                                           ( deckInfo.resultingKeyStr  + ( isKeyAdjusted && deckInfo.shift ? "  " + deckInfo.keyAdjustIntText : "" ) ) :
+                                           ( prefs.camelotKey ? utils.convertToCamelot(deckInfo.keyString) : ( deckInfo.resultingKeyStr + ( isKeyAdjusted && deckInfo.shift ? "  " + deckInfo.keyAdjustIntText : "" ) ) ) :
+                                           //( deckInfo.resultingKeyStr + ( isKeyAdjusted && deckInfo.shift ? "  " + deckInfo.keyAdjustIntText : "" ) ) :
                                            // Has No Key
                                            ( isKeyAdjusted ? deckInfo.keyAdjustFloatText : "No key" )
 
