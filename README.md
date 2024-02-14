@@ -10,17 +10,21 @@
   - MixCloud: [@kokernutz](http://mixcloud.com/kokernutz)
   - SoundCloud: [@kokernutz](http://soundcloud.com/kokernutz)
 
-**New**
+**New features:**
+  - Optimize time remaining calculation. https://github.com/jlertle/traktor-kontrol-screens/commit/c678a4550686cf2921f423858fed77bb5448e857
   - Enable prefs and camelot key for S4 MK3. https://github.com/jlertle/traktor-kontrol-screens/commit/e723b8b5fbacb80b23eef7e8ddd47a7950861c97
   - Updated the property path for track key. https://github.com/kokernutz/traktor-kontrol-screens/commit/65e7598568652f25a8285ff4d1fa54db12374ce4
   - Deck: Cycle through MixerFX on S5 by pressing SHIFT + FILTER-ON/OFF
-  - Fixing the phase meter. https://github.com/derzw3rg/traktor-kontrol-screens/commit/f64f6ae7822d858dc2d4f94366f3e3b3c9e2ba95
   - Mixer FX Selector [S8 and S5]. https://github.com/kokernutz/traktor-kontrol-screens/pull/45
   - Stem Color Bars Fix. https://github.com/kokernutz/traktor-kontrol-screens/pull/42
   - Remix Deck Layout Fix & More Indicator Options. https://github.com/kokernutz/traktor-kontrol-screens/pull/23
   - Coarse BPM Adjust Setting. https://github.com/kokernutz/traktor-kontrol-screens/pull/44
   - Responsive Loop Indicator. https://github.com/kokernutz/traktor-kontrol-screens/pull/43
   - Dynamic font sizing in deck header fields. https://github.com/kokernutz/traktor-kontrol-screens/pull/22
+
+**Fix:**
+
+  - Fixing the phase meter. https://github.com/derzw3rg/traktor-kontrol-screens/commit/f64f6ae7822d858dc2d4f94366f3e3b3c9e2ba95
 
 **Changes for Kontrol D2/S5/S8 and S4 MK3**
 
@@ -43,6 +47,11 @@
   - Deck: Darkened portion of stripe already played
   - FX: Added 2 additional lines
   - FX: Text now left-justified
+
+**Other Changes Included:**
+
+  - Revamped deck header and added hot cue bar. https://github.com/jlertle/traktor-kontrol-screens/commit/9c0504de3b29db8b01a245536fae7abd262eca10
+  - Slightly increased font size in browser and deck sub header. https://github.com/jlertle/traktor-kontrol-screens/commit/bd501f7ad3eefba4308492d4499f9064e01357b1
 
 ## How to install
 
