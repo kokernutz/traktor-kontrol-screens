@@ -3,6 +3,7 @@ import QtQuick 2.0
 
 import "../../Defines"
 import "../Common"
+import "../../Screens/Defines"
 
 Module
 {
@@ -1568,8 +1569,8 @@ Module
           enabled: focusedDeckId == 1
 
           Wire { from: "%surface%.back";   to: "decks.1.tempo.reset" }
-          Wire { from: "%surface%.browse"; to: "decks.1.tempo.fine";   enabled: !module.shift }
-          Wire { from: "%surface%.browse"; to: "decks.1.tempo.coarse"; enabled:  module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.1.tempo.fine" : "decks.1.tempo.coarse";   enabled: !module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.1.tempo.coarse" : "decks.1.tempo.fine"; enabled:  module.shift }
         }
 
         // Deck B
@@ -1578,8 +1579,8 @@ Module
           enabled: focusedDeckId == 2
 
           Wire { from: "%surface%.back";   to: "decks.2.tempo.reset" }
-          Wire { from: "%surface%.browse"; to: "decks.2.tempo.fine";   enabled: !module.shift }
-          Wire { from: "%surface%.browse"; to: "decks.2.tempo.coarse"; enabled:  module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.2.tempo.fine" : "decks.2.tempo.coarse";   enabled: !module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.2.tempo.coarse" : "decks.2.tempo.fine"; enabled:  module.shift }
         }
 
         // Deck C
@@ -1588,8 +1589,8 @@ Module
           enabled: focusedDeckId == 3
 
           Wire { from: "%surface%.back";   to: "decks.3.tempo.reset" }
-          Wire { from: "%surface%.browse"; to: "decks.3.tempo.fine";   enabled: !module.shift }
-          Wire { from: "%surface%.browse"; to: "decks.3.tempo.coarse"; enabled:  module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.3.tempo.fine" : "decks.3.tempo.coarse";   enabled: !module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.3.tempo.coarse" : "decks.3.tempo.fine"; enabled:  module.shift }
         }
 
         // Deck D
@@ -1598,8 +1599,8 @@ Module
           enabled: focusedDeckId == 4
 
           Wire { from: "%surface%.back";   to: "decks.4.tempo.reset" }
-          Wire { from: "%surface%.browse"; to: "decks.4.tempo.fine";   enabled: !module.shift }
-          Wire { from: "%surface%.browse"; to: "decks.4.tempo.coarse"; enabled:  module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.4.tempo.fine" : "decks.4.tempo.coarse";   enabled: !module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.4.tempo.coarse" : "decks.4.tempo.fine"; enabled:  module.shift }
         }
       }
 
@@ -4122,6 +4123,11 @@ Module
     }
   }
 
+  Prefs
+  {
+    id:prefs
+  }
+  
   /* #ifdef DEVELOPMENT_MODE
   Wire { from: "%surface%.back"; to: TriggerPropertyAdapter  { path:"app.traktor.debug.take_screenshot" } enabled: module.shift }
   #endif */

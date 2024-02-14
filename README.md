@@ -11,6 +11,7 @@
   - SoundCloud: [@kokernutz](http://soundcloud.com/kokernutz)
 
 **New**
+  - Coarse BPM Adjust Setting. https://github.com/kokernutz/traktor-kontrol-screens/pull/44
   - Responsive Loop Indicator. https://github.com/kokernutz/traktor-kontrol-screens/pull/43
   - Dynamic font sizing in deck header fields. https://github.com/kokernutz/traktor-kontrol-screens/pull/22
 
