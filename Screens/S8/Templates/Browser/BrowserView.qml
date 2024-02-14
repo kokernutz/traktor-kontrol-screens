@@ -37,6 +37,11 @@ Templates.View {
   anchors.fill: parent
 
   //MappingProperty { id: browserViewMode; path: "mapping.state.browser_view_mode" }
+  AppProperty { id: deckAKeyDisplay; path: "app.traktor.decks.1.track.key.resulting.quantized" }
+  AppProperty { id: deckBKeyDisplay; path: "app.traktor.decks.2.track.key.resulting.quantized" }
+  AppProperty { id: deckCKeyDisplay; path: "app.traktor.decks.3.track.key.resulting.quantized" }
+  AppProperty { id: deckDKeyDisplay; path: "app.traktor.decks.4.track.key.resulting.quantized" }
+  AppProperty { id: masterDeckId; path: "app.traktor.masterclock.source_id" }
 
   //--------------------------------------------------------------------------------------------------------------------
 
@@ -239,5 +244,16 @@ Templates.View {
     qmlBrowser.speed = defaultSpeed;
   }
   */
+
+  function getMasterKey() {
+    switch (masterDeckId.value) {
+      case 0: return deckAKeyDisplay.value;
+      case 1: return deckBKeyDisplay.value;
+      case 2: return deckCKeyDisplay.value;
+      case 3: return deckDKeyDisplay.value;
+    }
+
+    return "";
+  }
 }
 

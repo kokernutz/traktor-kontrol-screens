@@ -26,6 +26,7 @@
 
 **Fix:**
 
+  - Fix BPM still shows colors incorrectly.
   - Fix Key text changes color on S8.
   - Fixing the phase meter. https://github.com/derzw3rg/traktor-kontrol-screens/commit/f64f6ae7822d858dc2d4f94366f3e3b3c9e2ba95
 

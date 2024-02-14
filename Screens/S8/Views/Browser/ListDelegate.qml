@@ -42,6 +42,7 @@ Item {
 
   // container for zebra & track infos
   Rectangle {
+    id: zebratrack
     // when changing colors here please remember to change it in the GridView in Templates/Browser.qml 
     color:  (index%2 == 0) ? colors.colorGrey08 : "transparent" 
     anchors.left: trackImage.right
@@ -81,7 +82,7 @@ Item {
         elide: Text.ElideRight
         text: textLengthDummy.text
         font.pixelSize: browserFontSize
-        color: textColor
+        color: getListItemTextColor()
         verticalAlignment: Text.AlignVCenter
       }
 
@@ -123,7 +124,7 @@ Item {
       anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
       width: 140
-      color: textColor
+      color: getListItemTextColor()
       clip: true
       //text: masterKeyDisplay.value + " - " + model.key
       text: (model.dataType == BrowserDataType.Track) ? model.artistName: ""
@@ -142,7 +143,7 @@ Item {
       horizontalAlignment: Text.AlignRight
       verticalAlignment: Text.AlignVCenter
       width: 29
-      color: masterDeckId.value >= 0 ? tempoMatchColor : textColor
+      color: getListItemBpmTextColor()
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? model.bpm.toFixed(0) : ""
       font.pixelSize: browserFontSize
@@ -192,7 +193,7 @@ Item {
       anchors.topMargin: contactDelegate.textTopMargin
       horizontalAlignment: Text.AlignRight
       verticalAlignment: Text.AlignVCenter
-      color: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? textColor : parent.colorForKey(model.keyIndex)) : textColor
+      color: getListItemKeyTextColor()
       width: 28
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "-" : (prefs.camelotKey ? keyText[model.keyIndex] : model.key)) : ""
@@ -318,6 +319,8 @@ Item {
 
     Image {
       anchors.centerIn: trackImage
+      width: 17
+      height: 17
       source: "../Images/PreviewIcon_Big.png"
       fillMode: Image.Pad
       clip: true
@@ -415,6 +418,56 @@ Item {
     return true
   }
 
+  function getListItemKeyTextColor() {
+    if (model.dataType != BrowserDataType.Track) {
+      return textColor;
+    }
+
+    if ((model.key == "none") || (model.key == "None")) {
+        return textColor;
+    } else {
+        return zebratrack.colorForKey(model.keyIndex) ;
+    }
+
+    return textColor;
+  }
+
+  function getListItemBpmTextColor() {
+    if (model.dataType != BrowserDataType.Track) {
+      return textColor;
+    }
+
+    var keyOffset = utils.getMasterKeyOffset(qmlBrowser.getMasterKey(), model.key);
+    if (keyOffset == 0) {
+      return colors.color04MusicalKey; // Yellow
+    }
+    if (keyOffset == 1 || keyOffset == -1) {
+      return colors.color02MusicalKey; // Orange
+    }
+    if (keyOffset == 2 || keyOffset == 7) {
+      return colors.color07MusicalKey; // Green
+    }
+    if (keyOffset == -2 || keyOffset == -7) {
+      return colors.color10MusicalKey; // Blue
+    }
+
+    return textColor;
+  }
+
+  function getListItemTextColor() {
+    if (model.dataType != BrowserDataType.Track) {
+      return textColor;
+    }
+    if (model.prevPlayed && !model.prelisten) {
+      return colors.colorGreen50Full;
+    }
+    if (model.loadedInDeck.length > 0) {
+      return colors.colorGreen;
+    }
+
+    return textColor;
+  }
+
   function updateKeyMatch() {
 
     if (masterDeckId.value < 0) return;
@@ -460,16 +513,17 @@ Item {
     updateTempoMatch();
   }
 
-  // // cover border
+  // cover border
   // Rectangle {
-    //   id:cover_innerBorder
-    //   color: "transparent"
-    //   border.width: 1
-    //   border.color: "#26FFFFFF"
-    //   height: listImage.height
-    //   width: height 
-    //   visible: hideCoverBorder()
-    //   anchors.top: listImage.top
-    //   anchors.left: listImage.left
-    // }
-  }
+  //   id:cover_innerBorder
+  //   color: "transparent"
+  //   border.width: 1
+  //   border.color: "#26FFFFFF"
+  //   height: listImage.height
+  //   width: height 
+  //   visible: hideCoverBorder()
+  //   anchors.top: listImage.top
+  //   anchors.left: listImage.left
+  // }
+}
+
