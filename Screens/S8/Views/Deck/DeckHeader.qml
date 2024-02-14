@@ -560,7 +560,7 @@ Item {
       height: parent.height - 4
       anchors.verticalCenter: parent.verticalCenter
       anchors.horizontalCenter: parent.horizontalCenter
-      // opacity: (isLoaded && headerState != "small" && hasTrackStyleHeader(deckType)) ? 1 : 0
+      opacity: (isLoaded && headerState != "small" && hasTrackStyleHeader(deckType)) ? 1 : 0
     }
 
     visible: isLoaded && deckType != DeckType.Remix && ( prefs.displayDeckIndicators || prefs.displayPhaseMeter )

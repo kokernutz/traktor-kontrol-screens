@@ -11,6 +11,7 @@
   - SoundCloud: [@kokernutz](http://soundcloud.com/kokernutz)
 
 **New**
+  - Fixing the phase meter. https://github.com/derzw3rg/traktor-kontrol-screens/commit/f64f6ae7822d858dc2d4f94366f3e3b3c9e2ba95
   - Mixer FX Selector [S8 and S5]. https://github.com/kokernutz/traktor-kontrol-screens/pull/45
   - Stem Color Bars Fix. https://github.com/kokernutz/traktor-kontrol-screens/pull/42
   - Remix Deck Layout Fix & More Indicator Options. https://github.com/kokernutz/traktor-kontrol-screens/pull/23
