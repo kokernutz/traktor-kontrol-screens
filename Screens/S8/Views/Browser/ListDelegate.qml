@@ -126,7 +126,9 @@ Item {
       width: 140
       color: getListItemTextColor()
       clip: true
+      //text: qmlBrowser.getMasterKey() + " - " + model.key
       //text: masterKeyDisplay.value + " - " + model.key
+      //text: Math.abs(masterClockBpm.value - model.bpm).toFixed(0)
       text: (model.dataType == BrowserDataType.Track) ? model.artistName: ""
       font.pixelSize: browserFontSize
       elide: Text.ElideRight
@@ -216,7 +218,7 @@ Item {
         height:             8
         color:              keyMatchColor
         rotation:           utils.getMasterKeyOffset(masterKeyDisplay.value, model.key) > 0 ? 180 : 0
-        visible:            masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) > 1 // masterDeckId.value >= 0 // && Math.round(Math.abs(masterClockBpm.value - model.bpm)) >= 1 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) <= 4
+        visible:            masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) > 1
         antialiasing:       false
       }
 
@@ -227,7 +229,7 @@ Item {
         height:             width
         radius:             width * 0.5
         color:              keyMatchColor
-        visible:            masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) <= 1 // masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) == 0
+        visible:            masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) <= 1
       }
     }
 
@@ -437,19 +439,21 @@ Item {
       return textColor;
     }
 
-    var keyOffset = utils.getMasterKeyOffset(qmlBrowser.getMasterKey(), model.key);
-    if (keyOffset == 0) {
+    var keyOffset = Math.abs(masterClockBpm.value - model.bpm).toFixed(0)
+    if ((keyOffset >= 0) && (keyOffset <= 2)) {
+      return colors.color07MusicalKey; // Green
+    } 
+    if ((keyOffset >= 3) && (keyOffset <= 4)) {
       return colors.color04MusicalKey; // Yellow
-    }
-    if (keyOffset == 1 || keyOffset == -1) {
+    } 
+    /*
+    if ((keyOffset >= 5) && (keyOffset <= 7)) {
       return colors.color02MusicalKey; // Orange
     }
-    if (keyOffset == 2 || keyOffset == 7) {
-      return colors.color07MusicalKey; // Green
+    if (keyOffset > 7) {
+      return colors.color01MusicalKey; // Red
     }
-    if (keyOffset == -2 || keyOffset == -7) {
-      return colors.color10MusicalKey; // Blue
-    }
+    */
 
     return textColor;
   }
