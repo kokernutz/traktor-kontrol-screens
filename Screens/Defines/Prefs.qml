@@ -4,7 +4,7 @@ QtObject {
 
   // controller preferences
   readonly property bool mixerFXSelector:         false
-  readonly property bool prioritizeFXSelection:   true
+  readonly property bool prioritizeFXSelection:   false
   readonly property bool fineMasterTempoAdjust:   true
   readonly property bool fineDeckTempoAdjust:     true
 
