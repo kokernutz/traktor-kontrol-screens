@@ -48,7 +48,7 @@ Traktor.Beatgrid {
   //--------------------------------------------------------------------------------------------------------------------
 
   onEditEnabledChanged: { resetScanControl(); updateEditMode(true); }
-  onBeatMarkersChanged: { updateEditMode(false);  }
+  onBeatMarkersChanged: { updateEditMode(false); updateBarMarkers(); }
 
   function updateEditMode(initialSetup) 
   { 
@@ -145,6 +145,26 @@ Traktor.Beatgrid {
   // Beat Grid
   //--------------------------------------------------------------------------------------------------------------------
 
+  property var barMarkers: []
+
+  function updateBarMarkers() {
+    if (gridMarkers.length == 0) {
+      barMarkers = [];
+      return;
+    }
+
+    var gridMarkerIndex = 0;
+    while (beatMarkers[gridMarkerIndex] < gridMarkers[0]) {
+      gridMarkerIndex++;
+    }
+
+    barMarkers = beatMarkers
+      .slice(gridMarkerIndex % 4)
+      .filter(function (beatMarker, index) {
+        return index % 4 == 0;
+      });
+  }
+
   Traktor.WaveformTranslator {
     x: 0
     y: 0
@@ -157,12 +177,45 @@ Traktor.Beatgrid {
     Traktor.BeatgridLines
     {
       anchors.top:          parent.top
+      anchors.left:         parent.left
+      anchors.right:        parent.right
+      height: 6
+      
+      beatMarkerList: beatMarkers
+      color:  colors.colorWhite75
+    }
+    
+    Traktor.BeatgridLines
+    {
       anchors.bottom:       parent.bottom
       anchors.left:         parent.left
       anchors.right:        parent.right
+      height: 6
       
       beatMarkerList: beatMarkers
-      color:  colors.colorWhite09
+      color:  colors.colorWhite75
+    }
+    
+    Traktor.BeatgridLines
+    {
+      anchors.top:          parent.top
+      anchors.left:         parent.left
+      anchors.right:        parent.right
+      height: 10
+      
+      beatMarkerList: barMarkers
+      color:  colors.colorRedPlaymarker
+    }
+    
+    Traktor.BeatgridLines
+    {
+      anchors.bottom:       parent.bottom
+      anchors.left:         parent.left
+      anchors.right:        parent.right
+      height: 10
+      
+      beatMarkerList: barMarkers
+      color:  colors.colorRedPlaymarker
     }
   }
 

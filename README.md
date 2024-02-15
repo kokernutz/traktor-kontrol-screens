@@ -12,6 +12,7 @@
 
 **New features:**
 
+  - Wave bar Markers.
   - Key text changes color. https://github.com/kokernutz/traktor-kontrol-screens/commit/aaf1dd9626a61c231b9af0702be4c31e303da0e7
   - Optimize time remaining calculation. https://github.com/jlertle/traktor-kontrol-screens/commit/c678a4550686cf2921f423858fed77bb5448e857
   - Enable prefs and camelot key for S4 MK3. https://github.com/jlertle/traktor-kontrol-screens/commit/e723b8b5fbacb80b23eef7e8ddd47a7950861c97
