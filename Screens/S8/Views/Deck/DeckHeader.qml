@@ -420,7 +420,7 @@ Item {
   // LOOP SIZE INDICATOR (CIRCLE)
   Widgets.SpinningWheel {
     id: loop_size
-    visible: isLoaded && ( deckType == DeckType.Remix || !prefs.displayDeckIndicators )
+    visible: isLoaded && ( deckType == DeckType.Remix || !prefs.displayDeckIndicators )
     anchors.top: middle_center_text.bottom
     anchors.topMargin: 1
     anchors.right: bottom_center.left
@@ -457,6 +457,9 @@ Item {
     anchors.topMargin: 3
     visible: isLoaded && isMaster && ( deckType == DeckType.Remix || !prefs.displayDeckIndicators )
     source: "./../Images/DeckIconMetronome" + deckIconColor[deckId] + ".png"
+    opacity: loop_size.opacity
+    Behavior on opacity             { NumberAnimation { duration: speed } }
+    Behavior on anchors.rightMargin { NumberAnimation { duration: speed } }
   }
 
   MappingProperty { id: showBrowserOnTouch; path: "mapping.settings.show_browser_on_touch"; onValueChanged: { updateExplicitDeckHeaderNames() } }
