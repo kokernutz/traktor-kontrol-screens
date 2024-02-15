@@ -12,6 +12,7 @@
 
 **New features:**
   
+  - Spectrum Waveform Colors (7 Themes)
   - Change default config Mixer FX Selector.
   - Wave bar Markers.
   - Key text changes color. https://github.com/kokernutz/traktor-kontrol-screens/commit/aaf1dd9626a61c231b9af0702be4c31e303da0e7

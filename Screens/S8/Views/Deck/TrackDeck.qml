@@ -35,9 +35,8 @@ Item {
   AppProperty   { id: deckType;          path: "app.traktor.decks." + (deckId + 1) + ".type"                    }
   AppProperty   { id: primaryKey;        path: "app.traktor.decks." + (deckId + 1) + ".track.content.entry_key" }
 
-  AppProperty { id: trackLength;         path: "app.traktor.decks." + (deckId + 1) + ".track.content.track_length" }
-
-  AppProperty { id: keyLockEnabled;             path: "app.traktor.decks." + (deckId+1) + ".track.key.lock_enabled" }
+  AppProperty   { id: trackLength;       path: "app.traktor.decks." + (deckId + 1) + ".track.content.track_length" }
+  AppProperty   { id: keyLockEnabled;    path: "app.traktor.decks." + (deckId+1) + ".track.key.lock_enabled" }
 
 
   //--------------------------------------------------------------------------------------------------------------------

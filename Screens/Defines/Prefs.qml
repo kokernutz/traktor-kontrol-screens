@@ -21,7 +21,14 @@ QtObject {
   readonly property bool displayHotCueBar:        true
   readonly property bool displayDeckIndicators:   true
   readonly property bool displayPhaseMeter:       true
-  readonly property bool spectrumWaveformColors:  true
+  readonly property int spectrumWaveformColors:   1 // Change for Spectrum Waveform Colors Themes
+                                                    // 1 - KOKERNUTZ, 
+                                                    // 2 - NEXUS
+                                                    // 3 - PRIME
+                                                    // 4 - Denon SC5000 / SC6000
+                                                    // 5 - Pioneer CDJ 2000
+                                                    // 6 - Pioneer CDJ 3000
+                                                    // 7 - NUMARK
   readonly property variant mixerFXNames:         ["FLTR", "MFX 1", "MFX 2", "MFX 3", "MFX 4"] // do not change FLTR
 
   // deck header text (use -1 to turn off)

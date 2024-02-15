@@ -65,7 +65,7 @@ QtObject {
   property variant colorWhite16:                rgba (255, 255, 255, 41) // from 15 - 17%
   property variant colorWhite12:                rgba (255, 255, 255, 31) // from 11 - 13%
   property variant colorWhite09:                rgba (255, 255, 255, 23) // from 8 - 10%
-  // property variant colorWhite06:                rgba (255, 255, 255, 15) // from 5 - 7%
+  property variant colorWhite06:                rgba (255, 255, 255, 15) // from 5 - 7%
   // property variant colorWhite03:                rgba (255, 255, 255, 8) // from 2 - 4%
 
   property variant colorGrey232:                rgba (232, 232, 232, 255)
@@ -98,6 +98,10 @@ QtObject {
 
   property variant colorRed:                    rgba(255, 0, 0, 255)
   property variant colorRed70:                  rgba(185, 6, 6, 255)
+
+  property variant colorGreenActive:            rgba( 82, 255, 148, 255)
+  property variant colorGreenInactive:          rgba(  8,  56,  24, 255)
+  property variant colorGreyInactive:           rgba(139, 145, 139, 255)
 
 
   // Playmarker
@@ -340,6 +344,17 @@ QtObject {
     property color temp:   "grey"
   }
 
+  property variant hotcueColors: {
+    1: color01Bright,
+    2: color03Bright,
+    3: color05Bright,
+    4: color07Bright,
+    5: color09Bright,
+    6: color11Bright,
+    7: color13Bright,
+    8: color15Bright
+  }
+
   //--------------------------------------------------------------------------------------------------------------------
 
   //  Freeze & Slicer
@@ -489,15 +504,39 @@ QtObject {
     { low1:  rgba (255,   0,  50, 150),  low2:  rgba (255,  30,  60, 170),
       mid1:  rgba (255, 110, 110, 130),  mid2:  rgba (255, 125, 125, 160),
       high1: rgba (255, 210, 220, 140),  high2: rgba (255, 220, 230, 160) },
-    // Spectrum-like colors   
+    // Spectrum 1 - KOKERNUTZ
     { low1:  rgba (255,  50,   0, 150),  low2:  rgba (255,  70,  20, 170),
       mid1:  rgba ( 80, 245,  80, 110),  mid2:  rgba ( 95, 245,  95, 130),
-      high1: rgba ( 30,  85, 170, 255),  high2: rgba ( 50, 100, 180, 255)}
+      high1: rgba ( 30,  85, 170, 255),  high2: rgba ( 50, 100, 180, 255)},
+    // Spectrum 2 - NEXUS
+    { low1:  rgba (200,   0,   0, 100),  low2:  rgba (200, 100,   0, 250),
+      mid1:  rgba (60,  120, 240, 100),  mid2:  rgba (80,  160, 240, 250),
+      high1: rgba (100, 200, 240, 100),  high2: rgba (120, 240, 240, 250)},
+    // Spectrum 3 - PRIME
+    { low1:  rgba ( 41, 113, 246, 100),  low2:  rgba ( 41, 113, 246, 250),
+      mid1:  rgba ( 98, 234,  82, 100),  mid2:  rgba ( 98, 234,  82, 250),
+      high1: rgba (255, 255, 255, 100),  high2: rgba (255, 255, 255, 250)},
+    // Spectrum 4 - Denon SC5000 / SC6000
+    { low1:  rgba ( 42, 112, 245, 100),  low2:  rgba ( 42, 114, 247, 250),
+      mid1:  rgba ( 99, 235,  83, 100),  mid2:  rgba ( 99, 235,  83, 250),
+      high1: rgba (255, 255, 255, 100),  high2: rgba (255, 255, 255, 250)},
+    // Spectrum 5 - Pioneer CDJ 2000
+    { low1:  rgba (204,   0,   0, 100),  low2:  rgba (204, 104,   0, 250),
+      mid1:  rgba (64,  124, 244, 100),  mid2:  rgba ( 84, 164, 244, 250),
+      high1: rgba (104, 204, 244, 100),  high2: rgba (124, 244, 244, 250)},
+    // Spectrum 6 - Pioneer CDJ 3000
+    { low1:  rgba (26,   50, 142, 200),  low2:  rgba (  2, 186, 234, 180),
+      mid1: rgba  (255, 112,   2, 255),  mid2:  rgba (245, 122,  12, 160),
+      high1: rgba (234, 234, 234, 255),  high2: rgba (154, 154, 154, 255)},
+	  // Spectrum 7 - NUMARK
+    { low1:  rgba ( 30,  50, 120, 160),  low2:  rgba ( 28, 182, 226, 170),
+      mid1:  rgba ( 80, 228,  80, 110),  mid2:  rgba (120, 246, 120, 130),
+      high1: rgba (255, 150,   3, 255),  high2: rgba (245, 176,  18, 255)}
   ]
 
   function getDefaultWaveformColors()
   {
-    return waveformColorsMap[prefs.spectrumWaveformColors ? 17 : 0];
+    return waveformColorsMap[prefs.spectrumWaveformColors ? (16+prefs.spectrumWaveformColors) : 0];
   }
 
   function getWaveformColors(colorId)
