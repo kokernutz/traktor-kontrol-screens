@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 
 import "../../CSI/X1MK3/Defines"
 import "Scripts/DisplayHelpers.js" as DisplayHelpers

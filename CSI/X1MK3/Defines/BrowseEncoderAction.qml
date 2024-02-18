@@ -1,6 +1,6 @@
 pragma Singleton
 
-import QtQuick 2.0
+import QtQuick
 
 // Constants for Hotcues Button actions
 QtObject {

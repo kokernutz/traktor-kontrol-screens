@@ -1,6 +1,6 @@
 pragma Singleton
 
-import QtQuick 2.0
+import QtQuick
 
 // Constants representing values in app.traktor.decks.x.loop.size
 QtObject {

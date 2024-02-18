@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick
 
 Canvas {
   property real lineWidth:     1.0

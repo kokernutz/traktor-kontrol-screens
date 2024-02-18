@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 import "../../Screens/Defines"
 
 Module
@@ -35,7 +35,6 @@ Module
 
 
   // fx Assign
-
   AppProperty { id: fxMode; path: "app.traktor.fx.4fx_units" }
   AppProperty { id: mixerFXOn; path: app_prefix + "fx.on" }
   AppProperty { id: mixerFX; path: app_prefix + "fx.select" }
