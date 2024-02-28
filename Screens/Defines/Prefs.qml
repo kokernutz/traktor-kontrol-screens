@@ -5,12 +5,13 @@ QtObject {
   // controller preferences
   readonly property bool mixerFXSelector:         false
   readonly property bool prioritizeFXSelection:   false
+
   readonly property bool fineMasterTempoAdjust:   true
   readonly property bool fineDeckTempoAdjust:     true
 
   // global preferences
-  readonly property bool camelotKey:              true
-  readonly property int  phraseLength:            4
+  readonly property bool camelotKey:                       true
+  readonly property int  phraseLength:                     4
 
   // browser preferences
   readonly property bool displayMatchGuides:      true
@@ -32,7 +33,6 @@ QtObject {
   readonly property variant mixerFXNames:         ["FLTR", "MFX 1", "MFX 2", "MFX 3", "MFX 4"] // do not change FLTR
 
   // deck header text (use -1 to turn off)
-
   readonly property int topLeftText:      0
   readonly property int topCenterText:    14
   readonly property int topRightText:     12

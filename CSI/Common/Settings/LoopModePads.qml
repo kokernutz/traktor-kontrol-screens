@@ -1,9 +1,9 @@
 import CSI 1.0
 
-Module
-{
+Module {
 	// input
 	id: module
+	
 	property string loopSizePath: ""
 	property string beatJumpPath: ""
 

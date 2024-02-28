@@ -1,5 +1,6 @@
-import QtQuick 2.5
+import QtQuick
 import QtQuick.Layouts 1.1
+
 import '../Widgets' as Widgets
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -9,6 +10,7 @@ import '../Widgets' as Widgets
 
 Item {
   id: display
+  
   Colors {id: colors}
   Dimensions {id: dimensions}
   

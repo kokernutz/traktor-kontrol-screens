@@ -1,4 +1,4 @@
-import QtQuick 2.5
+import QtQuick
 
 Item {
     property real value: 0.0

@@ -2,6 +2,8 @@ import CSI 1.0
 import QtQuick
 
 import "../../Defines"
+import "../../Screens/Defines"
+
 import "../Common"
 import "../Common/Settings"
 
@@ -72,7 +74,7 @@ Mapping
   //
   //------------------------------------------------------------------------------------------------------------------
 
-    S8 { name: "s8" }
+  S8 { name: "s8" }
 
   //------------------------------------------------------------------------------------------------------------------
   //  LED Brightness wiring
@@ -149,6 +151,5 @@ Mapping
       color: (right.deckFocus ? Color.White : Color.Blue)
     }
   }
-
 } // mapping
 

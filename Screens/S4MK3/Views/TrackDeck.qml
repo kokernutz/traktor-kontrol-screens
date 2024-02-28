@@ -1,4 +1,4 @@
-import QtQuick 2.5
+import QtQuick
 import QtQuick.Layouts 1.1
 
 import '../Widgets' as Widgets
@@ -9,6 +9,7 @@ import '../Widgets' as Widgets
 
 Item {
   id: display
+
   Dimensions {id: dimensions}
 
   // MODEL PROPERTIES //

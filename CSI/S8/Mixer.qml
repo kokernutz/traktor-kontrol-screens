@@ -4,12 +4,12 @@ import "../../Screens/Defines"
 
 Module
 {
-	id: mixer
-	property bool shift:     false
-	property string surface: ""
+  id: mixer
+  property bool shift:     false
+  property string surface: ""
 
   // Master Clock
-	MasterClock { name: "MasterTempo" }
+  MasterClock { name: "MasterTempo" }
   Wire { from: "%surface%.mixer.tempo"; to: (prefs.fineMasterTempoAdjust) ? "MasterTempo.coarse" : "MasterTempo.fine"; enabled:  shift }
   Wire { from: "%surface%.mixer.tempo"; to: (prefs.fineMasterTempoAdjust) ? "MasterTempo.fine" : "MasterTempo.coarse";   enabled: !shift }
 
