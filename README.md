@@ -29,6 +29,7 @@
 
 **Fix:**
 
+  - Fix S4K3 Key String
   - Fix Loop wave adjust and remove old QtQuick version reference
   - Fix Deck Icon Metronome on Double Screen (Stem + Track)
   - Fix BPM column is now "randomly colored".
