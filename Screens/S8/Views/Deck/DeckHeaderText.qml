@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 
 //--------------------------------------------------------------------------------------------------------------------
 //  DECK HEADER TEXT
@@ -23,7 +23,15 @@ Text {
   readonly property int     isMaster:  (propSyncMasterDeck.value == deckId) ? 1 : 0
 
   readonly property string  fontForNumber: "Pragmatica"
-  readonly property string  fontForString: "Pragmatica" //  MediumTT"
+  readonly property string  fontForString: "Pragmatica MediumTT"
+  readonly property variant keyIndex:      {"1d": 0, "8d": 1, "3d": 2, "10d": 3, "5d": 4, "12d": 5,
+                                            "7d": 6, "2d": 7, "9d": 8, "4d": 9, "11d": 10, "6d": 11,
+                                            "10m": 12, "5m": 13, "12m": 14, "7m": 15, "2m": 16, "9m": 17,
+                                            "4m": 18, "11m": 19, "6m": 20, "1m": 21, "8m": 22, "3m": 23}
+  readonly property variant keyText:       {"1d": "8B", "8d": "3B", "3d": "10B", "10d": "5B", "5d": "12B", "12d": "7B",
+                                            "7d": "2B", "2d": "9B", "9d": "4B", "4d": "11B", "11d": "6B", "6d": "1B",
+                                            "10m": "5A", "5m": "12A", "12m": "7A", "7m": "2A", "2m": "9A", "9m": "4A",
+                                            "4m": "11A", "11m": "6A", "6m": "1A", "1m": "8A", "8m": "3A", "3m": "10A"}
 
 
   // Properties of the TextItem itself. Anchors are set from outside
@@ -68,6 +76,7 @@ Text {
   AppProperty { id: propTempo;            path: "app.traktor.decks." + (deckId+1) + ".tempo.tempo_for_display" } 
   AppProperty { id: propMixerTotalGain;   path: "app.traktor.decks." + (deckId+1) + ".content.total_gain" }
   
+  AppProperty { id: propKeyDisplay;     path: "app.traktor.decks." + (deckId+1) + ".track.key.resulting.precise" }
   AppProperty { id: propIsInSync;       path: "app.traktor.decks." + (deckId+1) + ".sync.enabled"; }  
   AppProperty { id: propSyncMasterDeck; path: "app.traktor.masterclock.source_id" }
 
@@ -77,14 +86,25 @@ Text {
   AppProperty { id: propRemixIsQuantize;  path: "app.traktor.decks." + (deckId+1) + ".remix.quant"; }
   //property string propRemixQuantize: "1/4"
 
+  AppProperty { id: deckAKeyDisplay; path: "app.traktor.decks.1.track.key.resulting.precise" }
+  AppProperty { id: deckBKeyDisplay; path: "app.traktor.decks.2.track.key.resulting.precise" }
+  AppProperty { id: deckCKeyDisplay; path: "app.traktor.decks.3.track.key.resulting.precise" }
+  AppProperty { id: deckDKeyDisplay; path: "app.traktor.decks.4.track.key.resulting.precise" }
+
   //--------------------------------------------------------------------------------------------------------------------
   //  MAPPING FROM TRAKTOR ENUM TO QML-STATE!
   //--------------------------------------------------------------------------------------------------------------------
-  readonly property variant stateMapping:  ["title", "artist", "release", "mix", "label", "catNo", "genre", 
-                                            "trackLength", "bitrate", "bpmTrack", "gain", "elapsedTime", "remainingTime", 
-                                            "beats", "beatsToCue", "bpm", "tempo", "key", "keyText", "comment", "comment2",
-                                            "remixer", "pitchRange", "bpmStable", "tempoStable", "sync", "off", "off", "bpmTrack",
-                                            "remixBeats", "remixQuantize", "keyDisplay"]
+  readonly property variant stateMapping:  ["title", "artist", "release", 
+                                            "mix", "label", "catNo", 
+                                            "genre", "trackLength", "bitrate", 
+                                            "bpmTrack", "gain", "elapsedTime", 
+                                            "remainingTime", "beats", "beatsToCue", 
+                                            "bpm", "tempo", "key", 
+                                            "keyText", "comment", "comment2",
+                                            "remixer", "pitchRange", "bpmStable", 
+                                            "tempoStable", "sync", "off", 
+                                            "off", "bpmTrack", "remixBeats", 
+                                            "remixQuantize", "keyDisplay"]
 
 /*
   readonly property variant stateMapping:  [0:  "title",          1: "artist",       2:  "release", 
@@ -185,7 +205,8 @@ Text {
     State { 
       name: "key"; 
       PropertyChanges { target: header_text; font.family: fontForNumber;
-                        text:   (!isLoaded)?"":propMusicalKey.value.toString(); }
+                        color:  getTrackKeyColor(propKeyDisplay.value);
+                        text:   (!isLoaded)?"":"♪"+getTrackKeyText(propKeyDisplay.value); }
     },
     State { 
       name: "keyText"; 
@@ -215,7 +236,7 @@ Text {
     State { 
       name: "tempo"; 
       PropertyChanges { target: header_text; font.family: fontForNumber; 
-                        text:   (!isLoaded)?"":((propTempo.value-1 < 0)?"":"+") + ((propTempo.value-1)*100).toFixed(2).toString() + "%"; }
+                        text:   (!isLoaded)?"":((propTempo.value-1 <= 0)?"":"+") + ((propTempo.value-1)*100).toFixed(1).toString() + "%"; }
     },
     State { 
       name: "tempoStable"; 
@@ -236,7 +257,8 @@ Text {
     State { 
       name: "beatsToCue";
       PropertyChanges { target: header_text; font.family: fontForNumber; 
-                        text:   (!isLoaded)?"":computeBeatCounterStringFromPosition(((propElapsedTime.value*1000-cuePos)*propMixerBpm.value)/60000.0); }
+                        color:  computeBeatsToCueColor();
+                        text:   (!isLoaded)?"":computeBeatsToCueString(); }
     },
     State { 
       name: "bitrate"; 
@@ -246,7 +268,7 @@ Text {
     
     State { 
       name: "sync";
-      PropertyChanges { target: header_text; font.family: fontForString; 
+      PropertyChanges { target: header_text; font.family: fontForNumber; 
                         text:  getSyncStatusString(); }
     },
     State { 
@@ -264,7 +286,7 @@ Text {
       PropertyChanges { target: header_text; font.family: fontForNumber;
                         text: (!isLoaded)?"":(prefs.camelotKey ? utils.convertToCamelot(keyDisplay.value) : keyDisplay.value); }
     }
-  ] 
+  ]
 
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -286,14 +308,14 @@ Text {
 
   function computeBeatCounterStringFromPosition(beat) {
     var phraseLen = prefs.phraseLength;
-    var curBeat  = parseInt(beat);
+    var curBeat  = Math.abs(beat);
 
     if (beat < 0.0)
       curBeat = curBeat*-1;
 
-    var value1 = parseInt(((curBeat/4)/phraseLen)+1);
-    var value2 = parseInt(((curBeat/4)%phraseLen)+1);
-    var value3 = parseInt( (curBeat%4)+1);
+    var value1 = Math.floor(((curBeat/4)/phraseLen)+1);
+    var value2 = Math.floor(((curBeat/4)%phraseLen)+1);
+    var value3 = Math.floor( (curBeat%4)+1);
 
     if (beat < 0.0)
       return "- " + value1.toString() + "." + value2.toString() + "." + value3.toString();
@@ -304,7 +326,7 @@ Text {
 
   function getStableTempoString() {
     var tempo = propMixerStableTempo.value - 1;
-    return   ((tempo < 0) ? "" : "+") + (tempo * 100).toFixed(1).toString() + "%";
+    return   ((tempo <= 0) ? "" : "+") + (tempo * 100).toFixed(1).toString() + "%";
   }
 
 
@@ -321,4 +343,76 @@ Text {
     return getStableTempoString();
   }
 
+
+  function computeBeatsToCueColor() {
+    if (propNextCuePoint.value < 0) return parent.textColors[deckId];
+
+    var beats = ((propNextCuePoint.value - propElapsedTime.value * 1000) * propMixerBpm.value) / 60000.0;
+    if (beats < 0 || beats > 256) return parent.textColors[deckId];
+
+    var bars = Math.floor(beats / 4);
+    if (bars < 4) return "red";
+
+    return parent.textColors[deckId];
+  }
+
+
+  function computeBeatsToCueString() {
+    if (propNextCuePoint.value < 0) return "——.—";
+
+    var beats = ((propNextCuePoint.value - propElapsedTime.value * 1000) * propMixerBpm.value) / 60000.0;
+    if (beats < 0 || beats > 256) return "——.—";
+
+    var bars = Math.floor(beats / 4);
+    var beat = Math.floor(beats % 4) + 1;
+
+    var barsStr = bars.toString();
+    if (bars < 10) barsStr = "0" + barsStr;
+
+    return barsStr + "." + beat.toString();
+  }
+
+
+  function getMasterKey() {
+    switch (propSyncMasterDeck.value) {
+      case 0: return deckAKeyDisplay.value;
+      case 1: return deckBKeyDisplay.value;
+      case 2: return deckCKeyDisplay.value;
+      case 3: return deckDKeyDisplay.value;
+    }
+
+    return "";
+  }
+
+
+  function getTrackKeyColor(trackKey) {
+    if (isMaster) {
+      return parent.textColors[deckId];
+    }
+
+    var keyOffset = utils.getMasterKeyOffset(getMasterKey(), trackKey);
+    if (keyOffset == 0) {
+      return colors.color04MusicalKey; // Yellow
+    }
+    if (keyOffset == 1 || keyOffset == -1) {
+      return colors.color02MusicalKey; // Orange
+    }
+    if (keyOffset == 2 || keyOffset == 7) {
+      return colors.color07MusicalKey; // Green
+    }
+    if (keyOffset == -2 || keyOffset == -7) {
+      return colors.color10MusicalKey; // Blue
+    }
+
+    return parent.textColors[deckId];
+  }
+
+  function getTrackKeyText(trackKey) {
+    return trackKey.replace(
+      /(~ )?(\d+(d|m))/,
+      function (match, prefix, key) {
+        return keyText[key] || key;
+      }
+    );
+  }
 }

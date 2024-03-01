@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import QtQuick
+import Qt5Compat.GraphicalEffects
 import CSI 1.0
 
 import '../../../../../Defines'
@@ -14,17 +14,18 @@ Item {
   property bool navMenuSelected: false
   property int  fxUnitId:        0
   property int  activeTab:       1
-  property int  currentView:     (activeTab == FxOverlay.upper_button_1) ? 2 : ((activeTab < FxOverlay.lower_button_1) || (fxViewSelectProp.value == FxType.Group) ? 1 : 0)
+  property int  currentView:     (activeTab === FxOverlay.upper_button_1) ? 2 : ((activeTab < FxOverlay.lower_button_1) || (fxViewSelectProp.value === FxType.Group) ? 1 : 0)
+  readonly property bool patternPlayerFxViewSelected: (fxViewSelectProp.value === FxType.PatternPlayer)
 
-  readonly property int delegateHeight:   26 // 27
+  readonly property int delegateHeight:   27
   readonly property int emptyView:        0
   readonly property int tableView:        1
   readonly property int settingsView:     2
   readonly property int macroEffectChar:  0x00B6
 
   clip:                 true
-  anchors.margins:      7 // 5
-//  anchors.bottomMargin: 10
+  anchors.margins:      5
+  anchors.bottomMargin: 10
 
   //--------------------------------------------------------------------------------------------------------------------
 
@@ -33,16 +34,25 @@ Item {
     path: "app.traktor.fx." + (fxUnitId+1) + ".select." + Math.max(1, activeTab)
     onValueChanged: { updateFxSelection(); }
   }
+  
+  AppProperty {
+    id: kitSelectProp
+    path: "app.traktor.fx." + (fxUnitId+1) + ".kitSelect"
+    onValueChanged: { updateFxSelection(); }
+  }
+
+  AppProperty { id: patternPlayerEnabled; path: "app.traktor.settings.pro.plus.pattern_player" }
 
   MappingProperty{ id: screenOverlay;  path: propertiesPath + ".overlay" }
 
   onVisibleChanged: { updateFxSelection(); }
 
   function updateFxSelection() {
-    if (fxSelectProp.value != undefined) {
+    if ((currentView === tableView) && (fxSelectProp.value !== undefined))
+    {
       preNavMenuValue     = navMenuValue; 
-      navMenuValue        = fxSelectProp.value; 
-      fxList.currentIndex = fxSelectProp.value;
+      navMenuValue        = patternPlayerFxViewSelected ? kitSelectProp.value : fxSelectProp.value;
+      fxList.currentIndex = patternPlayerFxViewSelected ? kitSelectProp.value : fxSelectProp.value;
     }
   }
 
@@ -51,32 +61,30 @@ Item {
   // effects list
   ListView {
     id: fxList
-    anchors.fill:      parent
-    // anchors.top:       parent.top
-    // anchors.left:      parent.left
-    // anchors.right:     parent.right
-    anchors.topMargin: 20 // 33
-    anchors.bottomMargin: 4
-    // height:            189
+    anchors.top:       parent.top
+    anchors.left:      parent.left
+    anchors.right:     parent.right
+    anchors.topMargin: 33
+    height:            189
     clip:              true
 
-    preferredHighlightBegin:     (height / 2) - (delegateHeight / 2)
-    preferredHighlightEnd:       (height / 2) + (delegateHeight / 2)
+    preferredHighlightBegin:     3*delegateHeight //- 6
+    preferredHighlightEnd:       4*delegateHeight //- 6
     highlightRangeMode :         ListView.ApplyRange
     highlightMoveVelocity:     800
     highlightMoveDuration:       10
     highlightFollowsCurrentItem: true
 
-    visible: (currentView == tableView)
-    model:   fxSelectProp.valuesDescription
+    visible: (currentView === tableView)
+    model:   patternPlayerFxViewSelected ? kitSelectProp.valuesDescription : fxSelectProp.valuesDescription
 
     delegate:
     Item {
       anchors.horizontalCenter: parent.horizontalCenter
       height: delegateHeight // item (= line) height
-      width: parent.width
+      width: fxList.width
       
-      readonly property bool isMacroFx: (modelData.charCodeAt(0) == macroEffectChar)
+      readonly property bool isMacroFx: (modelData.charCodeAt(0) === macroEffectChar)
 
       // Macro FX
       Image {
@@ -85,10 +93,10 @@ Item {
         fillMode:            Image.PreserveAspectCrop
         width:               sourceSize.width
         height:              sourceSize.height
-        anchors.left:       fxName.right
+        anchors.right:       fxName.left
         anchors.top:         parent.top
-        anchors.leftMargin: 5
-        anchors.topMargin:   4 // 5
+        anchors.rightMargin: 5
+        anchors.topMargin:   5
         visible:             false  
         smooth:              false    
       }
@@ -103,13 +111,13 @@ Item {
 
       Text {
         id: fxName
-        // anchors.centerIn: parent
-        horizontalAlignment: Text.AlignLeft
-        // anchors.horizontalCenterOffset: isMacroFx ? 10 : 0
+        anchors.centerIn: parent
+
+        anchors.horizontalCenterOffset: isMacroFx ? 10 : 0
         font.pixelSize: fonts.largeFontSize
         font.capitalization: Font.AllUppercase
         color: colors.colorFontsListFx
-        text: isMacroFx? modelData.substr(2) : modelData
+        text: isMacroFx? modelData.substr(1) : modelData
       }
 
       Component.onCompleted: {
@@ -130,7 +138,7 @@ Item {
 
   Rectangle {
     id: highlightRect
-    visible: (currentView == tableView)
+    visible: (currentView === tableView)
 
     color: "black"
     width: fxList.width
@@ -167,17 +175,21 @@ Item {
   // This is the FX UNIT settings View 
   Item {
     id: setting
-    property          int     currentBtn:   0
-    property          int     currentIndex: setting.btnToIndexMap[ setting.currentBtn ]
 
-    readonly property variant btnNames:      [ "Group" , "Insert" , "Snapshot" , "Single"  , "Post Fader" , "-" , "-" , "Send" , "-" ]
-    readonly property variant btnToIndexMap: [ 0 , 3 , 1 , 4 , 7 , 2 ]
-    readonly property int     snapshotBtn:  2
-    readonly property int     buttonCount:  6
+    property int currentBtn:   0
+    property int currentIndex: setting.btnToIndexMap[ setting.currentBtn ]
 
+    property var btnToProperty: [fxViewSelectProp, fxRoutingProp, fxStoreProp, fxViewSelectProp, fxRoutingProp, null, fxViewSelectProp, fxRoutingProp]
+    property var btnToValue: [FxType.Group, FxRouting.Send, true, FxType.Single, FxRouting.Insert, null, patternPlayerEnabled.value ? FxType.PatternPlayer : null, FxRouting.PostFader]
+
+    readonly property var btnNames: [ "Group" , "Send" , "Snapshot" , "Single" , "Insert" , "-" , patternPlayerEnabled.value ? "Pattern Player" : "-" , "Post Fader" , "-" ]
+    readonly property var btnToIndexMap: patternPlayerEnabled.value ? [ 0 , 3 , patternPlayerBtn , 1 , 4 , 7 , snapshotBtn ] : [ 0 , 3 , 1 , 4 , 7 , snapshotBtn ]
+    readonly property int snapshotBtn: 2
+    readonly property int patternPlayerBtn: 6
+    readonly property int buttonCount: btnToIndexMap.length
 
     anchors.fill:      parent
-    visible:           (currentView == settingsView)
+    visible:           (currentView === settingsView)
 
     Grid {
       columns: 3
@@ -196,21 +208,21 @@ Item {
           height: 29
           color: colors.colorGrey16
           border.width: 1
-          opacity: (setting.btnNames[ index ] != "-") ? 1 : 0
-          border.color: (index==setting.currentIndex) ? colors.colorOrange : colors.colorGrey32
+          opacity: (setting.btnNames[ index ] !== "-") ? 1 : 0
+          border.color: (index===setting.currentIndex) ? colors.colorOrange : colors.colorGrey32
 
           Text {
-            anchors.horizontalCenter: (index == setting.snapshotBtn) ? parent.horizontalCenter : undefined 
+            anchors.horizontalCenter: (index === setting.snapshotBtn) ? parent.horizontalCenter : undefined 
             anchors.verticalCenter: parent.verticalCenter
             x: 9
             font.pixelSize: fonts.middleFontSize
             text: setting.btnNames[index]
-            color: (index == setting.currentIndex) ? colors.colorOrange : colors.colorFontFxHeader
+            color: (index === setting.currentIndex) ? colors.colorOrange : colors.colorFontFxHeader
           }
 
           // radio buttons
           Rectangle {
-            visible: (index != setting.snapshotBtn) ? true : false 
+            visible: (index !== setting.snapshotBtn)
             width: 8
             height: width
             anchors.verticalCenter: parent.verticalCenter
@@ -219,8 +231,8 @@ Item {
             anchors.rightMargin: 9
             radius: 4
             border.width: 1
-            border.color: (isButtonAtIndexSelected(index) || index==setting.currentIndex) ? colors.colorOrange : colors.colorGrey72
-            color: (isButtonAtIndexSelected(index)) ? colors.colorOrange : "transparent"
+            border.color: (isButtonAtIndexSelected(index) || index === setting.currentIndex) ? colors.colorOrange : colors.colorGrey72
+            color: isButtonAtIndexSelected(index) ? colors.colorOrange : "transparent"
           }
         }
       }
@@ -234,35 +246,39 @@ Item {
   {
     if (navMenuSelected)
     {
-      if (currentView == settingsView)
+      if (currentView === settingsView)
       {
-        if      (setting.currentBtn == 0) fxViewSelectProp.value = FxType.Group;
-        else if (setting.currentBtn == 1) fxViewSelectProp.value = FxType.Single;
-        else if (setting.currentBtn == 2) fxRoutingProp.value    = FxRouting.Insert;
-        else if (setting.currentBtn == 3) fxRoutingProp.value    = FxRouting.PostFader;
-        else if (setting.currentBtn == 4) fxRoutingProp.value    = FxRouting.Send;
-        else if (setting.currentBtn == 5) fxStoreProp.value      = true;
+        setting.btnToProperty[setting.currentIndex].value = setting.btnToValue[setting.currentIndex];
       }
-      else if (currentView == tableView)
+      else if (currentView === tableView)
       {
-        fxSelectProp.value = fxList.currentIndex;
+        if (patternPlayerFxViewSelected)
+        {
+            kitSelectProp.value = fxList.currentIndex;
+        }
+        else
+        {
+            fxSelectProp.value = fxList.currentIndex;
+        }
         // auto close for single & group fx
         screenOverlay.value = Overlay.none;
       }
     }
   }
 
+  //------------------------------------------------------------------------------------------------------------------
+
   onNavMenuValueChanged: { 
     var delta = navMenuValue - preNavMenuValue;
     preNavMenuValue = navMenuValue;
 
-    if (currentView == settingsView) 
+    if (currentView === settingsView) 
     {
       var btn            = setting.currentBtn;
       btn                = (btn + delta) % setting.buttonCount;
-      setting.currentBtn = (btn < 0) ? 6 + btn : btn;
+      setting.currentBtn = (btn < 0) ? setting.buttonCount + btn : btn;
     }
-    else if (currentView == tableView)
+    else if (currentView === tableView)
     {
       var index = fxList.currentIndex + delta;
       fxList.currentIndex = clamp(index, 0, fxList.count-1);
@@ -271,20 +287,27 @@ Item {
 
   //------------------------------------------------------------------------------------------------------------------
 
-  function isButtonAtIndexSelected(index) 
-  {
-    if ( (index == setting.btnToIndexMap[0] && fxViewSelectProp.value == FxType.Group)
-      || (index == setting.btnToIndexMap[1] && fxViewSelectProp.value == FxType.Single)
-      || (index == setting.btnToIndexMap[2] && fxRoutingProp.value    == FxRouting.Insert)
-      || (index == setting.btnToIndexMap[3] && fxRoutingProp.value    == FxRouting.PostFader)
-      || (index == setting.btnToIndexMap[4] && fxRoutingProp.value    == FxRouting.Send) )
-    return true;
-
-    return false;
-  }
-
   function clamp(value, min, max) {
     return Math.max(min, Math.min(value, max));
   }
 
+  //------------------------------------------------------------------------------------------------------------------
+
+  function isButtonAtIndexSelected(index) 
+  {
+    // Treat snapshot property different as it's only write accesible (you can't read .value)
+    if (index === setting.snapshotBtn)
+    {
+      return false;
+    }
+
+    // Some buttons are hidden and have no property or value to assign
+    // Thus they can't be selected
+    if (setting.btnToProperty[index] == null || setting.btnToValue[index] == null)
+    {
+      return false;
+    }
+
+    return setting.btnToProperty[index].value === setting.btnToValue[index]
+  }
 }

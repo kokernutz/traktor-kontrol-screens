@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 import Traktor.Gui 1.0 as Traktor
 
 import '../Widgets' as Widgets
@@ -114,7 +114,7 @@ Traktor.Stripe {
     AppProperty { id: elapsedTime; path: "app.traktor.decks." + (deckId+1) + ".track.player.elapsed_time" }
     x:                 roundedX            
     anchors.top:       parent.top
-    height:            parent.height // 28
+    height:            parent.height
     width:             Math.max (parent.indicatorBoxWidth - (1 - parent.indicatorBoxWidth%2) , 5) // 
     
     radius:            1

@@ -1,6 +1,6 @@
 import CSI 1.0
-import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import QtQuick
+import Qt5Compat.GraphicalEffects
 
 import '../../../../Defines'
 import '../Waveform' as WF
@@ -16,8 +16,8 @@ Item {
 
   readonly property int waveformHeight: (deckSizeState == "small") ? 0 : ( parent ? ( (deckSizeState == "medium") ? (parent.height-55) : (parent.height-70) ) : 0 )
 
-  readonly property int largeDeckBottomMargin: (waveformContainer.isStemStyleDeck) ? 6 : 6  
-  readonly property int smallDeckBottomMargin: (deckId > 1) ? 9 : 6
+  readonly property int largeDeckBottomMargin: (waveformContainer.isStemStyleDeck) ? 1 : 1  
+  readonly property int smallDeckBottomMargin: (deckId > 1) ? 1 : 1
 
   property bool showLoopSize: false
   property int  zoomLevel:    1
@@ -35,9 +35,8 @@ Item {
   AppProperty   { id: deckType;          path: "app.traktor.decks." + (deckId + 1) + ".type"                    }
   AppProperty   { id: primaryKey;        path: "app.traktor.decks." + (deckId + 1) + ".track.content.entry_key" }
 
-  AppProperty { id: trackLength;         path: "app.traktor.decks." + (deckId + 1) + ".track.content.track_length" }
-
-  AppProperty { id: keyLockEnabled;             path: "app.traktor.decks." + (deckId+1) + ".track.key.lock_enabled" }
+  AppProperty   { id: trackLength;       path: "app.traktor.decks." + (deckId + 1) + ".track.content.track_length" }
+  AppProperty   { id: keyLockEnabled;    path: "app.traktor.decks." + (deckId+1) + ".track.key.lock_enabled" }
 
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -61,7 +60,7 @@ Item {
     isInEditMode:         trackDeck.isInEditMode
     stemStyle:            trackDeck.stemStyle
 
-    anchors.topMargin:    30 // -2 
+    anchors.topMargin:    30
     anchors.bottomMargin: 5
 
     // the height of the waveform is defined as the remaining space of deckHeight - stripe.height - spacerWaveStripe.height
@@ -157,17 +156,13 @@ Item {
   WF.Stripe {
     id: stripe
 
-    // readonly property int largeDeckBottomMargin: (waveformContainer.isStemStyleDeck) ? 6 : 12
-    
-    // readonly property int smallDeckBottomMargin: (deckId > 1) ? 9 : 6
-
-    anchors.left:           trackDeckIndicator.right // trackDeck.left
-    anchors.right:          keyLockIndicatorBox.left // trackDeck.right
-    anchors.bottom:         hotcues.top              // trackDeck.bottom
+    anchors.left:           trackDeckIndicator.right
+    anchors.right:          keyLockIndicatorBox.left
+    anchors.bottom:         hotcues.top
     anchors.bottomMargin:   (deckSizeState == "large") ? largeDeckBottomMargin : smallDeckBottomMargin
     anchors.leftMargin:     9
     anchors.rightMargin:    9
-    height:                 30 // 28
+    height:                 30
     opacity:                trackDeck.trackIsLoaded ? 1 : 0
 
     deckId:                 trackDeck.deckId

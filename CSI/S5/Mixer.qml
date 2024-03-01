@@ -1,4 +1,6 @@
 import CSI 1.0
+import QtQuick
+import "../../Screens/Defines"
 
 Module
 {
@@ -8,8 +10,8 @@ Module
 
   // Master Clock
 	MasterClock { name: "MasterTempo" }
-  Wire { from: "%surface%.mixer.tempo"; to: "MasterTempo.coarse"; enabled:  shift }
-  Wire { from: "%surface%.mixer.tempo"; to: "MasterTempo.fine";   enabled: !shift }
+  Wire { from: "%surface%.mixer.tempo"; to: (prefs.fineMasterTempoAdjust) ? "MasterTempo.coarse" : "MasterTempo.fine"; enabled:  shift }
+  Wire { from: "%surface%.mixer.tempo"; to: (prefs.fineMasterTempoAdjust) ? "MasterTempo.fine" : "MasterTempo.coarse";   enabled: !shift }
 
 
   // Channels
@@ -55,4 +57,9 @@ Module
   // Master Clip
   Wire { from: "%surface%.mixer.clip.left";   to: DirectPropertyAdapter { path: "app.traktor.mixer.master.level.clip.left"  } }
   Wire { from: "%surface%.mixer.clip.right";  to: DirectPropertyAdapter { path: "app.traktor.mixer.master.level.clip.right" } }
+  
+  Prefs
+  {
+    id: prefs
+  }
 }

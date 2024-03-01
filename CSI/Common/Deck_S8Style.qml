@@ -1,7 +1,8 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 
 import "../../Defines"
+import "../../Screens/Defines"
 
 Module
 {
@@ -1295,7 +1296,7 @@ Module
 
           TransportSection { name: "transport"; channel: 1 }
           Scratch     { name: "scratch";    channel: 1; ledBarSize: touchstripLedBarSize }
-          TempoBend   { name: "tempo_bend"; channel: 1; ledBarSize: touchstripLedBarSize }
+          TouchstripTempoBend   { name: "tempo_bend"; channel: 1; ledBarSize: touchstripLedBarSize }
           TouchstripTrackSeek   { name: "track_seek"; channel: 1; ledBarSize: touchstripLedBarSize }
 
           Loop { name: "loop";  channel: 1; numberOfLeds: 4; color: Color.Blue }
@@ -1321,7 +1322,7 @@ Module
 
           TransportSection { name: "transport"; channel: 2 }
           Scratch     { name: "scratch";    channel: 2; ledBarSize: touchstripLedBarSize }
-          TempoBend   { name: "tempo_bend"; channel: 2; ledBarSize: touchstripLedBarSize }
+          TouchstripTempoBend   { name: "tempo_bend"; channel: 2; ledBarSize: touchstripLedBarSize }
           TouchstripTrackSeek   { name: "track_seek"; channel: 2; ledBarSize: touchstripLedBarSize }
 
           Loop { name: "loop";  channel: 2; numberOfLeds: 4; color: Color.Blue }
@@ -1348,7 +1349,7 @@ Module
 
           TransportSection { name: "transport"; channel: 3 }
           Scratch     { name: "scratch";    channel: 3; ledBarSize: touchstripLedBarSize }
-          TempoBend   { name: "tempo_bend"; channel: 3; ledBarSize: touchstripLedBarSize }
+          TouchstripTempoBend   { name: "tempo_bend"; channel: 3; ledBarSize: touchstripLedBarSize }
           TouchstripTrackSeek   { name: "track_seek"; channel: 3; ledBarSize: touchstripLedBarSize }
 
           Loop { name: "loop";  channel: 3; numberOfLeds: 4; color: Color.White }
@@ -1375,7 +1376,7 @@ Module
 
           TransportSection { name: "transport"; channel: 4 }
           Scratch     { name: "scratch";    channel: 4; ledBarSize: touchstripLedBarSize }
-          TempoBend   { name: "tempo_bend"; channel: 4; ledBarSize: touchstripLedBarSize }
+          TouchstripTempoBend   { name: "tempo_bend"; channel: 4; ledBarSize: touchstripLedBarSize }
           TouchstripTrackSeek   { name: "track_seek"; channel: 4; ledBarSize: touchstripLedBarSize }
 
           Loop { name: "loop";  channel: 4; numberOfLeds: 4; color: Color.White }
@@ -1403,8 +1404,8 @@ Module
           enabled: focusedDeckId == 1
 
           Wire { from: "%surface%.back";   to: "decks.1.tempo.reset" }
-          Wire { from: "%surface%.browse"; to: "decks.1.tempo.fine";   enabled: !module.shift }
-          Wire { from: "%surface%.browse"; to: "decks.1.tempo.coarse"; enabled:  module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.1.tempo.fine" : "decks.1.tempo.coarse";   enabled: !module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.1.tempo.coarse" : "decks.1.tempo.fine"; enabled:  module.shift }
         }
 
         // Deck B
@@ -1413,8 +1414,8 @@ Module
           enabled: focusedDeckId == 2
 
           Wire { from: "%surface%.back";   to: "decks.2.tempo.reset" }
-          Wire { from: "%surface%.browse"; to: "decks.2.tempo.fine";   enabled: !module.shift }
-          Wire { from: "%surface%.browse"; to: "decks.2.tempo.coarse"; enabled:  module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.2.tempo.fine" : "decks.2.tempo.coarse";   enabled: !module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.2.tempo.coarse" : "decks.2.tempo.fine"; enabled:  module.shift }
         }
 
         // Deck C
@@ -1423,8 +1424,8 @@ Module
           enabled: focusedDeckId == 3
 
           Wire { from: "%surface%.back";   to: "decks.3.tempo.reset" }
-          Wire { from: "%surface%.browse"; to: "decks.3.tempo.fine";   enabled: !module.shift }
-          Wire { from: "%surface%.browse"; to: "decks.3.tempo.coarse"; enabled:  module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.3.tempo.fine" : "decks.3.tempo.coarse";   enabled: !module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.3.tempo.coarse" : "decks.3.tempo.fine"; enabled:  module.shift }
         }
 
         // Deck D
@@ -1433,8 +1434,8 @@ Module
           enabled: focusedDeckId == 4
 
           Wire { from: "%surface%.back";   to: "decks.4.tempo.reset" }
-          Wire { from: "%surface%.browse"; to: "decks.4.tempo.fine";   enabled: !module.shift }
-          Wire { from: "%surface%.browse"; to: "decks.4.tempo.coarse"; enabled:  module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.4.tempo.fine" : "decks.4.tempo.coarse";   enabled: !module.shift }
+          Wire { from: "%surface%.browse"; to: (prefs.fineDeckTempoAdjust) ? "decks.4.tempo.coarse" : "decks.4.tempo.fine"; enabled:  module.shift }
         }
       }
 
@@ -4152,7 +4153,7 @@ Module
 
     enabled: (focusedDeckId == 2) && (hasTransport(deckBType))
 
-    Wire { from: "%surface%.flux";  to: "decks.2.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.2.transport.flux" ; enabled: !module.shift}
     Wire { from: "%surface%.flux"; to: "decks.2.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
@@ -4211,7 +4212,7 @@ Module
 
     enabled: (focusedDeckId == 3) && (hasTransport(deckCType))
 
-    Wire { from: "%surface%.flux";  to: "decks.3.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.3.transport.flux" ; enabled: !module.shift}
     Wire { from: "%surface%.flux"; to: "decks.3.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
@@ -4270,7 +4271,7 @@ Module
 
     enabled: (focusedDeckId == 4) && (hasTransport(deckDType))
 
-    Wire { from: "%surface%.flux";  to: "decks.4.transport.flux" ; enabled: !module.shift}
+    Wire { from: "%surface%.flux"; to: "decks.4.transport.flux" ; enabled: !module.shift}
     Wire { from: "%surface%.flux"; to: "decks.4.transport.flux_reverse" ; enabled: module.shift}
 
     WiresGroup
@@ -4593,6 +4594,11 @@ Module
         Wire { from: "%surface%.knobs.4";       to: RelativePropertyAdapter { path: "app.traktor.midi.knobs.8" } }
       }
     }
+  }
+
+  Prefs
+  {
+    id: prefs
   }
 
   /* #ifdef DEVELOPMENT_MODE

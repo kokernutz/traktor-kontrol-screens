@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 import Traktor.Gui 1.0 as Traktor
 
 // These are the triangle shaped cues at the bottom of the waveform/stripe. Two different sized triangle components can

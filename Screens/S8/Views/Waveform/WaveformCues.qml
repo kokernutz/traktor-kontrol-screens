@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 import Traktor.Gui 1.0 as Traktor
 
 import '../Widgets' as Widgets
@@ -55,7 +55,7 @@ Item {
     anchors.fill: view
 
     property int deckId: view.deckId
-    readonly property int lineWidthAdjustment: -2
+    readonly property int lineWidthAdjustment: 0
 
     Rectangle {                         // loop coloring
       color:  colors.colorGreenLoopOverlay       // sets the loop bg color

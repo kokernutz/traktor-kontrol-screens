@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 import Traktor.Gui 1.0 as Traktor
 
 import './../Widgets' as Widgets 
@@ -84,7 +84,7 @@ Rectangle {
     anchors.left:   parent.left
     anchors.right:  parent.right
     anchors.bottom: parent.bottom
-    height:         17 // 15
+    height:         17
     color:          colors.colorBrowserHeader // footer background color
   }
 
@@ -96,7 +96,7 @@ Rectangle {
 
     Item {
       width:  120
-      height: 17 // 15
+      height: 17
 
       Text {
         font.pixelSize: fonts.scale(12) 
@@ -135,7 +135,7 @@ Rectangle {
 
       Item {
         width:  120
-        height: 17 // 15
+        height: 17
         Text {
           font.pixelSize: fonts.scale(12) 
           anchors.left:   parent.left
@@ -158,7 +158,7 @@ Rectangle {
     // Preview Player footer
     Item {
       width:  120
-      height: 17 // 15
+      height: 17
 
       Text {
         font.pixelSize: fonts.scale(12) 

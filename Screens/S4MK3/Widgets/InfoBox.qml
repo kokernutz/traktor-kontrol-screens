@@ -1,4 +1,4 @@
-import QtQuick 2.5
+import QtQuick
 
 Item {
     id: widget
@@ -46,6 +46,7 @@ Item {
         text: widget.text
         font.pixelSize: widget.fontSize
         font.family: "Roboto"
+        font.weight: Font.Light
         color: widget.color
         verticalAlignment: Text.AlignBottom
         horizontalAlignment: widget.alignment

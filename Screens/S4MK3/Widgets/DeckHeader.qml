@@ -1,4 +1,4 @@
-import QtQuick 2.5
+import QtQuick
 
 //here we assume that `colors` and `dimensions` already exists in the object hierarchy
 Item {

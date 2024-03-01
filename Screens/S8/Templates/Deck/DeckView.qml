@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 
 import '../' as Templates
 import '../../Views/Deck' as View
@@ -43,7 +43,7 @@ Item {
 
   //--------------------------------------------------------------------------------------------------------------------
   // Properties defined by the designers
-  readonly property int smallDeckHeight:  70 // 58 //Waveform+Header
+  readonly property int smallDeckHeight:  70 //Waveform+Header
   readonly property int mediumDeckHeight: view.height - smallDeckHeight  //view.height-smallDeckHeight
   readonly property int largeDeckHeight:  view.height
   readonly property int speed:            durations.deckTransition

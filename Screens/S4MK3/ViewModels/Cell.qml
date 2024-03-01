@@ -1,10 +1,11 @@
-import QtQuick 2.5
+import QtQuick
 import CSI 1.0
 
 
 Item
 {
   id: cell
+
   property int slotId:0
   property int deckId: 0
   property int cellId: 0
@@ -30,5 +31,4 @@ Item
     if(state == "Playing" && displayState == "BrightColor" ) {return 1.;}
     return 0.5;
   }
-  
 }

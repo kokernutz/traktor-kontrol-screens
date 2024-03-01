@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.5
+import QtQuick
 import "../../Defines"
 
 Module

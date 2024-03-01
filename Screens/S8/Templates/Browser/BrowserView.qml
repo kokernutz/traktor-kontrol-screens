@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 import Traktor.Gui 1.0 as Traktor
 
 import './../' as Templates
@@ -24,10 +24,10 @@ Templates.View {
   property color focusColor:    (screen.focusDeckId < 2) ? colors.colorDeckBlueBright : "white" 
   property int   speed:         150
   property real  sortingKnobValue:  0
-  property int   pageSize:          prefs.displayMoreItems ? 9 : 7 // 7
+  property int   pageSize:          prefs.displayMoreItems ? 9 : 7
   property int   fastScrollCenter:  3
 
-  readonly property int  maxItemsOnScreen: prefs.displayMoreItems ? 9 : 7 // 8
+  readonly property int  maxItemsOnScreen: prefs.displayMoreItems ? 9 : 7
 
   // This is used by the footer to change/display the sorting!
   property alias sortingId:         browser.sorting
@@ -37,6 +37,11 @@ Templates.View {
   anchors.fill: parent
 
   //MappingProperty { id: browserViewMode; path: "mapping.state.browser_view_mode" }
+  AppProperty { id: deckAKeyDisplay; path: "app.traktor.decks.1.track.key.resulting.quantized" }
+  AppProperty { id: deckBKeyDisplay; path: "app.traktor.decks.2.track.key.resulting.quantized" }
+  AppProperty { id: deckCKeyDisplay; path: "app.traktor.decks.3.track.key.resulting.quantized" }
+  AppProperty { id: deckDKeyDisplay; path: "app.traktor.decks.4.track.key.resulting.quantized" }
+  AppProperty { id: masterDeckId; path: "app.traktor.masterclock.source_id" }
 
   //--------------------------------------------------------------------------------------------------------------------
 
@@ -149,7 +154,7 @@ Templates.View {
       Rectangle { 
         color: ( (contentList.count + index)%2 == 0) ? colors.colorGrey08 : "transparent"
         width: qmlBrowser.width; 
-        height: prefs.displayMoreItems ? 25 : 32 /* 33 */ }
+        height: prefs.displayMoreItems ? 25 : 32 }
     }
   }
 
@@ -165,7 +170,7 @@ Templates.View {
     // and keep the list delegates in the same position always.
 
     // the commented out margins caused browser anchor problems leading to a disappearing browser! check later !?
-    anchors.topMargin:       3 // 17 // ( (contentList.count <  qmlBrowser.maxItemsOnScreen ) || (currentIndex < 4                     )) ? 17 : 0
+    anchors.topMargin:       3 // ( (contentList.count <  qmlBrowser.maxItemsOnScreen ) || (currentIndex < 4                     )) ? 17 : 0
     height:                   (qmlBrowser.pageSize * (prefs.displayMoreItems ? 26 : 33)) - 1 // adjust for spacing
     clip:                    false
     spacing:                 1
@@ -239,5 +244,16 @@ Templates.View {
     qmlBrowser.speed = defaultSpeed;
   }
   */
+
+  function getMasterKey() {
+    switch (masterDeckId.value) {
+      case 0: return deckAKeyDisplay.value;
+      case 1: return deckBKeyDisplay.value;
+      case 2: return deckCKeyDisplay.value;
+      case 3: return deckDKeyDisplay.value;
+    }
+
+    return "";
+  }
 }
 

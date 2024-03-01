@@ -1,5 +1,5 @@
 import CSI 1.0
-import QtQuick 2.0
+import QtQuick
 
 import '../../../../../Defines'
 
@@ -53,7 +53,7 @@ Rectangle {
     if (fxSelectionState.value != undefined)
     {
       activeTab = fxSelectionState.value % FxOverlay.lower_button_1;
-      if(fxViewSelectProp.value == FxType.Single)
+      if(fxViewSelectProp.value != FxType.Group)
       {
         if(activeTab > FxOverlay.upper_button_2) 
         {

@@ -1,0 +1,5 @@
+singleton HotcueAction          HotcueAction.qml
+singleton FXSectionLayer        FXSectionLayer.qml
+singleton DeviceAssignment      DeviceAssignment.qml
+singleton DeviceSetupState      DeviceSetupState.qml
+singleton BrowseEncoderAction   BrowseEncoderAction.qml

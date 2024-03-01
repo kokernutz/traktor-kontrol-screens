@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick
 import CSI 1.0
 
 import '../../../../Defines' as Defines
@@ -17,6 +17,7 @@ CenterOverlay {
   function getText(id) {
     // the given numbers are determined by the EContentListColumns in Traktor
     switch (id) {
+      case -1:
       case 0:   return "#"
       case 2:   return "TITLE"
       case 3:   return "ARTIST"

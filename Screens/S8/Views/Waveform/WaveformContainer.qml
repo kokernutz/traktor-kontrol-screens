@@ -1,11 +1,11 @@
 import CSI 1.0
-import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import QtQuick
+import Qt5Compat.GraphicalEffects
 import Traktor.Gui 1.0 as T
 
 import '../../../../Defines'
 import '../Widgets' as Widgets
-
+import '../../../Defines'
 
 Item {
   id: view
@@ -211,7 +211,7 @@ Item {
     deckId:          view.deckId
     anchors.fill:    stemWaveform
     visible:         stemWaveform.visible
-    indicatorHeight: (slicer.enabled && !beatgrid.editEnabled ) ? [34 , 33 , 33 , 33] : [36 , 36 , 36 , 36]
+    indicatorHeight: (slicer.enabled && !beatgrid.editEnabled ) ? [34 , 33 , 33 , 33] : (prefs.displayHotCueBar) ? [26, 26, 26, 26] : [30 , 30 , 30 , 30]
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -268,4 +268,8 @@ Item {
     }
   ]
 
-}
+  Prefs
+  {
+    id: prefs
+  }
+} 

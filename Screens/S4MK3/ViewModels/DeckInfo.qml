@@ -1,5 +1,7 @@
-import QtQuick 2.5
+import QtQuick
 import CSI 1.0
+
+import '../../Defines'
 
 //----------------------------------------------------------------------------------------------------------------------
 //  Track Deck Model - provide data for the track deck view
@@ -8,6 +10,10 @@ import CSI 1.0
 Item
 {
   id: viewModel
+
+  Utils {id: utils}
+  Colors {id: colors}
+  Prefs {id: prefs}
 
   function isLeftScreen(deckId)
   {
@@ -27,7 +33,7 @@ Item
   readonly property bool    hightlightLoop:       !shift
   readonly property bool    hightlightKey:        shift
   readonly property int     isLoaded:             (propTrackLength.value > 0) || (deckType === DeckType.Remix)
-  readonly property string  resultingKeyStr:      prefs.camelotKey ? utils.convertToCamelot(propKeyForDisplay.value) : propKeyForDisplay.value // propKeyForDisplay.value
+  readonly property string  resultingKeyStr:      propKeyForDisplay.value
   readonly property int     resultingKeyIdx:      propFinalKeyId.value
   readonly property bool    hasKey:               isLoaded && resultingKeyIdx >= 0
   readonly property bool    isKeyLockOn:          propKeyLockOn.value

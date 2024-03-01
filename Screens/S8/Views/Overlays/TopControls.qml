@@ -1,9 +1,10 @@
 import CSI 1.0
-import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import QtQuick
+import Qt5Compat.GraphicalEffects
 
 import '../Widgets' as Widgets
 import '../../../Defines' as Defines
+import 'FxUnitHelpers.js' as FxUnitHelpers
 
 //--------------------------------------------------------------------------------------------------------------------
 //  FX CONTROLS
@@ -114,20 +115,22 @@ Item {
     AppProperty { id: fxButton2name; path: "app.traktor.fx." + (fxUnit + 1) + ".buttons.2.name"    }
     AppProperty { id: fxButton3;     path: "app.traktor.fx." + (fxUnit + 1) + ".buttons.3"         }
     AppProperty { id: fxButton3name; path: "app.traktor.fx." + (fxUnit + 1) + ".buttons.3.name"    }
-    
-    AppProperty { id: singleMode;    path: "app.traktor.fx." + (fxUnit + 1) + ".type"             } // singleMode -> fxSelect1.description else "DRY/WET"
-    AppProperty { id: fxSelect1;     path: "app.traktor.fx." + (fxUnit + 1) + ".select.1"         } // singleMode -> fxKnob1name.value
-    AppProperty { id: fxSelect2;     path: "app.traktor.fx." + (fxUnit + 1) + ".select.2"         } // singleMode -> fxKnob2name.value
-    AppProperty { id: fxSelect3;     path: "app.traktor.fx." + (fxUnit + 1) + ".select.3"         } // singleMode -> fxKnob3name.value
+
+    AppProperty { id: fxUnitMode;    path: "app.traktor.fx." + (fxUnit + 1) + ".type"             }
+    AppProperty { id: fxSelect1;     path: "app.traktor.fx." + (fxUnit + 1) + ".select.1"         }
+    AppProperty { id: fxSelect2;     path: "app.traktor.fx." + (fxUnit + 1) + ".select.2"         }
+    AppProperty { id: fxSelect3;     path: "app.traktor.fx." + (fxUnit + 1) + ".select.3"         }
+
+    AppProperty { id: patternPlayerSound; path: "app.traktor.fx." + (fxUnit + 1) + ".pattern_player.current_sound" }
     
     Row {
       TopInfoDetails {
         id: topInfoDetails1
         parameter: fxDryWet
         isOn: fxOn.value
-        label: singleMode.value ? fxSelect1.description : "DRY/WET"
-        buttonLabel: singleMode.value ? "ON" : ""
-        fxEnabled: (!singleMode.value) || fxSelect1.value
+        label: FxUnitHelpers.fxUnitFirstParameterLabel(fxUnitMode, fxSelect1)
+        buttonLabel: fxUnitMode.value != FxType.Group ? "ON" : ""
+        fxEnabled: (fxUnitMode.value == FxType.Group) || fxSelect1.value || (fxUnitMode.value == FxType.PatternPlayer)
         barBgColor: barBgColor
         sizeState: topLabels.sizeState
       }
@@ -136,9 +139,9 @@ Item {
         id: topInfoDetails2
         parameter: fxParam1
         isOn: fxButton1.value
-        label: fxKnob1name.value
+        label: fxUnitMode.value != FxType.PatternPlayer ? fxKnob1name.value : patternPlayerSound.value
         buttonLabel: fxButton1name.value
-        fxEnabled: (fxSelect1.value || (singleMode.value && fxSelect1.value) )
+        fxEnabled: (fxSelect1.value || (fxUnitMode.value && fxSelect1.value) ) || (fxUnitMode.value == FxType.PatternPlayer)
         barBgColor: barBgColor
         sizeState: topLabels.sizeState
       }
@@ -149,7 +152,7 @@ Item {
         isOn: fxButton2.value
         label: fxKnob2name.value
         buttonLabel: fxButton2name.value
-        fxEnabled: (fxSelect2.value || (singleMode.value && fxSelect1.value) )
+        fxEnabled: (fxSelect2.value || (fxUnitMode.value && fxSelect1.value) ) || (fxUnitMode.value == FxType.PatternPlayer)
         barBgColor: barBgColor
         sizeState: topLabels.sizeState
       }
@@ -160,7 +163,7 @@ Item {
         isOn: fxButton3.value
         label: fxKnob3name.value
         buttonLabel: fxButton3name.value
-        fxEnabled: (fxSelect3.value || (singleMode.value && fxSelect1.value) )
+        fxEnabled: (fxSelect3.value || (fxUnitMode.value && fxSelect1.value) ) || (fxUnitMode.value == FxType.PatternPlayer)
         barBgColor: barBgColor
         sizeState: topLabels.sizeState
       }

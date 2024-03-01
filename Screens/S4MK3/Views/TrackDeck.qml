@@ -1,4 +1,4 @@
-import QtQuick 2.5
+import QtQuick
 import QtQuick.Layouts 1.1
 
 import '../Widgets' as Widgets
@@ -9,6 +9,7 @@ import '../Widgets' as Widgets
 
 Item {
   id: display
+
   Dimensions {id: dimensions}
 
   // MODEL PROPERTIES //
@@ -102,7 +103,8 @@ Item {
           property bool isKeyAdjusted: deckInfo.isKeyLockOn && Math.abs(deckInfo.keyAdjustVal) > keyAdjustThreshold
           property string keyLabelStr: deckInfo.hasKey ?
                                            // Has Key
-                                           ( deckInfo.resultingKeyStr  + ( isKeyAdjusted && deckInfo.shift ? "  " + deckInfo.keyAdjustIntText : "" ) ) :
+                                           ( prefs.camelotKey ? utils.convertToCamelot(deckInfo.keyString) : ( deckInfo.resultingKeyStr + ( isKeyAdjusted && deckInfo.shift ? "  " + deckInfo.keyAdjustIntText : "" ) ) ) :
+                                           //( deckInfo.resultingKeyStr + ( isKeyAdjusted && deckInfo.shift ? "  " + deckInfo.keyAdjustIntText : "" ) ) :
                                            // Has No Key
                                            ( isKeyAdjusted ? deckInfo.keyAdjustFloatText : "No key" )
 
@@ -216,8 +218,7 @@ Item {
       //of the stripe.
       height: display.secondRowHeight
       width:  2*display.infoBoxesWidth + display.spacing - 6
-      anchors.left: parent.left
-      anchors.leftMargin: 6
+      Layout.leftMargin: 6
 
 
       hotcuesModel: deckInfo.hotcues

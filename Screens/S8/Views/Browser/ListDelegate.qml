@@ -1,6 +1,6 @@
 import CSI 1.0
-import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import QtQuick
+import Qt5Compat.GraphicalEffects
 
 import '../Widgets' as Widgets
 
@@ -9,7 +9,7 @@ import '../Widgets' as Widgets
 //------------------------------------------------------------------------------------------------------------------
 
 // the model contains the following roles:
-//  dataType, nodeIconId, nodeName, nrOfSubnodes, coverUrl, artistName, trackName, bpm, key, keyIndex, rating, loadedInDeck, prevPlayed, prelisten
+//  dataType, nodeIconId, nodeName, coverUrl, artistName, trackName, bpm, key, keyIndex, rating, loadedInDeck, prevPlayed, prelisten
 
 Item {
   id: contactDelegate
@@ -19,23 +19,20 @@ Item {
   property color         textColor :            ListView.isCurrentItem ? deckColor : colors.colorFontsListBrowser
   property bool          isCurrentItem :        ListView.isCurrentItem
   property string        prepIconColorPostfix:  (screenFocus < 2 && ListView.isCurrentItem) ? "Blue" : ((screenFocus > 1 && ListView.isCurrentItem) ? "White" : "Grey")
-  readonly property int  textTopMargin:         1 // 7 // centers text vertically
+  readonly property int  textTopMargin:         1 // centers text vertically
   readonly property bool isLoaded:              (model.dataType == BrowserDataType.Track) ? model.loadedInDeck.length > 0 : false
   // visible: !ListView.isCurrentItem
 
   readonly property variant keyText:            ["8B", "3B", "10B", "5B", "12B", "7B", "2B", "9B", "4B", "11B", "6B", "1B",
                                                  "5A", "12A", "7A", "2A", "9A", "4A", "11A", "6A", "1A", "8A", "3A", "10A"]
 
-  property color          keyMatchColor :         textColor
-  property color          tempoMatchColor :       textColor
-  property int            browserFontSize:        prefs.displayMoreItems ? fonts.scale(15) : fonts.scale(16)
+  property color          keyMatchColor:        textColor
+  property color          tempoMatchColor:      textColor
+  property int            browserFontSize:      prefs.displayMoreItems ? fonts.scale(15) : fonts.scale(16)
 
-  AppProperty { id: masterClockBpm;   path: "app.traktor.masterclock.tempo"; onValueChanged: { updateMatchInfo(); } }
-  AppProperty { id: masterKeyDisplay; path: "app.traktor.decks." + (masterDeckId.value + 1) + ".track.content.entry_key" ; onValueChanged: { updateMatchInfo(); }}
-//  AppProperty { id: masterKeyDisplay; path: "app.traktor.decks." + (masterDeckId.value + 1) + ".track.key.key_for_display" ; onValueChanged: { updateMatchInfo(); }}
-//  AppProperty { id: primaryKey;         path: "app.traktor.decks." + (deckId+1) + ".track.content.entry_key" }
-
-  AppProperty { id: masterDeckId;     path: "app.traktor.masterclock.source_id"; onValueChanged: { updateMatchInfo(); } }
+  AppProperty { id: masterClockBpm;    path: "app.traktor.masterclock.tempo"; onValueChanged: { updateMatchInfo(); } }
+  AppProperty { id: masterKeyDisplay;  path: "app.traktor.decks." + (masterDeckId.value + 1) + ".content.musical_key"; onValueChanged: { updateMatchInfo(); }}
+  AppProperty { id: masterDeckId;      path: "app.traktor.masterclock.source_id"; onValueChanged: { updateMatchInfo(); } }
 
   height: prefs.displayMoreItems ? 25 : 32
   anchors.left: parent.left
@@ -45,6 +42,7 @@ Item {
 
   // container for zebra & track infos
   Rectangle {
+    id: zebratrack
     // when changing colors here please remember to change it in the GridView in Templates/Browser.qml 
     color:  (index%2 == 0) ? colors.colorGrey08 : "transparent" 
     anchors.left: trackImage.right
@@ -84,7 +82,7 @@ Item {
         elide: Text.ElideRight
         text: textLengthDummy.text
         font.pixelSize: browserFontSize
-        color: textColor
+        color: getListItemTextColor()
         verticalAlignment: Text.AlignVCenter
       }
 
@@ -92,12 +90,9 @@ Item {
         id: prepListIcon
         visible: (model.dataType == BrowserDataType.Track) ? model.prepared : false
         source: "./../Images/PrepListIcon" + prepIconColorPostfix + ".png"
-        // width: sourceSize.width
-        // height: sourceSize.height
         anchors.left: firstFieldText.right 
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: 2
-        // anchors.leftMargin: 5
       }
     }   
 
@@ -108,7 +103,6 @@ Item {
       anchors.top: parent.top
       anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
-      // anchors.leftMargin: 37
       color: textColor
       clip: true
       text: (model.dataType == BrowserDataType.Folder) ? model.nodeName : ""
@@ -130,8 +124,11 @@ Item {
       anchors.bottom: parent.bottom
       anchors.topMargin: contactDelegate.textTopMargin
       width: 140
-      color: textColor
+      color: getListItemTextColor()
       clip: true
+      //text: qmlBrowser.getMasterKey() + " - " + model.key
+      //text: masterKeyDisplay.value + " - " + model.key
+      //text: Math.abs(masterClockBpm.value - model.bpm).toFixed(0)
       text: (model.dataType == BrowserDataType.Track) ? model.artistName: ""
       font.pixelSize: browserFontSize
       elide: Text.ElideRight
@@ -148,7 +145,7 @@ Item {
       horizontalAlignment: Text.AlignRight
       verticalAlignment: Text.AlignVCenter
       width: 29
-      color: masterDeckId.value >= 0 ? tempoMatchColor : textColor
+      color: getListItemBpmTextColor()
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? model.bpm.toFixed(0) : ""
       font.pixelSize: browserFontSize
@@ -168,7 +165,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width:              8
         height:             8
-        color:              tempoMatchColor // colors.colorGrey40
+        color:              masterDeckId.value >= 0 ? tempoMatchColor : textColor
         rotation:           model.bpm > masterClockBpm.value ? 180 : 0
         visible:            masterDeckId.value >= 0 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) >= 1 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) <= 4
         antialiasing:       false
@@ -180,7 +177,7 @@ Item {
         width:              8
         height:             width
         radius:             width * 0.5
-        color:              tempoMatchColor
+        color:              masterDeckId.value >= 0 ? tempoMatchColor : textColor
         visible:            masterDeckId.value >= 0 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) < 1
       }
     }  
@@ -198,8 +195,7 @@ Item {
       anchors.topMargin: contactDelegate.textTopMargin
       horizontalAlignment: Text.AlignRight
       verticalAlignment: Text.AlignVCenter
-
-      color: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? textColor : parent.colorForKey(model.keyIndex)) : textColor
+      color: getListItemKeyTextColor()
       width: 28
       clip: true
       text: (model.dataType == BrowserDataType.Track) ? (((model.key == "none") || (model.key == "None")) ? "-" : (prefs.camelotKey ? keyText[model.keyIndex] : model.key)) : ""
@@ -222,7 +218,7 @@ Item {
         height:             8
         color:              keyMatchColor
         rotation:           utils.getMasterKeyOffset(masterKeyDisplay.value, model.key) > 0 ? 180 : 0
-        visible:            masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) > 1 // masterDeckId.value >= 0 // && Math.round(Math.abs(masterClockBpm.value - model.bpm)) >= 1 && Math.round(Math.abs(masterClockBpm.value - model.bpm)) <= 4
+        visible:            masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) > 1
         antialiasing:       false
       }
 
@@ -233,7 +229,7 @@ Item {
         height:             width
         radius:             width * 0.5
         color:              keyMatchColor
-        visible:            masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) <= 1 // masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) == 0
+        visible:            masterDeckId.value >= 0 && Math.abs(utils.getMasterKeyOffset(masterKeyDisplay.value, model.key)) <= 1
       }
     }
 
@@ -256,7 +252,6 @@ Item {
     ListHighlight {
       anchors.fill: parent
       visible: contactDelegate.isCurrentItem
-      // anchors.leftMargin: (model.dataType == BrowserDataType.Track) ? 34 : 0
       anchors.rightMargin: 0 
     }
   }
@@ -326,8 +321,8 @@ Item {
 
     Image {
       anchors.centerIn: trackImage
-      // width: 17
-      // height: 17
+      width: 17
+      height: 17
       source: "../Images/PreviewIcon_Big.png"
       fillMode: Image.Pad
       clip: true
@@ -400,8 +395,8 @@ Item {
   Image {
     id:       folderIcon
     source:   (model.dataType == BrowserDataType.Folder) ? ("image://icons/" + model.nodeIconId ) : ""
-    width:    parent.height // 33
-    height:   parent.height // 33
+    width:    parent.height
+    height:   parent.height
     fillMode: Image.PreserveAspectFit
     anchors.top: parent.top
     anchors.left: parent.left
@@ -425,6 +420,58 @@ Item {
     return true
   }
 
+  function getListItemKeyTextColor() {
+    if (model.dataType != BrowserDataType.Track) {
+      return textColor;
+    }
+
+    if ((model.key == "none") || (model.key == "None")) {
+        return textColor;
+    } else {
+        return zebratrack.colorForKey(model.keyIndex) ;
+    }
+
+    return textColor;
+  }
+
+  function getListItemBpmTextColor() {
+    if (model.dataType != BrowserDataType.Track) {
+      return textColor;
+    }
+
+    var keyOffset = Math.abs(masterClockBpm.value - model.bpm).toFixed(0)
+    if ((keyOffset >= 0) && (keyOffset <= 2)) {
+      return colors.color07MusicalKey; // Green
+    } 
+    if ((keyOffset >= 3) && (keyOffset <= 4)) {
+      return colors.color04MusicalKey; // Yellow
+    } 
+    /*
+    if ((keyOffset >= 5) && (keyOffset <= 7)) {
+      return colors.color02MusicalKey; // Orange
+    }
+    if (keyOffset > 7) {
+      return colors.color01MusicalKey; // Red
+    }
+    */
+
+    return textColor;
+  }
+
+  function getListItemTextColor() {
+    if (model.dataType != BrowserDataType.Track) {
+      return textColor;
+    }
+    if (model.prevPlayed && !model.prelisten) {
+      return colors.colorGreen50Full;
+    }
+    if (model.loadedInDeck.length > 0) {
+      return colors.colorGreen;
+    }
+
+    return textColor;
+  }
+
   function updateKeyMatch() {
 
     if (masterDeckId.value < 0) return;
@@ -441,14 +488,14 @@ Item {
         break;
       case  2:
       case  7:
-        keyMatchColor = "yellow"; // colors.color07MusicalKey; // Green
+        keyMatchColor = "yellow";
         break;
     }
   }
 
   function updateTempoMatch() {
 
-tempoMatchColor = colors.colorGreen;
+    //tempoMatchColor = colors.colorGreen;
 
     if (masterDeckId.value < 0) return;
 
@@ -460,7 +507,7 @@ tempoMatchColor = colors.colorGreen;
         break;
       case 3: 
       case 4:
-        tempoMatchColor = "yellow"; //colors.colorOrange;
+        tempoMatchColor = "yellow";
         break;
     }
   }
@@ -470,16 +517,17 @@ tempoMatchColor = colors.colorGreen;
     updateTempoMatch();
   }
 
-  // // cover border
+  // cover border
   // Rectangle {
-    //   id:cover_innerBorder
-    //   color: "transparent"
-    //   border.width: 1
-    //   border.color: "#26FFFFFF"
-    //   height: listImage.height
-    //   width: height 
-    //   visible: hideCoverBorder()
-    //   anchors.top: listImage.top
-    //   anchors.left: listImage.left
-    // }
-  }
+  //   id:cover_innerBorder
+  //   color: "transparent"
+  //   border.width: 1
+  //   border.color: "#26FFFFFF"
+  //   height: listImage.height
+  //   width: height 
+  //   visible: hideCoverBorder()
+  //   anchors.top: listImage.top
+  //   anchors.left: listImage.left
+  // }
+}
+
